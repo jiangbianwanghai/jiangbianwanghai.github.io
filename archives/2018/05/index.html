@@ -1,174 +1,256 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="default" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="jiangbianwanghai">
 
-  
-  <title>Archives: 2018/5 | 江边望海的技术人生</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分享江边望海在互联网产品开发过程中的所思所想">
-<meta name="keywords" content="江边望海,技术人生">
-<meta property="og:type" content="website">
-<meta property="og:title" content="江边望海的技术人生">
-<meta property="og:url" content="http://jiangbianwanghai.github.io/archives/2018/05/index.html">
-<meta property="og:site_name" content="江边望海的技术人生">
-<meta property="og:description" content="分享江边望海在互联网产品开发过程中的所思所想">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="江边望海的技术人生">
-<meta name="twitter:description" content="分享江边望海在互联网产品开发过程中的所思所想">
-  
-    <link rel="alternate" href="/atom.xml" title="江边望海的技术人生" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    <title>Archive: 2018/5 - 江边望海的技术人生</title>
+    <meta name="description" content="">
+
+    <meta name="keywords"
+          content="江边望海,技术人生">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <noscript>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+    </noscript>
+    <link rel="short icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mprogress.css">
+    <link rel="stylesheet" href="/css/open-iconic.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <script>
+        /*!
+         loadCSS: load a CSS file asynchronously.
+         [c]2014 @scottjehl, Filament Group, Inc.
+         Licensed MIT
+         */
+        function loadCSS( href, before, media ){
+            "use strict";
+            var ss = window.document.createElement( "link" );
+            var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];
+            var sheets = window.document.styleSheets;
+            ss.rel = "stylesheet";
+            ss.href = href;
+            ss.media = "only x";
+            ref.parentNode.insertBefore( ss, ref );
+            function toggleMedia(){
+                var defined;
+                for( var i = 0; i < sheets.length; i++ ){
+                    if( sheets[ i ].href && sheets[ i ].href.indexOf( href ) > -1 ){
+                        defined = true;
+                    }
+                }
+                if( defined ){
+                    ss.media = media || "all";
+                }
+                else {
+                    setTimeout( toggleMedia );
+                }
+            }
+            toggleMedia();
+            return ss;
+        }
+    </script>
 </head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">江边望海的技术人生</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jiangbianwanghai.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
+
+<div id="app">
+    <nav ref="navBar" class="navbar fixed-top navbar-light">
+    <div id="global-loading-indicator" class="progress-line global-loading-indicator"></div>
+    <div id="nav_background" class="nav-background"></div>
+    <div style="padding-left: 15px;padding-right: 15px" class="container container-narrow nav-content">
+
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" data-toggle="adropdown">
+            <span class="oi" data-glyph="menu"></span>
+        </button>
+        <a id="nav_title" class="navbar-brand Montserrat" href="/">
+            江边望海的技术人生
+        </a>
+        <div class="float-right navbar-dark nav-icon-group">
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="collapsed_nav">
+                    <li><a href="/" class="a-block nav-icon">Home</a></li>
+                    <li><a href="/archives" class="a-block nav-icon">Archive</a></li>
+                    
+                    
+                    
+                    <li><a href="/atom.xml" target="_blank" class="a-block">
+                            <span data-glyph="rss" class="oi nav-icon"></span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/14/hello-world/" class="archive-article-date">
-  <time datetime="2018-05-14T09:15:15.759Z" itemprop="datePublished">May 14</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/14/hello-world/">Hello World</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/05/14/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 jiangbianwanghai<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
 </nav>
+    <div class="container container-narrow">
+
+        <div ref="pageHead"
+             v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"
+             class="page-head">
+            <a href="/">
+                <h2>江边望海的技术人生</h2>
+                <h5>分享江边望海在互联网产品开发过程中的所思所想</h5>
+            </a>
+        </div>
+
+<div id="archive_container">
+
+</div>
+
+<nav class="pagination pagination-flex outside-padding-patch" role="pagination">
+    
+    <a class="older-posts pagination-flex-right"></a>
+    
+    <span class="page-number pagination-flex-center">
+                        Page 1 of 1
+                    </span>
+    
+    <a class="older-posts pagination-flex-right"></a>
+    
+</nav>
+
+<div id="__pending_post_item_container" style="display:none">
+    
+    
+    <div>
+    <h3 class="section-title">
+        <a href="05">
+            2018/05
+        </a>
+    </h3>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <div class="card-container">
+        <div class="card card-item clear-border card-top-patch">
+            <a class="a-block" href="/2018/05/14/hello-world/" rel="noopener noreferrer">
+                <div class="card-item-container clear-flex-xs">
+                    <div class="card-inner-cell">
+                        <h4 class="clear-margin">Hello World</h4>
+
+                        <p class=" post-block-desc clear-margin">
+                            05-14
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    
+    </div>
+
+</div>
+
+<footer>
+    <p>
+        &copy;&nbsp;2018&nbsp;<a target="_blank"
+                                                               href="">jiangbianwanghai</a>
+    </p>
+
+    
+    <p>Theme&nbsp;<a target="_blank"
+                     href="https://github.com/SumiMakito/hexo-theme-journal">Journal.</a>&nbsp;by&nbsp;<a
+                target="_blank" href="https://www.keep.moe">Makito</a>
+    </p>
+    
+
+    <p>
+        Proudly published with&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>
+    </p>
+</footer>
+
+</div>
+</div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src=" /js/vue.min.js"></script>
+<script src=" /js/journal.js"></script>
+<script>
+    loadCSS("//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons");
+</script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script>
+    let archiveYearlyNodes;
+    let leftContainer;
+    let rightContainer;
+    let archiveContainer;
+    let lastColumnCount;
+    let loadingIndicator;
 
+    $(document).ready(function () {
+        loadingIndicator = $("#global-loading-indicator");
 
-<script src="/js/script.js"></script>
+        lastColumnCount = -1;
+        leftContainer = $('#stream_inner_left');
+        rightContainer = $('#stream_inner_right');
+        archiveContainer = $('#archive_container');
 
+        function reLayoutPosts() {
+            // suppress unnecessary re-layouts
+            let columnCount = window.innerWidth < 768 ? 1 : 2;
+            if (columnCount === lastColumnCount)return;
+            loadingIndicator.show();
+            lastColumnCount = columnCount;
+            archiveContainer.empty();
+            rightContainer.empty();
+            archiveYearlyNodes = $("#__pending_post_item_container").find("> div");
+            for (let i = 0; i < archiveYearlyNodes.length; i++) {
+                let leftHeight = 0;
+                let rightHeight = 0;
 
+                let yearly = $(archiveYearlyNodes[i]).clone();
+                let yearTitle = yearly.children()[0];
+                let yearContainer = $(document.createElement('div'));
+                let yearContainerInner = $(document.createElement('div'));
+                let yearContainerInnerL = $(document.createElement('div'));
+                let yearContainerInnerR = $(document.createElement('div'));
+                yearContainerInner.addClass("row stream-container");
+                yearContainerInnerL.addClass("col-lg-6 col-md-6 col-no-h-padding");
+                yearContainerInnerR.addClass("col-lg-6 col-md-6 col-no-h-padding");
 
-  </div>
+                yearContainerInner.append(yearContainerInnerL).append(yearContainerInnerR);
+                yearContainer.append(yearTitle).append(yearContainerInner);
+                archiveContainer.append(yearContainer);
+
+                let postEntries = yearly.find("> .card-container");
+                for (let j = 0; j < postEntries.length; j++) {
+                    let post = $(postEntries[j]);
+                    if (columnCount === 1 || leftHeight <= rightHeight) {
+                        console.log("Left, +" + post.height());
+                        yearContainerInnerL.append(post);
+                        leftHeight += post.height();
+                    } else {
+                        console.log("Right, +" + post.height());
+                        yearContainerInnerR.append(post);
+                        rightHeight += post.height();
+                    }
+                }
+
+            }
+            loadingIndicator.fadeOut(600);
+        }
+
+        $(window).resize(function () {
+            reLayoutPosts();
+        });
+
+        reLayoutPosts();
+    });
+</script>
+
 </body>
 </html>
