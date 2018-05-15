@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>歸檔: 2018 - 江邊望海的技術人生</title>
+    <title>關務我 - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -106,52 +106,28 @@
             </a>
         </div>
 
-<div id="archive_container">
-
-</div>
-
-<nav class="pagination pagination-flex outside-padding-patch" role="pagination">
-    
-    <a class="older-posts pagination-flex-right"></a>
-    
-    <span class="page-number pagination-flex-center">
-                        第 1/1 頁
-                    </span>
-    
-    <a class="older-posts pagination-flex-right"></a>
-    
-</nav>
-
-<div id="__pending_post_item_container" style="display:none">
-    
-    
-    <div>
-    <h3 class="section-title">
-        <a href="05">
-            2018/05
-        </a>
-    </h3>
-    
-
+<div class="row stream-container">
     <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/05/15/hello-world/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">重新開始</h4>
 
-                        <p class=" post-block-desc clear-margin">
-                            05-15
-                        </p>
-                    </div>
+        <div class="card card-item clear-border card-top-patch card-clear-hover">
+            
+
+            <div class="card-item-container clear-flex-xs">
+                <div class="card-inner-cell">
+                    <h2>關務我</h2>
+
+                    
+
+                    <p class="post-block-desc">
+                        <p>一個專注於後端的開發者<br>對 <code>Phalcon</code> 有深入的研究，樂於分享開源方面的知識。</p>
+
+                    </p>
+
+                    
                 </div>
-            </a>
+            </div>
         </div>
     </div>
-
-    
-    </div>
-
 </div>
 
 <footer>
@@ -186,71 +162,8 @@
 
 
 <script>
-    let archiveYearlyNodes;
-    let leftContainer;
-    let rightContainer;
-    let archiveContainer;
-    let lastColumnCount;
-    let loadingIndicator;
-
     $(document).ready(function () {
-        loadingIndicator = $("#global-loading-indicator");
-
-        lastColumnCount = -1;
-        leftContainer = $('#stream_inner_left');
-        rightContainer = $('#stream_inner_right');
-        archiveContainer = $('#archive_container');
-
-        function reLayoutPosts() {
-            // suppress unnecessary re-layouts
-            let columnCount = window.innerWidth < 768 ? 1 : 2;
-            if (columnCount === lastColumnCount)return;
-            loadingIndicator.show();
-            lastColumnCount = columnCount;
-            archiveContainer.empty();
-            rightContainer.empty();
-            archiveYearlyNodes = $("#__pending_post_item_container").find("> div");
-            for (let i = 0; i < archiveYearlyNodes.length; i++) {
-                let leftHeight = 0;
-                let rightHeight = 0;
-
-                let yearly = $(archiveYearlyNodes[i]).clone();
-                let yearTitle = yearly.children()[0];
-                let yearContainer = $(document.createElement('div'));
-                let yearContainerInner = $(document.createElement('div'));
-                let yearContainerInnerL = $(document.createElement('div'));
-                let yearContainerInnerR = $(document.createElement('div'));
-                yearContainerInner.addClass("row stream-container");
-                yearContainerInnerL.addClass("col-lg-6 col-md-6 col-no-h-padding");
-                yearContainerInnerR.addClass("col-lg-6 col-md-6 col-no-h-padding");
-
-                yearContainerInner.append(yearContainerInnerL).append(yearContainerInnerR);
-                yearContainer.append(yearTitle).append(yearContainerInner);
-                archiveContainer.append(yearContainer);
-
-                let postEntries = yearly.find("> .card-container");
-                for (let j = 0; j < postEntries.length; j++) {
-                    let post = $(postEntries[j]);
-                    if (columnCount === 1 || leftHeight <= rightHeight) {
-                        console.log("Left, +" + post.height());
-                        yearContainerInnerL.append(post);
-                        leftHeight += post.height();
-                    } else {
-                        console.log("Right, +" + post.height());
-                        yearContainerInnerR.append(post);
-                        rightHeight += post.height();
-                    }
-                }
-
-            }
-            loadingIndicator.fadeOut(600);
-        }
-
-        $(window).resize(function () {
-            reLayoutPosts();
-        });
-
-        reLayoutPosts();
+        $("#global-loading-indicator").fadeOut(600);
     });
 </script>
 
