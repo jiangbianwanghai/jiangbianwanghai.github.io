@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>重新開始 - 江邊望海的技術人生</title>
+    <title>為什麼需要RPC，而不是簡單的HTTP接口？ - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -114,34 +114,72 @@
 
             <div class="card-item-container clear-flex-xs">
                 <div class="card-inner-cell">
-                    <h2>重新開始</h2>
+                    <h2>為什麼需要RPC，而不是簡單的HTTP接口？</h2>
 
                     <div>
                         <p>
-                            <time datetime="2018-05-15T02:00:52.960Z" itemprop="datePublished">
-                                2018-05-15 02:00
+                            <time datetime="2018-05-16T22:52:23.000Z" itemprop="datePublished">
+                                2018-05-16 22:52
                             </time>
                             
 
+                            
+                            
+                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/rpc/'>rpc</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/http/'>http</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/系統架構/'>系統架構</a>
+                            
+                            
                             
                         </p>
                     </div>
 
 
                     <p class=" post-block-desc">
-                        <p>準確的說我的職業生涯應該是從2011年開始的。獨身一人來到了一個新的城市，開啟了新的生活。我慶幸當初的那一次選擇開啟了我的技術人生。可是我卻在最終確定這條路上探索了7年的時間。不得不承認，這些年的磕磕絆絆讓我堅定了現在的道路。</p>
-<p>一開始的時候，我是想成為一名職業經理人的，畢竟我有4年的創業經歷。但是，最後發現我連職業經理所具備的素質都沒有弄清楚。骨子裏還是一個技術人，技術人就是要有紮實的技術功底，有一個好脾氣，別人願意與你一起合作。當自己真正融入一個團隊合作開發的時候，才發現這是作為職業經理人最重要的素質。所謂領導，是被需要的而不是對團隊的成員發號施令，是有擔當的在關鍵時候能頂得上去而不是被動的催進度。</p>
-<p>當我理解了這些，其實也過去了7年。這7年雖然不能說是浪費確實有點兒可惜。畢竟時光不等人，面對當下，我要更加深入的探索我關注的領域，成為一個合格的技術人。</p>
+                        <p>對於目前的互聯網應用，分佈式幾乎是必備的架構。既然是分佈式，不同服務之間的通訊自然就必不可少。</p>
+<h3 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h3><p>我們通常在接口設計的時候，循序的是一套RESTful的HTTP接口思想。那麽，RESTful是什麼呢？</p>
+<p>RESTful風格的首次提出是在2000年Roy Fidlding的博士論文中，而他也是HTTP規範的主要編寫者之一。</p>
+<p><strong>RESTful是一種軟件架構風格</strong>，設計風格不是標準，只是提供給開發者一組設計原則和約束條件。它主要用於客戶端和服務器端交互。基於這個風格設計的軟件可以更簡潔，更有層次。</p>
+<p>在RESTful的WEB服務中，每個資源都有一個地址。資源本身就是方法調用的目標。它充分利用了HTTP的POST,PUT,UPDATE,DETELET等方法。</p>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>RPC（Remote Procedure Call Protocol）是遠程過程調用協議。遠程調用免不了消息通訊，所以本質上都是一種通訊。通常的通訊協議包含：傳輸協議和編碼協議。</p>
+<p>如著名的gRPC使用的就是HTTP2協議，而編碼協議則有基於文本編碼的json或xml。</p>
+<blockquote>
+<p>總結：RPC其實相對於RESTful的，RESTful默認使用的是HTTP協議進行傳輸，而RPC也可以使用HTTP來實現，例如谷歌的gRPC。</p>
+</blockquote>
+<h3 id="基於TCP的RPC比RESTful好在哪裡？"><a href="#基於TCP的RPC比RESTful好在哪裡？" class="headerlink" title="基於TCP的RPC比RESTful好在哪裡？"></a>基於TCP的RPC比RESTful好在哪裡？</h3><p>那麽，為什麼RPC相對於RESTful的優勢是什麼呢？</p>
+<p>它除了可以基於HTTP來實現，也可以基於TCP來實現，如果基於TCP來實現就是比較TCP和HTTP之間的優勢了。</p>
+<p>HTTP的RESTful接口是在接口不多，系統與系統交互較少的情況下，解決信息孤島常用的通訊手段。優點是簡單、直接、開發方便。利用現成的HTTP協議進行傳輸。但對於一個大型網站來說，內部子系統和接口非常多的情況下，RPC的優勢就非常明顯了。</p>
+<p>首先，它是支持長連接的，不必每次通訊都要像HTTP要進行3次握手，減少了網絡開銷；其次，RPC一般都有註冊中心，有豐富的監控管理；在做發佈、下線接口、動態擴展等操作時對調用方來說是無感知的。</p>
+<p><strong>準確的說，RPC是服務治理（SOA）的一種具體表現。</strong>有興趣的可以瞭解一些SOA這方面的知識。</p>
+<blockquote>
+<p>總結：RPC是一種概念。其實，可以把HTTP當做是RPC的一種實現方式。比如我們把網址當做是一個接口，傳入的參數當做為函數參數，response的數據作為返回的信息。是不是本質上也是一種接口調用呢？</p>
+</blockquote>
+<h3 id="RPC在何種場景下使用"><a href="#RPC在何種場景下使用" class="headerlink" title="RPC在何種場景下使用"></a>RPC在何種場景下使用</h3><p>系統做大了，肯定是需要做微服務的。像一個大型的電商系統，訂單系統、支付系統、商品系統、用戶系統通常都是分開部署、單獨上線的。比如阿里這麽大的請求並發量，簡單的HTTP肯定是無法滿足預期的，但問題是大多數開發者深處的公司產品並不具具備這麽大的訪問量。那我們還需要RPC嗎？</p>
+<p>應該一分為二的看，對於核心業務可以嘗試使用RPC。畢竟RPC是面向服務的封裝，針對服務的可用性和效率都做了優化，單純使用HTTP調用則缺少這些特性的支出。比如返回值。RESTful使用的是HTTP的4xx,5xx的錯誤碼，但實際業務中肯定會自定義一些錯誤標識。那麽，這些HTTP的錯誤反而是一種干擾，讓你無法識別是網絡鏈接問題還是請求錯誤。</p>
+<p>還有面向對象方面，RESTful的接口我們操作它主要通過HTTP自帶的增刪改查來實現。顯然這些方法無法滿足我們的實際開發。</p>
+<blockquote>
+<p>最後，不管選擇哪種方式都需要基於實際情況出發，我反對那些脫離實際需求單純炫技的做法。</p>
+</blockquote>
 
                     </p>
 
                     <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2018/05/17/rpc-vs-https/">
-        上一篇: 為什麼需要RPC，而不是簡單的HTTP接口？
-    </a>
-    
     <span class="page-number"></span>
+    
+    <a class="older-posts" href="/2018/05/15/hello-world/">
+        下一篇: 重新開始
+    </a>
     
 </nav>
 
