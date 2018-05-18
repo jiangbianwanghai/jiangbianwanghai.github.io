@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="zh-TW" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>江邊望海的技術人生</title>
+    <title>基於websocket的軟件交互設計思路 - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -106,78 +107,82 @@
         </div>
 
 <div class="row stream-container">
-    <div id="stream_inner_left" class="col-lg-6 col-md-6 col-no-h-padding">
+    <div class="card-container">
 
-    </div>
-    <div id="stream_inner_right" class="col-lg-6 col-md-6 col-no-h-padding">
+        <div class="card card-item clear-border card-top-patch card-clear-hover">
+            
 
-    </div>
-</div>
-<!--
-<nav class="pagination pagination-flex outside-padding-patch" role="pagination">
+            <div class="card-item-container clear-flex-xs">
+                <div class="card-inner-cell">
+                    <h2>基於websocket的軟件交互設計思路</h2>
+
+                    <div>
+                        <p>
+                            <time datetime="2018-05-18T15:30:13.000Z" itemprop="datePublished">
+                                2018-05-18 15:30
+                            </time>
+                            
+
+                            
+                            
+                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/系統架構/'>系統架構</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/websocket/'>websocket</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/swoole/'>swoole</a>
+                            
+                            
+                            
+                        </p>
+                    </div>
+
+
+                    <p class=" post-block-desc">
+                        <p>隨著互聯網的發展，越來越多的人開始意識到了，網站機軟件。而這種軟件是相對於傳統的C/S架構來說的。現在的基於互聯網的軟件基本上是“瀏覽器/服務器”模式。</p>
+<p>第一代的互聯網技術比較簡單，僅僅是提供靜態頁的訪問。當時的瀏覽器的功能也非常簡單也只能用於訪問靜態頁。隨著技術的發展出現了基於前端異步請求（Ajax）的交互。</p>
+<p>第二代的互聯網技術提供了異步請求和動態頁面響應，用戶的數據是保存在數據庫中的。動態語言從數據庫中讀取數據動態的生成HTML頁面。</p>
+<p>第三代的互聯網技術更加注重功能性的體驗。瀏覽網站完完全全是在操作軟件。比如：人們在瀏覽電商網站是會關注商品、購買商品。而網站也有將降價信息和特賣信息實時推送到用戶面前的需求。這是如果靠用戶每次刷新頁面來實現最新數據的獲取肯定不顯示。</p>
+<p>本質上，第一代和第二代的網站技術從操作方式來看並沒有發生太大的變化，都是再去瀏覽器請求服務器，拉取（pull）數據的模式。而現在的網站有著大量的“網站即軟件”的需求。</p>
+<p>網站主動向用戶推送信息，用戶與用戶間互相推送信息，消息實時的業務需求越來越多。</p>
+<p>由於“瀏覽器/服務器”模式是通過http建立通訊的，http通訊的特點是無狀態，短鏈接。很難滿足消息推送的需求。記得以前很多網站採取XHR輪詢的方式來解決，但是會存在大量的無效訪問和對服務器造成不必要的壓力。</p>
+<p>目前，最成熟的方案是通過瀏覽器與websocket建立長效的鏈接，使用 <code>ws</code> 協議達到實時數據傳輸的目的。</p>
+<p>在PHP領域實現PUSH消息推送除了可以用 <code>Node</code> 來實現外，也可以使用 <code>swoole</code>。</p>
+<hr>
+<p>科普一下關於 <code>ws</code> 和 <code>http</code> 協議之間的異同</p>
+<p>相同：</p>
+<p>都是建立在 <code>TCP</code> 之上的協議</p>
+<p>不同：</p>
+<p>HTTP协议为单向协议，即浏览器只能向服务器请求资源，服务器才能将数据传送给浏览器，而服务器不能主动向浏览器传递数据。每次http请求时都需要三次握手才能发送请求。</p>
+<p>WebSocket是一种双向通信协议，在建立连接后，WebSocket服务器和Browser/UA都能主动的向对方发送或接收数据，就像Socket一样，不同的是WebSocket是一种建立在Web基础上的一种简单模拟Socket的协议。WebSocket也需要通过建立握手连接，一旦鏈接建立就可以保持長連接了。</p>
+<p>http vs websocket</p>
+<p><img src="/images/http_vs_websocket.png" alt="http vs websocket"></p>
+
+                    </p>
+
+                    <nav class="pagination" role="pagination">
     
-    <a class="older-posts pagination-flex-right"></a>
+    <span class="page-number"></span>
     
-    <span class="page-number pagination-flex-center">
-                        第 1/1 頁
-                    </span>
-    
-    <a class="older-posts pagination-flex-right"></a>
+    <a class="older-posts" href="/2018/05/17/rpc-vs-https/">
+        下一篇: 為什麼需要RPC，而不是簡單的HTTP接口？
+    </a>
     
 </nav>
--->
-<div id="__pending_post_item_container" style="display:none">
-    
 
-    
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/05/18/the-idea-of-interactive-design-based-on-websocket-software/" rel="noopener noreferrer">
-                
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell"><h4 class="clear-margin">基於websocket的軟件交互設計思路</h4>
-                        <p class="clear-margin post-block-desc">隨著互聯網的發展，越來越多的人開始意識到了，網站機軟件。而這種軟件是相對於傳統的C/S架構來說的。現在的基於互聯網的軟件基本上是“瀏覽器/服務器”模式。
-第一代的互聯網技術比較簡單，僅僅是提供靜態頁的訪問。當時的瀏覽器的功能也非常簡單也只能用於訪問靜態頁。隨著技術的發展出現了基於前端異步請求（Ajax）的交互。
-...</p>
-                    </div>
+                    
                 </div>
-            </a>
+            </div>
         </div>
     </div>
-    
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/05/17/rpc-vs-https/" rel="noopener noreferrer">
-                
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell"><h4 class="clear-margin">為什麼需要RPC，而不是簡單的HTTP接口？</h4>
-                        <p class="clear-margin post-block-desc">對於目前的互聯網應用，分佈式幾乎是必備的架構。既然是分佈式，不同服務之間的通訊自然就必不可少。
-RESTful我們通常在接口設計的時候，循序的是一套RESTful的HTTP接口思想。那麽，RESTful是什麼呢？
-RESTful風格的首次提出是在2000年Roy Fidlding的博士論文中，而他也是HTTP規範...</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/05/15/hello-world/" rel="noopener noreferrer">
-                
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell"><h4 class="clear-margin">重新開始</h4>
-                        <p class="clear-margin post-block-desc">準確的說我的職業生涯應該是從2011年開始的。獨身一人來到了一個新的城市，開啟了新的生活。我慶幸當初的那一次選擇開啟了我的技術人生。可是我卻在最終確定這條路上探索了7年的時間。不得不承認，這些年的磕磕絆絆讓我堅定了現在的道路。
-一開始的時候，我是想成為一名職業經理人的，畢竟我有4年的創業經歷。但是，最後發現我連職...</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    
-
-    
 </div>
-
 
 <footer>
     <p>
@@ -211,50 +216,8 @@ RESTful風格的首次提出是在2000年Roy Fidlding的博士論文中，而他
 
 
 <script>
-    let cachedPostsNodes;
-    let leftContainer;
-    let rightContainer;
-    let lastColumnCount;
-    let loadingIndicator;
-
     $(document).ready(function () {
-        loadingIndicator = $("#global-loading-indicator");
-
-        lastColumnCount = -1;
-        leftContainer = $('#stream_inner_left');
-        rightContainer = $('#stream_inner_right');
-
-        function reLayoutPosts() {
-            // suppress unnecessary re-layouts
-            let columnCount = window.innerWidth < 768 ? 1 : 2;
-            if (columnCount === lastColumnCount)return;
-            loadingIndicator.show();
-            lastColumnCount = columnCount;
-            let leftHeight = 0;
-            let rightHeight = 0;
-            leftContainer.empty();
-            rightContainer.empty();
-            let dock = $("#__pending_post_item_container");
-            cachedPostsNodes = dock.find("> .card-container");
-            for (let i = 0; i < cachedPostsNodes.length; i++) {
-                let post = $(cachedPostsNodes[i]).clone();
-                if (columnCount === 1 || leftHeight <= rightHeight) {
-                    leftContainer.append(post);
-                    leftHeight += post.height();
-                } else {
-                    rightContainer.append(post);
-                    rightHeight += post.height();
-                }
-            }
-            loadingIndicator.fadeOut(600);
-            dock.hide();
-        }
-
-        $(window).resize(function () {
-            reLayoutPosts();
-        });
-
-        reLayoutPosts();
+        $("#global-loading-indicator").fadeOut(600);
     });
 </script>
 
