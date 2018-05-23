@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="jiangbianwanghai">
+
+    <title>基於Swoole搭建羣聊系統 - 江邊望海的技術人生</title>
+    <meta name="description" content="">
+
+    <meta name="keywords"
+          content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <noscript>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+    </noscript>
+    <link rel="short icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mprogress.css">
+    <link rel="stylesheet" href="/css/open-iconic.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <script>
+        /*!
+         loadCSS: load a CSS file asynchronously.
+         [c]2014 @scottjehl, Filament Group, Inc.
+         Licensed MIT
+         */
+        function loadCSS( href, before, media ){
+            "use strict";
+            var ss = window.document.createElement( "link" );
+            var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];
+            var sheets = window.document.styleSheets;
+            ss.rel = "stylesheet";
+            ss.href = href;
+            ss.media = "only x";
+            ref.parentNode.insertBefore( ss, ref );
+            function toggleMedia(){
+                var defined;
+                for( var i = 0; i < sheets.length; i++ ){
+                    if( sheets[ i ].href && sheets[ i ].href.indexOf( href ) > -1 ){
+                        defined = true;
+                    }
+                }
+                if( defined ){
+                    ss.media = media || "all";
+                }
+                else {
+                    setTimeout( toggleMedia );
+                }
+            }
+            toggleMedia();
+            return ss;
+        }
+    </script>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+<body>
+
+<div id="app">
+    <nav ref="navBar" class="navbar fixed-top navbar-light">
+    <div id="global-loading-indicator" class="progress-line global-loading-indicator"></div>
+    <div id="nav_background" class="nav-background"></div>
+    <div style="padding-left: 15px;padding-right: 15px" class="container container-narrow nav-content">
+
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" data-toggle="adropdown">
+            <span class="oi" data-glyph="menu"></span>
+        </button>
+        <a id="nav_title" class="navbar-brand Montserrat" href="/">
+            江邊望海的技術人生
+        </a>
+        <div class="float-right navbar-dark nav-icon-group">
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="collapsed_nav">
+                    <li><a href="/" class="a-block nav-icon">首頁</a></li>
+                    <li><a href="/archives" class="a-block nav-icon">歸檔</a></li>
+                    
+                    
+                    <li><a href="/about/index.html" class="a-block nav-icon">關務我</a></li>
+                    
+                    
+                    <li><a href="/atom.xml" target="_blank" class="a-block">
+                            <span data-glyph="rss" class="oi nav-icon"></span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>
+    <div class="container container-narrow">
+
+        <div ref="pageHead"
+             v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"
+             class="page-head">
+            <a href="/">
+                <h2>江邊望海的技術人生</h2>
+                <h5>分享真知</h5>
+            </a>
+        </div>
+
+
+<div class="row stream-container">
+    <div class="card-container">
+
+        <div class="card card-item clear-border card-top-patch card-clear-hover">
+            
+
+            <div class="card-item-container clear-flex-xs">
+                <div class="card-inner-cell">
+                    <h2>基於Swoole搭建羣聊系統</h2>
+
+                    <div>
+                        <p>
+                            <time datetime="2018-05-23T11:38:13.000Z" itemprop="datePublished">
+                                2018-05-23 11:38
+                            </time>
+                            
+
+                            
+                            
+                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/websocket/'>websocket</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/swoole/'>swoole</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/系統架構/'>系統架構</a>
+                            
+                            
+                            
+                        </p>
+                    </div>
+
+
+                    <p class=" post-block-desc">
+                        <p>羣聊系統類似於聊天室，用戶可以在一起實時聊天。假如有三個用戶在一起聊天。用戶A發送的消息，用戶B和用戶C可以實時的看到。同樣的用戶B發送的消息，用戶A和用戶C也能實時看到。</p>
+<p>為了實現這個需求就不得不使用 <code>websocket</code> 了。我們知道 <code>http</code> 是無狀態的、非實時的通訊協議。所以，很難滿足上面實時聊天的需求。而 <code>websocket</code> 則可以實現客戶端與服務器建立鏈接後，長期的保持鏈接。後端使用什麼工具來搭建 <code>websocket</code> 服務器呢？除了可以使用 <code>node.js</code> 外，也可以使用 <code>swoole</code>。</p>
+<p>基於 <code>swoole</code> 搭建羣聊系統只需要兩個文件就行。一個是服務端的 <code>php</code> 腳本文件，一個是客戶端的 <code>html</code> 文件。</p>
+<p>server.php</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$map</span>    <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//客户端集合</span>
+<span class="token variable">$server</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">swoole_websocket_server</span><span class="token punctuation">(</span><span class="token string">"192.168.1.110"</span><span class="token punctuation">,</span> <span class="token number">9502</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token variable">$server</span><span class="token punctuation">,</span> <span class="token variable">$req</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"connection open: {$req->fd}\n"</span><span class="token punctuation">;</span>
+    <span class="token keyword">global</span> <span class="token variable">$map</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//客户端集合</span>
+    <span class="token variable">$map</span><span class="token punctuation">[</span><span class="token variable">$req</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">fd</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$req</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">fd</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//首次连上时存起来</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'message'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token variable">$server</span><span class="token punctuation">,</span> <span class="token variable">$frame</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"received message: {$frame->data}\n"</span><span class="token punctuation">;</span>
+    <span class="token keyword">global</span> <span class="token variable">$map</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//客户端集合</span>
+    <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token string">'客户端 '</span> <span class="token punctuation">.</span> <span class="token variable">$frame</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">fd</span> <span class="token punctuation">.</span> <span class="token string">' 号说:'</span> <span class="token punctuation">.</span> <span class="token variable">$frame</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">data</span><span class="token punctuation">;</span>
+    <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$map</span> <span class="token keyword">as</span> <span class="token variable">$fd</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">push</span><span class="token punctuation">(</span><span class="token variable">$fd</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//循环广播</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token variable">$server</span><span class="token punctuation">,</span> <span class="token variable">$fd</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"connection close: {$fd}\n"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>服務器端的邏輯是監聽並接收客戶端的消息再推送給所有的客戶端。</p>
+<p>client.html</p>
+<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>群聊客户端<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  var exampleSocket = new WebSocket("ws://192.168.1.110:9502");
+  exampleSocket.onopen = function (event) {
+    exampleSocket.send("哈罗，大家好！我来了");
+  };
+  exampleSocket.onmessage = function (event) {
+    console.log(event.data);
+    var panel = document.getElementById("panel");
+    panel.innerHTML = panel.innerHTML+event.data+"<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span>";
+  }
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>panel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>exampleSocket.send( document.getElementById(<span class="token punctuation">'</span>content<span class="token punctuation">'</span>).value );document.getElementById(<span class="token punctuation">'</span>content<span class="token punctuation">'</span>).value<span class="token punctuation">=</span><span class="token punctuation">'</span><span class="token punctuation">'</span>;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>发送<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>現在的主流瀏覽器都支持 <code>ws</code> 鏈接服務端。所以客戶端直接用 <code>javascript</code> 腳本來實現交互。</p>
+<hr>
+<p>效果圖如下：</p>
+<p>服務器接收鏈接和消息，並向所有客戶端推送消息</p>
+<p><img src="/images/group_chat_pic2.png" alt="服務器端截圖"></p>
+<p>客戶端接收消息</p>
+<p><img src="/images/group_chat_pic1.png" alt="客戶端截圖"></p>
+
+                    </p>
+
+                    <nav class="pagination" role="pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/2018/05/18/the-idea-of-interactive-design-based-on-websocket-software/">
+        下一篇: 基於websocket的軟件交互設計思路
+    </a>
+    
+</nav>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        &copy;&nbsp;2018&nbsp;<a target="_blank"
+                                                               href="">jiangbianwanghai</a>
+    </p>
+
+    
+    <p>Theme&nbsp;<a target="_blank"
+                     href="https://github.com/SumiMakito/hexo-theme-journal">Journal.</a>&nbsp;by&nbsp;<a
+                target="_blank" href="https://www.keep.moe">Makito</a>
+    </p>
+    
+
+    <p>
+        Proudly published with&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>
+    </p>
+</footer>
+
+</div>
+</div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src=" /js/vue.min.js"></script>
+<script src=" /js/journal.js"></script>
+<script>
+    loadCSS("//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons");
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#global-loading-indicator").fadeOut(600);
+    });
+</script>
+
+</body>
+</html>

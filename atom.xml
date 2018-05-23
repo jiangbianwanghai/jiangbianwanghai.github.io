@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-05-22T10:15:35.577Z</updated>
+  <updated>2018-05-23T06:05:39.328Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -17,16 +17,30 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>hello world</title>
-    <link href="https://www.jiangbianwanghai.com/2018/05/23/hello-world-1/"/>
-    <id>https://www.jiangbianwanghai.com/2018/05/23/hello-world-1/</id>
-    <published>2018-05-22T18:15:35.000Z</published>
-    <updated>2018-05-22T10:15:35.577Z</updated>
+    <title>基於Swoole搭建羣聊系統</title>
+    <link href="https://www.jiangbianwanghai.com/2018/05/23/create-group-chat-system-based-on-swoole/"/>
+    <id>https://www.jiangbianwanghai.com/2018/05/23/create-group-chat-system-based-on-swoole/</id>
+    <published>2018-05-23T11:38:13.000Z</published>
+    <updated>2018-05-23T06:05:39.328Z</updated>
+    
+    <content type="html"><![CDATA[<p>羣聊系統類似於聊天室，用戶可以在一起實時聊天。假如有三個用戶在一起聊天。用戶A發送的消息，用戶B和用戶C可以實時的看到。同樣的用戶B發送的消息，用戶A和用戶C也能實時看到。</p><p>為了實現這個需求就不得不使用 <code>websocket</code> 了。我們知道 <code>http</code> 是無狀態的、非實時的通訊協議。所以，很難滿足上面實時聊天的需求。而 <code>websocket</code> 則可以實現客戶端與服務器建立鏈接後，長期的保持鏈接。後端使用什麼工具來搭建 <code>websocket</code> 服務器呢？除了可以使用 <code>node.js</code> 外，也可以使用 <code>swoole</code>。</p><p>基於 <code>swoole</code> 搭建羣聊系統只需要兩個文件就行。一個是服務端的 <code>php</code> 腳本文件，一個是客戶端的 <code>html</code> 文件。</p><p>server.php</p><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span><span class="token variable">$map</span>    <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//客户端集合</span><span class="token variable">$server</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">swoole_websocket_server</span><span class="token punctuation">(</span><span class="token string">"192.168.1.110"</span><span class="token punctuation">,</span> <span class="token number">9502</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token variable">$server</span><span class="token punctuation">,</span> <span class="token variable">$req</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">echo</span> <span class="token string">"connection open: {$req->fd}\n"</span><span class="token punctuation">;</span>    <span class="token keyword">global</span> <span class="token variable">$map</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//客户端集合</span>    <span class="token variable">$map</span><span class="token punctuation">[</span><span class="token variable">$req</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">fd</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$req</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">fd</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//首次连上时存起来</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'message'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token variable">$server</span><span class="token punctuation">,</span> <span class="token variable">$frame</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">echo</span> <span class="token string">"received message: {$frame->data}\n"</span><span class="token punctuation">;</span>    <span class="token keyword">global</span> <span class="token variable">$map</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//客户端集合</span>    <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token string">'客户端 '</span> <span class="token punctuation">.</span> <span class="token variable">$frame</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">fd</span> <span class="token punctuation">.</span> <span class="token string">' 号说:'</span> <span class="token punctuation">.</span> <span class="token variable">$frame</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">data</span><span class="token punctuation">;</span>    <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$map</span> <span class="token keyword">as</span> <span class="token variable">$fd</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">push</span><span class="token punctuation">(</span><span class="token variable">$fd</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//循环广播</span>    <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token variable">$server</span><span class="token punctuation">,</span> <span class="token variable">$fd</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">echo</span> <span class="token string">"connection close: {$fd}\n"</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token variable">$server</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>服務器端的邏輯是監聽並接收客戶端的消息再推送給所有的客戶端。</p><p>client.html</p><pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>群聊客户端<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>  var exampleSocket = new WebSocket("ws://192.168.1.110:9502");  exampleSocket.onopen = function (event) {    exampleSocket.send("哈罗，大家好！我来了");  };  exampleSocket.onmessage = function (event) {    console.log(event.data);    var panel = document.getElementById("panel");    panel.innerHTML = panel.innerHTML+event.data+"<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span>";  }  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>panel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>exampleSocket.send( document.getElementById(<span class="token punctuation">'</span>content<span class="token punctuation">'</span>).value );document.getElementById(<span class="token punctuation">'</span>content<span class="token punctuation">'</span>).value<span class="token punctuation">=</span><span class="token punctuation">'</span><span class="token punctuation">'</span>;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>发送<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre><p>現在的主流瀏覽器都支持 <code>ws</code> 鏈接服務端。所以客戶端直接用 <code>javascript</code> 腳本來實現交互。</p><hr><p>效果圖如下：</p><p>服務器接收鏈接和消息，並向所有客戶端推送消息</p><p><img src="/images/group_chat_pic2.png" alt="服務器端截圖"></p><p>客戶端接收消息</p><p><img src="/images/group_chat_pic1.png" alt="客戶端截圖"></p>]]></content>
     
     <summary type="html">
     
+      
+      
+        &lt;p&gt;羣聊系統類似於聊天室，用戶可以在一起實時聊天。假如有三個用戶在一起聊天。用戶A發送的消息，用戶B和用戶C可以實時的看到。同樣的用戶B發送的消息，用戶A和用戶C也能實時看到。&lt;/p&gt;
+&lt;p&gt;為了實現這個需求就不得不使用 &lt;code&gt;websocket&lt;/code&gt; 了。我們知
+      
+    
     </summary>
     
+    
+      <category term="websocket" scheme="https://www.jiangbianwanghai.com/tags/websocket/"/>
+    
+      <category term="swoole" scheme="https://www.jiangbianwanghai.com/tags/swoole/"/>
+    
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
@@ -51,11 +65,11 @@
     </summary>
     
     
-      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
-    
       <category term="websocket" scheme="https://www.jiangbianwanghai.com/tags/websocket/"/>
     
       <category term="swoole" scheme="https://www.jiangbianwanghai.com/tags/swoole/"/>
+    
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
@@ -79,11 +93,11 @@
     </summary>
     
     
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
+    
       <category term="rpc" scheme="https://www.jiangbianwanghai.com/tags/rpc/"/>
     
       <category term="http" scheme="https://www.jiangbianwanghai.com/tags/http/"/>
-    
-      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
