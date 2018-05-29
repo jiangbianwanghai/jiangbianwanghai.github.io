@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>歸檔 - 江邊望海的技術人生</title>
+    <title>標籤: php - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -107,8 +107,15 @@
         </div>
 
 
-<div id="archive_container">
+<h3 class="section-title">標籤: php</h3>
 
+<div class="row stream-container">
+    <div id="stream_inner_left" class="col-lg-6 col-md-6 col-no-h-padding">
+
+    </div>
+    <div id="stream_inner_right" class="col-lg-6 col-md-6 col-no-h-padding">
+
+    </div>
 </div>
 
 <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
@@ -125,110 +132,20 @@
 
 <div id="__pending_post_item_container" style="display:none">
     
-    
-    <div>
-    <h3 class="section-title">
-        <a href="2018">
-            2018
-        </a>
-    </h3>
-    
-
     <div class="card-container">
         <div class="card card-item clear-border card-top-patch">
             <a class="a-block" href="/2018/05/29/bubble-sort-based-on-php/" rel="noopener noreferrer">
+                
                 <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">使用php实现冒泡排序</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            05-29
-                        </p>
-                    </div>
+                    <div class="card-inner-cell"><h4 class="clear-margin">使用php实现冒泡排序</h4>
+                        
+                        <p class="clear-margin post-block-desc">冒泡排序是非常经典的算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。
+比较相邻的元素。如果第一个比第二个大，就交换他们两个。对第0个到第n-1个数据做同样的工作。这时，最大的数就“浮”到了数组最后的位置上，针对所有的元素重复以上的步骤，除了</p></div>
                 </div>
             </a>
         </div>
     </div>
-
     
-    
-
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/05/23/create-group-chat-system-based-on-swoole/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">基於Swoole搭建羣聊系統</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            05-23
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    
-    
-
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/05/18/the-idea-of-interactive-design-based-on-websocket-software/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">基於websocket的軟件交互設計思路</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            05-18
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    
-    
-
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/05/17/rpc-vs-https/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">為什麼需要RPC，而不是簡單的HTTP接口？</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            05-16
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    
-    
-
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/05/15/hello-world/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">重新開始</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            05-15
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    
-    </div>
-
 </div>
 
 <footer>
@@ -263,10 +180,9 @@
 
 
 <script>
-    let archiveYearlyNodes;
+    let cachedPostsNodes;
     let leftContainer;
     let rightContainer;
-    let archiveContainer;
     let lastColumnCount;
     let loadingIndicator;
 
@@ -276,7 +192,6 @@
         lastColumnCount = -1;
         leftContainer = $('#stream_inner_left');
         rightContainer = $('#stream_inner_right');
-        archiveContainer = $('#archive_container');
 
         function reLayoutPosts() {
             // suppress unnecessary re-layouts
@@ -284,41 +199,20 @@
             if (columnCount === lastColumnCount)return;
             loadingIndicator.show();
             lastColumnCount = columnCount;
-            archiveContainer.empty();
+            let leftHeight = 0;
+            let rightHeight = 0;
+            leftContainer.empty();
             rightContainer.empty();
-            archiveYearlyNodes = $("#__pending_post_item_container").find("> div");
-            for (let i = 0; i < archiveYearlyNodes.length; i++) {
-                let leftHeight = 0;
-                let rightHeight = 0;
-
-                let yearly = $(archiveYearlyNodes[i]).clone();
-                let yearTitle = yearly.children()[0];
-                let yearContainer = $(document.createElement('div'));
-                let yearContainerInner = $(document.createElement('div'));
-                let yearContainerInnerL = $(document.createElement('div'));
-                let yearContainerInnerR = $(document.createElement('div'));
-                yearContainerInner.addClass("row stream-container");
-                yearContainerInnerL.addClass("col-lg-6 col-md-6 col-no-h-padding");
-                yearContainerInnerR.addClass("col-lg-6 col-md-6 col-no-h-padding");
-
-                yearContainerInner.append(yearContainerInnerL).append(yearContainerInnerR);
-                yearContainer.append(yearTitle).append(yearContainerInner);
-                archiveContainer.append(yearContainer);
-
-                let postEntries = yearly.find("> .card-container");
-                for (let j = 0; j < postEntries.length; j++) {
-                    let post = $(postEntries[j]);
-                    if (columnCount === 1 || leftHeight <= rightHeight) {
-                        console.log("Left, +" + post.height());
-                        yearContainerInnerL.append(post);
-                        leftHeight += post.height();
-                    } else {
-                        console.log("Right, +" + post.height());
-                        yearContainerInnerR.append(post);
-                        rightHeight += post.height();
-                    }
+            cachedPostsNodes = $("#__pending_post_item_container").find("> .card-container");
+            for (let i = 0; i < cachedPostsNodes.length; i++) {
+                let post = $(cachedPostsNodes[i]).clone();
+                if (columnCount === 1 || leftHeight <= rightHeight) {
+                    leftContainer.append(post);
+                    leftHeight += post.height();
+                } else {
+                    rightContainer.append(post);
+                    rightHeight += post.height();
                 }
-
             }
             loadingIndicator.fadeOut(600);
         }

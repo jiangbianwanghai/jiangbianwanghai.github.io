@@ -1,0 +1,241 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="jiangbianwanghai">
+
+    <title>使用php实现冒泡排序 - 江邊望海的技術人生</title>
+    <meta name="description" content="">
+
+    <meta name="keywords"
+          content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <noscript>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+    </noscript>
+    <link rel="short icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mprogress.css">
+    <link rel="stylesheet" href="/css/open-iconic.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <script>
+        /*!
+         loadCSS: load a CSS file asynchronously.
+         [c]2014 @scottjehl, Filament Group, Inc.
+         Licensed MIT
+         */
+        function loadCSS( href, before, media ){
+            "use strict";
+            var ss = window.document.createElement( "link" );
+            var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];
+            var sheets = window.document.styleSheets;
+            ss.rel = "stylesheet";
+            ss.href = href;
+            ss.media = "only x";
+            ref.parentNode.insertBefore( ss, ref );
+            function toggleMedia(){
+                var defined;
+                for( var i = 0; i < sheets.length; i++ ){
+                    if( sheets[ i ].href && sheets[ i ].href.indexOf( href ) > -1 ){
+                        defined = true;
+                    }
+                }
+                if( defined ){
+                    ss.media = media || "all";
+                }
+                else {
+                    setTimeout( toggleMedia );
+                }
+            }
+            toggleMedia();
+            return ss;
+        }
+    </script>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+<body>
+
+<div id="app">
+    <nav ref="navBar" class="navbar fixed-top navbar-light">
+    <div id="global-loading-indicator" class="progress-line global-loading-indicator"></div>
+    <div id="nav_background" class="nav-background"></div>
+    <div style="padding-left: 15px;padding-right: 15px" class="container container-narrow nav-content">
+
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" data-toggle="adropdown">
+            <span class="oi" data-glyph="menu"></span>
+        </button>
+        <a id="nav_title" class="navbar-brand Montserrat" href="/">
+            江邊望海的技術人生
+        </a>
+        <div class="float-right navbar-dark nav-icon-group">
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="collapsed_nav">
+                    <li><a href="/" class="a-block nav-icon">首頁</a></li>
+                    <li><a href="/archives" class="a-block nav-icon">歸檔</a></li>
+                    
+                    
+                    <li><a href="/about/index.html" class="a-block nav-icon">關務我</a></li>
+                    
+                    
+                    <li><a href="/atom.xml" target="_blank" class="a-block">
+                            <span data-glyph="rss" class="oi nav-icon"></span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>
+    <div class="container container-narrow">
+
+        <div ref="pageHead"
+             v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"
+             class="page-head">
+            <a href="/">
+                <h2>江邊望海的技術人生</h2>
+                <h5>分享真知</h5>
+            </a>
+        </div>
+
+
+<div class="row stream-container">
+    <div class="card-container">
+
+        <div class="card card-item clear-border card-top-patch card-clear-hover">
+            
+
+            <div class="card-item-container clear-flex-xs">
+                <div class="card-inner-cell">
+                    <h2>使用php实现冒泡排序</h2>
+
+                    <div>
+                        <p>
+                            <time datetime="2018-05-29T08:26:21.000Z" itemprop="datePublished">
+                                2018-05-29 08:26
+                            </time>
+                            
+
+                            
+                            
+                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/php/'>php</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/算法/'>算法</a>
+                            
+                            
+                            
+                        </p>
+                    </div>
+
+
+                    <p class=" post-block-desc">
+                        <p>冒泡排序是非常经典的算法。它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。</p>
+<p>比较相邻的元素。如果第一个比第二个大，就交换他们两个。对第0个到第n-1个数据做同样的工作。这时，最大的数就“浮”到了数组最后的位置上，针对所有的元素重复以上的步骤，除了最后一个，持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较</p>
+<p>假如10个数字。先找出10个数字中最大的抛出去，剩下9个数字，再找出9个数字最大的跑出去，剩下8个数字，以此类推……</p>
+<p>怎么找出一组数最大数字？将第1个与第2个比，大的往后排，将第2个与第3个比，大的往后排，以此类推……最后一个就是最大的。</p>
+<p>思路一</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$b</span>   <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">,</span> <span class="token string">'8'</span><span class="token punctuation">,</span> <span class="token string">'9'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$len</span> <span class="token operator">=</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$k</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$k</span> <span class="token operator">&lt;=</span> <span class="token variable">$len</span><span class="token punctuation">;</span> <span class="token variable">$k</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$j</span> <span class="token operator">=</span> <span class="token variable">$len</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token variable">$j</span> <span class="token operator">></span> <span class="token variable">$k</span><span class="token punctuation">;</span> <span class="token variable">$j</span><span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token variable">$temp</span>      <span class="token operator">=</span> <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span><span class="token punctuation">]</span>     <span class="token operator">=</span> <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$temp</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>思路二</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$b</span>   <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">,</span> <span class="token string">'8'</span><span class="token punctuation">,</span> <span class="token string">'9'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$len</span> <span class="token operator">=</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$k</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token variable">$k</span> <span class="token operator">&lt;</span> <span class="token variable">$len</span><span class="token punctuation">;</span> <span class="token variable">$k</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$j</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$j</span> <span class="token operator">&lt;</span> <span class="token variable">$len</span> <span class="token operator">-</span> <span class="token variable">$k</span><span class="token punctuation">;</span> <span class="token variable">$j</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span><span class="token punctuation">]</span> <span class="token operator">></span> <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token variable">$temp</span>      <span class="token operator">=</span> <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token variable">$b</span><span class="token punctuation">[</span><span class="token variable">$j</span><span class="token punctuation">]</span>     <span class="token operator">=</span> <span class="token variable">$temp</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>冒泡排序法的基本思想是：对待排序记录关键字从后往前（逆序）进行多遍扫描，当发现相邻两个关键字的次序与排序要求的规则不符时，就将这两个记录进行交换。这样，关键字较小的记录将逐渐从后面向前面移动，就象气泡在水中向上浮一样，所以该算法也称为气泡排序法。</p>
+<p><img src="/images/bubble_sort_1.png" alt="冒泡排序1"></p>
+<p>选择排序的基本思想：对n个记录进行扫描，选择最小的记录，将其输出，接着在剩下的n-1个记录中扫描，选择最小的记录将其输出，不断重复这个过程，直到只剩一个记录为止。</p>
+<p><img src="/images/bubble_sort_2.png" alt="冒泡排序2"></p>
+
+                    </p>
+
+                    <nav class="pagination" role="pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/2018/05/23/create-group-chat-system-based-on-swoole/">
+        下一篇: 基於Swoole搭建羣聊系統
+    </a>
+    
+</nav>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        &copy;&nbsp;2018&nbsp;<a target="_blank"
+                                                               href="">jiangbianwanghai</a>
+    </p>
+
+    
+    <p>Theme&nbsp;<a target="_blank"
+                     href="https://github.com/SumiMakito/hexo-theme-journal">Journal.</a>&nbsp;by&nbsp;<a
+                target="_blank" href="https://www.keep.moe">Makito</a>
+    </p>
+    
+
+    <p>
+        Proudly published with&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>
+    </p>
+</footer>
+
+</div>
+</div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src=" /js/vue.min.js"></script>
+<script src=" /js/journal.js"></script>
+<script>
+    loadCSS("//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons");
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#global-loading-indicator").fadeOut(600);
+    });
+</script>
+
+</body>
+</html>
