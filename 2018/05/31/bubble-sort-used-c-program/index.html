@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="jiangbianwanghai">
+
+    <title>用C語言編寫冒泡排序 - 江邊望海的技術人生</title>
+    <meta name="description" content="">
+
+    <meta name="keywords"
+          content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <noscript>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+    </noscript>
+    <link rel="short icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mprogress.css">
+    <link rel="stylesheet" href="/css/open-iconic.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <script>
+        /*!
+         loadCSS: load a CSS file asynchronously.
+         [c]2014 @scottjehl, Filament Group, Inc.
+         Licensed MIT
+         */
+        function loadCSS( href, before, media ){
+            "use strict";
+            var ss = window.document.createElement( "link" );
+            var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];
+            var sheets = window.document.styleSheets;
+            ss.rel = "stylesheet";
+            ss.href = href;
+            ss.media = "only x";
+            ref.parentNode.insertBefore( ss, ref );
+            function toggleMedia(){
+                var defined;
+                for( var i = 0; i < sheets.length; i++ ){
+                    if( sheets[ i ].href && sheets[ i ].href.indexOf( href ) > -1 ){
+                        defined = true;
+                    }
+                }
+                if( defined ){
+                    ss.media = media || "all";
+                }
+                else {
+                    setTimeout( toggleMedia );
+                }
+            }
+            toggleMedia();
+            return ss;
+        }
+    </script>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+<body>
+
+<div id="app">
+    <nav ref="navBar" class="navbar fixed-top navbar-light">
+    <div id="global-loading-indicator" class="progress-line global-loading-indicator"></div>
+    <div id="nav_background" class="nav-background"></div>
+    <div style="padding-left: 15px;padding-right: 15px" class="container container-narrow nav-content">
+
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" data-toggle="adropdown">
+            <span class="oi" data-glyph="menu"></span>
+        </button>
+        <a id="nav_title" class="navbar-brand Montserrat" href="/">
+            江邊望海的技術人生
+        </a>
+        <div class="float-right navbar-dark nav-icon-group">
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="collapsed_nav">
+                    <li><a href="/" class="a-block nav-icon">首頁</a></li>
+                    <li><a href="/archives" class="a-block nav-icon">歸檔</a></li>
+                    
+                    
+                    <li><a href="/about/index.html" class="a-block nav-icon">關務我</a></li>
+                    
+                    
+                    <li><a href="/atom.xml" target="_blank" class="a-block">
+                            <span data-glyph="rss" class="oi nav-icon"></span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>
+    <div class="container container-narrow">
+
+        <div ref="pageHead"
+             v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"
+             class="page-head">
+            <a href="/">
+                <h2>江邊望海的技術人生</h2>
+                <h5>分享真知</h5>
+            </a>
+        </div>
+
+
+<div class="row stream-container">
+    <div class="card-container">
+
+        <div class="card card-item clear-border card-top-patch card-clear-hover">
+            
+
+            <div class="card-item-container clear-flex-xs">
+                <div class="card-inner-cell">
+                    <h2>用C語言編寫冒泡排序</h2>
+
+                    <div>
+                        <p>
+                            <time datetime="2018-05-31T11:42:39.000Z" itemprop="datePublished">
+                                2018-05-31 11:42
+                            </time>
+                            
+
+                            
+                            
+                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/算法/'>算法</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/c語言/'>c語言</a>
+                            
+                            
+                            
+                        </p>
+                    </div>
+
+
+                    <p class=" post-block-desc">
+                        <p>其實，對於江邊望海來說，研究算法就是一種休閑活動。為什麼這麽說呢？業內習慣調侃程序員是碼農，在實際工作中業務代碼大多也都是體力勞動。</p>
+<p>人什麼時候是最累的？</p>
+<p>就是空虛的時候、沒有長進的時候，所以，重複的體力勞動以及已知的技術點出來碼來碼去實現產品業務，真的沒啥意思。呵呵！</p>
+<p>言歸正傳，我是一名 <code>php</code> 後端開發工程師，接觸 <code>php</code> 也很長時間了，也知道 <code>php</code> 是基於 <code>c</code> 語言實現的。但是真正在 <code>centos</code> 編寫和調試 <code>c</code> 語言源碼還是第一次。</p>
+<p>下面是翻譯國外開發者的一篇文章，這篇文章上的代碼也已經在 <code>centos 7</code> 上跑通。</p>
+<p>–正文–</p>
+<p>使用C語言實現冒泡排序：基於C語言編寫的冒泡排序，用於數字的升序或降序排列。你可以修改源碼實現降序和升序。冒泡排序的復雜度較高，效率比較低，下面代碼僅用於算法愛好者理解原理。其實，還有其他快速排序的算法。比如：快速排序，堆排序。排序簡化了計算機編程中的問題解決。</p>
+<p>在C語言中實現冒泡排序</p>
+<pre class=" language-c"><code class="language-c"><span class="token comment" spellcheck="true">/* Bubble sort code */</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">int</span> array<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> swap<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter number of elements\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter %d integers\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> c <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> c<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>array<span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>c <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> c <span class="token operator">&lt;</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> c<span class="token operator">++</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> d <span class="token operator">&lt;</span> n <span class="token operator">-</span> c <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>d<span class="token punctuation">]</span> <span class="token operator">></span> array<span class="token punctuation">[</span>d<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">/* For decreasing order use &lt; */</span>
+      <span class="token punctuation">{</span>
+        swap       <span class="token operator">=</span> array<span class="token punctuation">[</span>d<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        array<span class="token punctuation">[</span>d<span class="token punctuation">]</span>   <span class="token operator">=</span> array<span class="token punctuation">[</span>d<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        array<span class="token punctuation">[</span>d<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> swap<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Sorted list in ascending order:\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> c <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> c<span class="token operator">++</span><span class="token punctuation">)</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> array<span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>在C語言中使用函數實現冒泡排序</p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">void</span> <span class="token function">bubble_sort</span><span class="token punctuation">(</span><span class="token keyword">long</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">long</span> array<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> swap<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter number of elements\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Enter %ld integers\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> c <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> c<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%ld"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>array<span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">bubble_sort</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Sorted list in ascending order:\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>c <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> c <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> c<span class="token operator">++</span><span class="token punctuation">)</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%ld\n"</span><span class="token punctuation">,</span> array<span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">bubble_sort</span><span class="token punctuation">(</span><span class="token keyword">long</span> list<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">long</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">long</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> t<span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>c <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> c <span class="token operator">&lt;</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> c<span class="token operator">++</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>d <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span> d <span class="token operator">&lt;</span> n <span class="token operator">-</span> c <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> d<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>list<span class="token punctuation">[</span>d<span class="token punctuation">]</span> <span class="token operator">></span> list<span class="token punctuation">[</span>d<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/* Swapping */</span>
+
+        t         <span class="token operator">=</span> list<span class="token punctuation">[</span>d<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        list<span class="token punctuation">[</span>d<span class="token punctuation">]</span>   <span class="token operator">=</span> list<span class="token punctuation">[</span>d<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        list<span class="token punctuation">[</span>d<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>原文地址：<a href="https://www.programmingsimplified.com/c/source-code/c-program-bubble-sort" target="_blank" rel="noopener">https://www.programmingsimplified.com/c/source-code/c-program-bubble-sort</a></p>
+
+                    </p>
+
+                    <nav class="pagination" role="pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/2018/05/29/bubble-sort-based-on-php/">
+        下一篇: 使用php实现冒泡排序
+    </a>
+    
+</nav>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        &copy;&nbsp;2018&nbsp;<a target="_blank"
+                                                               href="">jiangbianwanghai</a>
+    </p>
+
+    
+    <p>Theme&nbsp;<a target="_blank"
+                     href="https://github.com/SumiMakito/hexo-theme-journal">Journal.</a>&nbsp;by&nbsp;<a
+                target="_blank" href="https://www.keep.moe">Makito</a>
+    </p>
+    
+
+    <p>
+        Proudly published with&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>
+    </p>
+</footer>
+
+</div>
+</div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src=" /js/vue.min.js"></script>
+<script src=" /js/journal.js"></script>
+<script>
+    loadCSS("//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons");
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#global-loading-indicator").fadeOut(600);
+    });
+</script>
+
+</body>
+</html>
