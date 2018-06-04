@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-06-04T09:14:26.023Z</updated>
+  <updated>2018-06-04T09:30:35.923Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>tst</title>
+    <link href="https://www.jiangbianwanghai.com/2018/06/05/tst/"/>
+    <id>https://www.jiangbianwanghai.com/2018/06/05/tst/</id>
+    <published>2018-06-04T17:30:35.000Z</published>
+    <updated>2018-06-04T09:30:35.923Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>讓你的網站支持谷歌和火狐瀏覽器的通知提醒</title>
