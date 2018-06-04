@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-06-04T09:30:35.923Z</updated>
+  <updated>2018-06-04T10:02:45.853Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -17,27 +17,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>tst</title>
-    <link href="https://www.jiangbianwanghai.com/2018/06/05/tst/"/>
-    <id>https://www.jiangbianwanghai.com/2018/06/05/tst/</id>
-    <published>2018-06-04T17:30:35.000Z</published>
-    <updated>2018-06-04T09:30:35.923Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>讓你的網站支持谷歌和火狐瀏覽器的通知提醒</title>
     <link href="https://www.jiangbianwanghai.com/2018/06/05/let-your-website-support-firefox-and-chrome-notifications/"/>
     <id>https://www.jiangbianwanghai.com/2018/06/05/let-your-website-support-firefox-and-chrome-notifications/</id>
     <published>2018-06-04T17:05:52.000Z</published>
-    <updated>2018-06-04T09:14:26.023Z</updated>
+    <updated>2018-06-04T10:02:45.853Z</updated>
     
-    <content type="html"><![CDATA[<p>消息推送在現在的網絡中已經成為主流。它可以解決人們實時獲取最新消息的方案。比如，客戶A在瀏覽一個網站，他關注的作者這個時候正好發佈了一篇文章，以前他必須刷新頁面，通過拉取的方式才能看到這位作者的文章。但是有了消息推送，只要作者發佈一篇文章，她就可以理解收到一篇 <code>推送消息</code>。這樣做，保證了時效性，也提高了用戶的閱讀體驗。</p><p>現在的主流瀏覽器，都提供了消息通知接口，開發人員可以通過 <code>javascript</code> 來調取這些接口，實現pc端的消息推送。</p><p>下面，就給大家一個demo。大家可以閱讀源碼瞭解 <code>javascript</code> 調取消息通知接口的方法，應用到自己的項目當中。</p><p><a href="/chrome.html">demo</a></p>]]></content>
+    <content type="html"><![CDATA[<p>消息推送在現在的網絡中已經成為主流。它可以解決人們實時獲取最新消息的方案。比如，客戶A在瀏覽一個網站，他關注的作者這個時候正好發佈了一篇文章，以前他必須刷新頁面，通過拉取的方式才能看到這位作者的文章。但是有了消息推送，只要作者發佈一篇文章，她就可以理解收到一篇 <code>推送消息</code>。這樣做，保證了時效性，也提高了用戶的閱讀體驗。</p><p>現在的主流瀏覽器，都提供了消息通知接口，開發人員可以通過 <code>javascript</code> 來調取這些接口，實現pc端的消息推送。</p><p>下面，就給大家一個demo。大家可以閱讀源碼瞭解 <code>javascript</code> 調取消息通知接口的方法，應用到自己的項目當中。</p><p><a href="/notification.html">demo</a></p>]]></content>
     
     <summary type="html">
     
