@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>讓你的網站支持谷歌和火狐瀏覽器的通知提醒 - 江邊望海的技術人生</title>
+    <title>標籤: SSL - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -109,67 +109,45 @@
         </div>
 
 
+<h3 class="section-title">標籤: SSL</h3>
+
 <div class="row stream-container">
-    <div class="card-container">
+    <div id="stream_inner_left" class="col-lg-6 col-md-6 col-no-h-padding">
 
-        <div class="card card-item clear-border card-top-patch card-clear-hover">
-            
+    </div>
+    <div id="stream_inner_right" class="col-lg-6 col-md-6 col-no-h-padding">
 
-            <div class="card-item-container clear-flex-xs">
-                <div class="card-inner-cell">
-                    <h2>讓你的網站支持谷歌和火狐瀏覽器的通知提醒</h2>
+    </div>
+</div>
 
-                    <div>
-                        <p>
-                            <time datetime="2018-06-04T17:05:52.000Z" itemprop="datePublished">
-                                2018-06-04 17:05
-                            </time>
-                            
-
-                            
-                            
-                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
-                            
-                            <a href='/tags/通知提醒/'>通知提醒</a>
-                            
-                            ,
-                            
-                            
-                            <a href='/tags/消息推送/'>消息推送</a>
-                            
-                            
-                            
-                        </p>
-                    </div>
-
-
-                    <p class=" post-block-desc">
-                        <p>消息推送在現在的網絡中已經成為主流。它可以解決人們實時獲取最新消息的方案。比如，客戶A在瀏覽一個網站，他關注的作者這個時候正好發佈了一篇文章，以前他必須刷新頁面，通過拉取的方式才能看到這位作者的文章。但是有了消息推送，只要作者發佈一篇文章，她就可以理解收到一篇 <code>推送消息</code>。這樣做，保證了時效性，也提高了用戶的閱讀體驗。</p>
-<p>現在的主流瀏覽器，都提供了消息通知接口，開發人員可以通過 <code>javascript</code> 來調取這些接口，實現pc端的消息推送。</p>
-<p>下面，就給大家一個demo。大家可以閱讀源碼瞭解 <code>javascript</code> 調取消息通知接口的方法，應用到自己的項目當中。</p>
-<p><a href="/notification.html">demo</a></p>
-
-                    </p>
-
-                    <nav class="pagination" role="pagination">
+<nav class="pagination pagination-flex outside-padding-patch" role="pagination">
     
-    <a class="newer-posts" href="/2018/06/15/let-your-local-development-environment-support-HTTPS/">
-        上一篇: 讓你的本地開發環境支持HTTPS
-    </a>
+    <a class="older-posts pagination-flex-right"></a>
     
-    <span class="page-number"></span>
+    <span class="page-number pagination-flex-center">
+                        第 1/1 頁
+                    </span>
     
-    <a class="older-posts" href="/2018/05/31/bubble-sort-used-c-program/">
-        下一篇: 用C語言編寫冒泡排序
-    </a>
+    <a class="older-posts pagination-flex-right"></a>
     
 </nav>
 
-                    
+<div id="__pending_post_item_container" style="display:none">
+    
+    <div class="card-container">
+        <div class="card card-item clear-border card-top-patch">
+            <a class="a-block" href="/2018/06/15/let-your-local-development-environment-support-HTTPS/" rel="noopener noreferrer">
+                
+                <div class="card-item-container clear-flex-xs">
+                    <div class="card-inner-cell"><h4 class="clear-margin">讓你的本地開發環境支持HTTPS</h4>
+                        
+                        <p class="clear-margin post-block-desc">不知不覺現在的很多網站都支持 HTTPS 了，啟用HTTPS不僅可以保護用戶的隱私而且還有利於搜索引擎的排名。谷歌就明確表示會給帶有HTTPS的網站更高的權重。
+不僅如此，開啟綠鎖也是一件很酷的事情。通常，我們只會在線上的生產環境部署HTTPS而忽視了本地的開發環境。但是對於有強</p></div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
+    
 </div>
 
 <footer>
@@ -204,8 +182,48 @@
 
 
 <script>
+    let cachedPostsNodes;
+    let leftContainer;
+    let rightContainer;
+    let lastColumnCount;
+    let loadingIndicator;
+
     $(document).ready(function () {
-        $("#global-loading-indicator").fadeOut(600);
+        loadingIndicator = $("#global-loading-indicator");
+
+        lastColumnCount = -1;
+        leftContainer = $('#stream_inner_left');
+        rightContainer = $('#stream_inner_right');
+
+        function reLayoutPosts() {
+            // suppress unnecessary re-layouts
+            let columnCount = window.innerWidth < 768 ? 1 : 2;
+            if (columnCount === lastColumnCount)return;
+            loadingIndicator.show();
+            lastColumnCount = columnCount;
+            let leftHeight = 0;
+            let rightHeight = 0;
+            leftContainer.empty();
+            rightContainer.empty();
+            cachedPostsNodes = $("#__pending_post_item_container").find("> .card-container");
+            for (let i = 0; i < cachedPostsNodes.length; i++) {
+                let post = $(cachedPostsNodes[i]).clone();
+                if (columnCount === 1 || leftHeight <= rightHeight) {
+                    leftContainer.append(post);
+                    leftHeight += post.height();
+                } else {
+                    rightContainer.append(post);
+                    rightHeight += post.height();
+                }
+            }
+            loadingIndicator.fadeOut(600);
+        }
+
+        $(window).resize(function () {
+            reLayoutPosts();
+        });
+
+        reLayoutPosts();
     });
 </script>
 

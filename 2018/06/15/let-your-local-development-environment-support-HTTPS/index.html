@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>讓你的網站支持谷歌和火狐瀏覽器的通知提醒 - 江邊望海的技術人生</title>
+    <title>讓你的本地開發環境支持HTTPS - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -117,12 +117,12 @@
 
             <div class="card-item-container clear-flex-xs">
                 <div class="card-inner-cell">
-                    <h2>讓你的網站支持谷歌和火狐瀏覽器的通知提醒</h2>
+                    <h2>讓你的本地開發環境支持HTTPS</h2>
 
                     <div>
                         <p>
-                            <time datetime="2018-06-04T17:05:52.000Z" itemprop="datePublished">
-                                2018-06-04 17:05
+                            <time datetime="2018-06-15T04:35:25.000Z" itemprop="datePublished">
+                                2018-06-15 04:35
                             </time>
                             
 
@@ -130,12 +130,12 @@
                             
                             <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
                             
-                            <a href='/tags/通知提醒/'>通知提醒</a>
+                            <a href='/tags/HTTPS/'>HTTPS</a>
                             
                             ,
                             
                             
-                            <a href='/tags/消息推送/'>消息推送</a>
+                            <a href='/tags/SSL/'>SSL</a>
                             
                             
                             
@@ -144,23 +144,76 @@
 
 
                     <p class=" post-block-desc">
-                        <p>消息推送在現在的網絡中已經成為主流。它可以解決人們實時獲取最新消息的方案。比如，客戶A在瀏覽一個網站，他關注的作者這個時候正好發佈了一篇文章，以前他必須刷新頁面，通過拉取的方式才能看到這位作者的文章。但是有了消息推送，只要作者發佈一篇文章，她就可以理解收到一篇 <code>推送消息</code>。這樣做，保證了時效性，也提高了用戶的閱讀體驗。</p>
-<p>現在的主流瀏覽器，都提供了消息通知接口，開發人員可以通過 <code>javascript</code> 來調取這些接口，實現pc端的消息推送。</p>
-<p>下面，就給大家一個demo。大家可以閱讀源碼瞭解 <code>javascript</code> 調取消息通知接口的方法，應用到自己的項目當中。</p>
-<p><a href="/notification.html">demo</a></p>
+                        <p>不知不覺現在的很多網站都支持 <code>HTTPS</code> 了，啟用HTTPS不僅可以保護用戶的隱私而且還有利於搜索引擎的排名。谷歌就明確表示會給帶有HTTPS的網站更高的權重。</p>
+<p>不僅如此，開啟綠鎖也是一件很酷的事情。通常，我們只會在線上的生產環境部署HTTPS而忽視了本地的開發環境。但是對於有強迫的開發者來說，這點兒真的不能忍，開著沒有綠鎖的站就提不起興致。</p>
+<p>何不讓自己的開發環境也開啟HTTPS呢？</p>
+<p>本地開發環境啟用HTTPS其實並不是很難，下面是在Mac系統驗證通過的方法。</p>
+<p>我的本地開發環境是使用visualbox創建的虛擬機，安裝的是centos7系統。</p>
+<p>步驟如下：</p>
+<p>1.生成密钥</p>
+<p>生成一个RSA-2048密钥并保存到一个文件rootCA.key。该文件将被用作生成根SSL证书的密钥。系统将提示您输入密码，每次使用此特定密钥生成证书时都需要输入该密码。</p>
+<pre><code>openssl genrsa -des3 -out rootCA.key 2048
+</code></pre><p>2.生成证书</p>
+<p>您可以使用您生成的密钥来创建新的根SSL证书。并将其保存为rootCA.pem。这个证书将有1,024天的有效期。你可以随意将其更改为任何您想要的天数。在这一过程中，你还将被提示输入其他可选信息。</p>
+<pre><code>openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.pem
+</code></pre><p>3.让mac信任证书</p>
+<p>从开发机中下载生成的证书到mac，双击添加到系统钥匙串中（如下图）。设置始终信任这个证书。</p>
+<p><img src="/images/MAC.png" alt="最终效果"></p>
+<p>4.创建域证书密钥</p>
+<p>创建一个新的OpenSSL配置文件，server.csr.cnf以便在创建证书时可以导入这些设置，而不必在命令行上输入它们。</p>
+<pre class=" language-shell"><code class="language-shell">[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=US
+ST=RandomState
+L=RandomCity
+O=RandomOrganization
+OU=RandomOrganizationUnit
+emailAddress=hello@example.com
+CN = mcfr.im
+</code></pre>
+<p>创建密钥</p>
+<pre class=" language-shell"><code class="language-shell">openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <(cat server.csr.cnf)
+</code></pre>
+<p>5.创建域证书</p>
+<p>创建一个v3.ext文件，以创建一个X509 v3证书。注意我们指定了subjectAltName选项。</p>
+<pre><code>authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = api.mcfr.im
+DNS.2 = static.mcfr.im
+</code></pre><p>证书签名请求通过我们之前创建的根SSL证书颁发，创建出一个localhost的域名证书。输出是一个名为的证书文件server.crt。</p>
+<pre><code>openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500 -sha256 -extfile v3.ext
+</code></pre><p>6.修改nginx站点配置文件，让证书和密钥生效。</p>
+<pre><code>listen 443;
+ssl on;
+ssl_certificate /root/server.crt;
+ssl_certificate_key /root/server.key;
+将这上这几行放到站点的配置文件中
+server
+{
+....
+}
+</code></pre><p>重启nginx</p>
+<p>7.最终效果</p>
+<p><img src="/images/https.png" alt="最终效果"></p>
+<p>参考链接：<a href="https://juejin.im/post/5a6db896518825732d7fd8e0" target="_blank" rel="noopener">https://juejin.im/post/5a6db896518825732d7fd8e0</a></p>
 
                     </p>
 
                     <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2018/06/15/let-your-local-development-environment-support-HTTPS/">
-        上一篇: 讓你的本地開發環境支持HTTPS
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/2018/05/31/bubble-sort-used-c-program/">
-        下一篇: 用C語言編寫冒泡排序
+    <a class="older-posts" href="/2018/06/05/let-your-website-support-firefox-and-chrome-notifications/">
+        下一篇: 讓你的網站支持谷歌和火狐瀏覽器的通知提醒
     </a>
     
 </nav>
