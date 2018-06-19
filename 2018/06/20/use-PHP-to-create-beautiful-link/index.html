@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="jiangbianwanghai">
+
+    <title>为你的网站构建漂亮的链接 - 江邊望海的技術人生</title>
+    <meta name="description" content="">
+
+    <meta name="keywords"
+          content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <noscript>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+    </noscript>
+    <link rel="short icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mprogress.css">
+    <link rel="stylesheet" href="/css/open-iconic.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <script>
+        /*!
+         loadCSS: load a CSS file asynchronously.
+         [c]2014 @scottjehl, Filament Group, Inc.
+         Licensed MIT
+         */
+        function loadCSS( href, before, media ){
+            "use strict";
+            var ss = window.document.createElement( "link" );
+            var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];
+            var sheets = window.document.styleSheets;
+            ss.rel = "stylesheet";
+            ss.href = href;
+            ss.media = "only x";
+            ref.parentNode.insertBefore( ss, ref );
+            function toggleMedia(){
+                var defined;
+                for( var i = 0; i < sheets.length; i++ ){
+                    if( sheets[ i ].href && sheets[ i ].href.indexOf( href ) > -1 ){
+                        defined = true;
+                    }
+                }
+                if( defined ){
+                    ss.media = media || "all";
+                }
+                else {
+                    setTimeout( toggleMedia );
+                }
+            }
+            toggleMedia();
+            return ss;
+        }
+    </script>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+<body>
+
+<div id="app">
+    <nav ref="navBar" class="navbar fixed-top navbar-light">
+    <div id="global-loading-indicator" class="progress-line global-loading-indicator"></div>
+    <div id="nav_background" class="nav-background"></div>
+    <div style="padding-left: 15px;padding-right: 15px" class="container container-narrow nav-content">
+
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" data-toggle="adropdown">
+            <span class="oi" data-glyph="menu"></span>
+        </button>
+        <a id="nav_title" class="navbar-brand Montserrat" href="/">
+            江邊望海的技術人生
+        </a>
+        <div class="float-right navbar-dark nav-icon-group">
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="collapsed_nav">
+                    <li><a href="/" class="a-block nav-icon">首頁</a></li>
+                    <li><a href="/archives" class="a-block nav-icon">歸檔</a></li>
+                    
+                    
+                    <li><a href="/notification.html" class="a-block nav-icon">notification</a></li>
+                    
+                    <li><a href="/about/index.html" class="a-block nav-icon">關務我</a></li>
+                    
+                    
+                    <li><a href="/atom.xml" target="_blank" class="a-block">
+                            <span data-glyph="rss" class="oi nav-icon"></span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>
+    <div class="container container-narrow">
+
+        <div ref="pageHead"
+             v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"
+             class="page-head">
+            <a href="/">
+                <h2>江邊望海的技術人生</h2>
+                <h5>分享真知</h5>
+            </a>
+        </div>
+
+
+<div class="row stream-container">
+    <div class="card-container">
+
+        <div class="card card-item clear-border card-top-patch card-clear-hover">
+            
+
+            <div class="card-item-container clear-flex-xs">
+                <div class="card-inner-cell">
+                    <h2>为你的网站构建漂亮的链接</h2>
+
+                    <div>
+                        <p>
+                            <time datetime="2018-06-20T06:00:10.000Z" itemprop="datePublished">
+                                2018-06-20 06:00
+                            </time>
+                            
+
+                            
+                            
+                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/php/'>php</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/seo/'>seo</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/demo/'>demo</a>
+                            
+                            
+                            
+                        </p>
+                    </div>
+
+
+                    <p class=" post-block-desc">
+                        <p>构建搜索引擎喜欢的Url是SEO优化过程中必不可少的意向工作。相对于<code>?</code>后传参的Url，搜索引擎更喜欢漂亮的Url。</p>
+<p>那么，什么实际漂亮的Url呢？</p>
+<p><code>/2018/06/20/ru-he-jiang-macshang-de-python3-she-wei-mo-ren-de-python/</code></p>
+<p><code>/python/ru-he-jiang-macshang-de-python3-she-wei-mo-ren-de-python/</code></p>
+<p>以上这种都算是漂亮链接。可以看出来，漂亮的Url是有好几种规则的。如果能够让用户自由组合自己的规则，那该多好呀。</p>
+<p>需求如下：</p>
+<p>用户可以根据预设的Url标签来自定义Url规则。设置好后信息可以根据设置的Url动态生成。</p>
+<p>以下是用 <code>PHP</code> 实现的美化Url的核心类。</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$json</span> <span class="token operator">=</span> <span class="token string">'{"_id":"5971a4b7a4419d109d347fd5","title": "为何BAT有10亿用户，却没有多少粉丝？","category":"互联网产品","addtime": "1529473923"}'</span><span class="token punctuation">;</span>
+<span class="token variable">$data</span> <span class="token operator">=</span> <span class="token function">json_decode</span><span class="token punctuation">(</span><span class="token variable">$json</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string">'/'</span> <span class="token punctuation">.</span> PermaLink<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">generator</span><span class="token punctuation">(</span><span class="token variable">$url</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 根据Url标签结构动态生产Url
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">PermaLink</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * Url格式
+     * @var [type]
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token variable">$_url</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 根据Url格式生成真实的Url
+     * @author liqiming
+     * @date   2018-06-20
+     * @param  string     $url  Url格式
+     * @return string
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function">generator</span><span class="token punctuation">(</span><span class="token variable">$url</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token variable">$_url</span> <span class="token operator">=</span> <span class="token variable">$url</span><span class="token punctuation">;</span>
+        <span class="token variable">$data</span>       <span class="token operator">=</span> self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">_formatData</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$varsOne</span> <span class="token operator">=</span> self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">_extratVars</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token variable">$varsZero</span> <span class="token operator">=</span> self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">_extratVars</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$varsOne</span> <span class="token keyword">as</span> <span class="token variable">$i</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token variable">$varname</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$url</span> <span class="token operator">=</span> <span class="token function">str_replace</span><span class="token punctuation">(</span><span class="token variable">$varsZero</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token function">sprintf</span><span class="token punctuation">(</span><span class="token string">'%s'</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token variable">$varname</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token variable">$url</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token variable">$url</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 从Url中提取变量
+     *
+     * @author liqiming
+     * @date   2018-06-20
+     * @param  integer    $index 数组索引，只能是0或1
+     * @return array
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function">_extratVars</span><span class="token punctuation">(</span><span class="token variable">$index</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match_all</span><span class="token punctuation">(</span><span class="token string">"/%(.*?)%/"</span><span class="token punctuation">,</span> self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token variable">$_url</span><span class="token punctuation">,</span> <span class="token variable">$m</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$m</span><span class="token punctuation">[</span><span class="token variable">$index</span><span class="token punctuation">]</span> <span class="token keyword">as</span> <span class="token operator">&amp;</span><span class="token variable">$value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token variable">$value</span> <span class="token operator">=</span> <span class="token function">trim</span><span class="token punctuation">(</span><span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//去掉标签变量两边的空格</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> <span class="token variable">$m</span><span class="token punctuation">[</span><span class="token variable">$index</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 将数据对应到标签变量上
+     *
+     * @author liqiming
+     * @date   2018-06-20
+     * @param  array     $array 数据
+     * @return array
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function">_formatData</span><span class="token punctuation">(</span><span class="token variable">$array</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$vars</span> <span class="token operator">=</span> self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">_extratVars</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$vars</span> <span class="token keyword">as</span> <span class="token variable">$value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token variable">$value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">case</span> <span class="token string">'id'</span><span class="token punctuation">;</span>
+                        <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$array</span><span class="token punctuation">[</span><span class="token string">'_id'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">case</span> <span class="token string">'title'</span><span class="token punctuation">:</span>
+                        <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$array</span><span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">case</span> <span class="token string">'category'</span><span class="token punctuation">:</span>
+                        <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string">'category'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$array</span><span class="token punctuation">[</span><span class="token string">'category'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">case</span> <span class="token string">'year'</span><span class="token punctuation">:</span>
+                        <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string">'year'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string">"Y"</span><span class="token punctuation">,</span> <span class="token variable">$array</span><span class="token punctuation">[</span><span class="token string">'addtime'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">case</span> <span class="token string">'month'</span><span class="token punctuation">:</span>
+                        <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string">'month'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string">"m"</span><span class="token punctuation">,</span> <span class="token variable">$array</span><span class="token punctuation">[</span><span class="token string">'addtime'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">case</span> <span class="token string">'day'</span><span class="token punctuation">:</span>
+                        <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token string">'day'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token variable">$array</span><span class="token punctuation">[</span><span class="token string">'addtime'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">default</span><span class="token punctuation">:</span>
+                        <span class="token variable">$data</span><span class="token punctuation">[</span><span class="token variable">$value</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$value</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token variable">$data</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>用户交互界面如下。</p>
+<p><img src="/images/url.png" alt="Url生成界面"></p>
+<p>上面预设了6个标签，点击按钮可以自定义组合Url，数据根据设置好的Url格式动态的生成具体的Url。</p>
+
+                    </p>
+
+                    <nav class="pagination" role="pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/2018/06/15/let-your-local-development-environment-support-HTTPS/">
+        下一篇: 讓你的本地開發環境支持HTTPS
+    </a>
+    
+</nav>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        &copy;&nbsp;2018&nbsp;<a target="_blank"
+                                                               href="">jiangbianwanghai</a>
+    </p>
+
+    
+    <p>Theme&nbsp;<a target="_blank"
+                     href="https://github.com/SumiMakito/hexo-theme-journal">Journal.</a>&nbsp;by&nbsp;<a
+                target="_blank" href="https://www.keep.moe">Makito</a>
+    </p>
+    
+
+    <p>
+        Proudly published with&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>
+    </p>
+</footer>
+
+</div>
+</div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src=" /js/vue.min.js"></script>
+<script src=" /js/journal.js"></script>
+<script>
+    loadCSS("//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons");
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#global-loading-indicator").fadeOut(600);
+    });
+</script>
+
+</body>
+</html>

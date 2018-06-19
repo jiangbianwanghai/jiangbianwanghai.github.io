@@ -152,11 +152,13 @@
 <p>步驟如下：</p>
 <p>1.生成密钥</p>
 <p>生成一个RSA-2048密钥并保存到一个文件rootCA.key。该文件将被用作生成根SSL证书的密钥。系统将提示您输入密码，每次使用此特定密钥生成证书时都需要输入该密码。</p>
-<pre><code>openssl genrsa -des3 -out rootCA.key 2048
-</code></pre><p>2.生成证书</p>
+<pre class=" language-shell"><code class="language-shell">openssl genrsa -des3 -out rootCA.key 2048
+</code></pre>
+<p>2.生成证书</p>
 <p>您可以使用您生成的密钥来创建新的根SSL证书。并将其保存为rootCA.pem。这个证书将有1,024天的有效期。你可以随意将其更改为任何您想要的天数。在这一过程中，你还将被提示输入其他可选信息。</p>
-<pre><code>openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.pem
-</code></pre><p>3.让mac信任证书</p>
+<pre class=" language-shell"><code class="language-shell">openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.pem
+</code></pre>
+<p>3.让mac信任证书</p>
 <p>从开发机中下载生成的证书到mac，双击添加到系统钥匙串中（如下图）。设置始终信任这个证书。</p>
 <p><img src="/images/MAC.png" alt="最终效果"></p>
 <p>4.创建域证书密钥</p>
@@ -181,7 +183,7 @@ CN = mcfr.im
 </code></pre>
 <p>5.创建域证书</p>
 <p>创建一个v3.ext文件，以创建一个X509 v3证书。注意我们指定了subjectAltName选项。</p>
-<pre><code>authorityKeyIdentifier=keyid,issuer
+<pre class=" language-shell"><code class="language-shell">authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
 keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 subjectAltName = @alt_names
@@ -189,10 +191,12 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1 = api.mcfr.im
 DNS.2 = static.mcfr.im
-</code></pre><p>证书签名请求通过我们之前创建的根SSL证书颁发，创建出一个localhost的域名证书。输出是一个名为的证书文件server.crt。</p>
-<pre><code>openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500 -sha256 -extfile v3.ext
-</code></pre><p>6.修改nginx站点配置文件，让证书和密钥生效。</p>
-<pre><code>listen 443;
+</code></pre>
+<p>证书签名请求通过我们之前创建的根SSL证书颁发，创建出一个localhost的域名证书。输出是一个名为的证书文件server.crt。</p>
+<pre class=" language-shell"><code class="language-shell">openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 500 -sha256 -extfile v3.ext
+</code></pre>
+<p>6.修改nginx站点配置文件，让证书和密钥生效。</p>
+<pre class=" language-shell"><code class="language-shell">listen 443;
 ssl on;
 ssl_certificate /root/server.crt;
 ssl_certificate_key /root/server.key;
@@ -201,7 +205,8 @@ server
 {
 ....
 }
-</code></pre><p>重启nginx</p>
+</code></pre>
+<p>重启nginx</p>
 <p>7.最终效果</p>
 <p><img src="/images/https.png" alt="最终效果"></p>
 <p>参考链接：<a href="https://juejin.im/post/5a6db896518825732d7fd8e0" target="_blank" rel="noopener">https://juejin.im/post/5a6db896518825732d7fd8e0</a></p>
@@ -209,6 +214,10 @@ server
                     </p>
 
                     <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2018/06/20/use-PHP-to-create-beautiful-link/">
+        上一篇: 为你的网站构建漂亮的链接
+    </a>
     
     <span class="page-number"></span>
     
