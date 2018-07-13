@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>基於websocket的軟件交互設計思路 - 江邊望海的技術人生</title>
+    <title>我终于从Sublime切换到了vs code - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -117,12 +117,12 @@
 
             <div class="card-item-container clear-flex-xs">
                 <div class="card-inner-cell">
-                    <h2>基於websocket的軟件交互設計思路</h2>
+                    <h2>我终于从Sublime切换到了vs code</h2>
 
                     <div>
                         <p>
-                            <time datetime="2018-05-18T15:30:13.000Z" itemprop="datePublished">
-                                2018-05-18 15:30
+                            <time datetime="2018-07-13T15:48:30.000Z" itemprop="datePublished">
+                                2018-07-13 15:48
                             </time>
                             
 
@@ -130,17 +130,7 @@
                             
                             <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
                             
-                            <a href='/tags/系統架構/'>系統架構</a>
-                            
-                            ,
-                            
-                            
-                            <a href='/tags/websocket/'>websocket</a>
-                            
-                            ,
-                            
-                            
-                            <a href='/tags/swoole/'>swoole</a>
+                            <a href='/tags/工具/'>工具</a>
                             
                             
                             
@@ -149,38 +139,30 @@
 
 
                     <p class=" post-block-desc">
-                        <p>可能多數人認為只有基於C/S架構纔可以稱之為軟件。但是隨著互聯網的發展，越來越多的人開始意識到“網站即軟件”。</p>
-<p>這得益於互聯網技術的發展，特別是近幾年移動互聯網技術的發展。我們來回顧一下互聯網發展的過程。</p>
-<p>第一代的互聯網技術比較簡單，僅僅是提供靜態頁的訪問。當時瀏覽器的功能還非常簡單只能用於瀏覽靜態頁。隨著技術的發展出現了基於前端異步請求（Ajax）的交互。</p>
-<p>第二代的互聯網技術提供了異步請求和動態頁面響應，動態語言從數據庫中讀取數據並動態的生成HTML頁面。</p>
-<p>第三代的互聯網技術更加注重功能性的體驗。瀏覽網站完完全全是在操作軟件。比如：人們在瀏覽電商網站時會關注商品、購買商品。而網站也有將降價信息和特賣信息實時推送給用戶的需求。如果靠用戶每次刷新頁面來獲取最新數據肯定不現實。</p>
-<p>本質上，第一代和第二代的網站技術從操作方式並沒有發生太大的變化，都是採取瀏覽器請求服務器，拉取（pull）數據的架構。</p>
-<p>而現在的網站有著大量的“網站即軟件”的需求。網站主需要主動向用戶推送信息，用戶與用戶間互相推送信息等這種消息實時的業務需求越來越多。</p>
-<p>由於“瀏覽器/服務器”模式是通過http建立通訊的，http通訊的特點是無狀態，短鏈接。很難滿足消息推送的需求。記得以前很多網站採取XHR輪詢的方式來解決，但是會存在大量的無效訪問和對服務器造成不必要的壓力。</p>
-<p>目前，最成熟的方案是通過瀏覽器與websocket建立長效的鏈接，使用 <code>ws</code> 協議達到實時數據傳輸的目的。</p>
-<p>在PHP領域實現 <code>push</code> 消息推送除了可以用 <code>node</code> 來實現外，也可以使用 <code>swoole</code>。</p>
-<hr>
-<p>科普一下關於 <code>ws</code> 和 <code>http</code> 協議之間的異同</p>
-<p>相同：</p>
-<p>都是建立在 <code>TCP</code> 之上的協議</p>
-<p>不同：</p>
-<p>HTTP协议为单向协议，即浏览器只能向服务器请求资源，服务器才能将数据传送给浏览器，而服务器不能主动向浏览器传递数据。每次http请求时都需要三次握手才能发送请求。</p>
-<p>WebSocket是一种双向通信协议，在建立连接后，WebSocket服务器和Browser/UA都能主动的向对方发送或接收数据，就像Socket一样，不同的是WebSocket是一种建立在Web基础上的一种简单模拟Socket的协议。WebSocket也需要通过建立握手连接，一旦鏈接建立就可以保持長連接了。</p>
-<p>http vs websocket</p>
-<p><img src="/images/http_vs_websocket.png" alt="http vs websocket"></p>
+                        <p>Sublime这个编辑器我用了很多年，从Sublime2到Sublime3，从Windows版本到Mac版本。最近，Sublime时常的弹出购买的弹窗实在是烦死了。打算准备换一下编辑器。</p>
+<p>一顿搜寻后 vs code进入了我的视野，在v2ex上的开多开发者也表达了他们的使用体验，很多开发者也是从subliime转到vs code的。</p>
+<p>在Mac安装后，体验了一把确实非常的方便，不管是启动速度，主题配色，插件。特别是插件非常的丰富，并且不用过多的配置。超赞。</p>
+<p>但是，我一直没有切过来，原因就是我的开发环境。</p>
+<p>我的开发机是一个Centos虚拟机，开发机上安装了Samba共享了开发目录，然后再使用Sublime直接编辑程序文件。修改完之后，在通过iTerm2登录到服务器上执行git命令将文件提交到代码库。</p>
+<p>看起来是不是很复杂呢？？</p>
+<p>其实，对于我来说，操作非常顺手，习惯了。</p>
+<p>但是，我用vs code开打项目目录的时候，它的git插件提示我很多文件都变更了需要提交，但是这些文件我确定没有动过</p>
+<p>这是怎么回事儿呢？</p>
+<p>一通分析后，发现原来vs code是用的本机的git，而这个项目目录对于本机的git来说是一个全新的，所以才有了这么多变更的提示。</p>
+<p>既然这样，不如就把开发机上的项目目录删除了，在本机的命令行下进入到开发机共享的目录，然后在执行git clone把项目代码拉下来</p>
+<p>然后，在使用vs code将共享目录中的项目目录打开。</p>
+<p>奇迹出现了，这次没有再提示变更了。</p>
+<p>git的问题解决了我就可以顺利的从sublime切换到了vs code了。</p>
+<p>PS：我觉得国外的开发者有时候是一根筋，Sublime这个工具确实很好，但是就是不免费，非要让我放弃它。一个授权要几百块一年，这不明摆着想把忠实用户往竞争对手这里推嘛，哎。</p>
 
                     </p>
 
                     <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2018/05/23/create-group-chat-system-based-on-swoole/">
-        上一篇: 基於Swoole搭建羣聊系統
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/2018/05/17/rpc-vs-https/">
-        下一篇: 為什麼需要RPC，而不是簡單的HTTP接口？
+    <a class="older-posts" href="/2018/06/20/use-PHP-to-create-beautiful-link/">
+        下一篇: 为你的网站构建漂亮的链接
     </a>
     
 </nav>

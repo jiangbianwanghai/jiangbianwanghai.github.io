@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-06-19T22:18:08.770Z</updated>
+  <updated>2018-07-13T08:08:18.301Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我终于从Sublime切换到了vs code</title>
+    <link href="https://www.jiangbianwanghai.com/2018/07/13/i-changed-dev-envionment-from-sublime-to-vs-code-because-solved-git-settings-in-vs-code/"/>
+    <id>https://www.jiangbianwanghai.com/2018/07/13/i-changed-dev-envionment-from-sublime-to-vs-code-because-solved-git-settings-in-vs-code/</id>
+    <published>2018-07-13T15:48:30.000Z</published>
+    <updated>2018-07-13T08:08:18.301Z</updated>
+    
+    <content type="html"><![CDATA[<p>Sublime这个编辑器我用了很多年，从Sublime2到Sublime3，从Windows版本到Mac版本。最近，Sublime时常的弹出购买的弹窗实在是烦死了。打算准备换一下编辑器。</p><p>一顿搜寻后 vs code进入了我的视野，在v2ex上的开多开发者也表达了他们的使用体验，很多开发者也是从subliime转到vs code的。</p><p>在Mac安装后，体验了一把确实非常的方便，不管是启动速度，主题配色，插件。特别是插件非常的丰富，并且不用过多的配置。超赞。</p><p>但是，我一直没有切过来，原因就是我的开发环境。</p><p>我的开发机是一个Centos虚拟机，开发机上安装了Samba共享了开发目录，然后再使用Sublime直接编辑程序文件。修改完之后，在通过iTerm2登录到服务器上执行git命令将文件提交到代码库。</p><p>看起来是不是很复杂呢？？</p><p>其实，对于我来说，操作非常顺手，习惯了。</p><p>但是，我用vs code开打项目目录的时候，它的git插件提示我很多文件都变更了需要提交，但是这些文件我确定没有动过</p><p>这是怎么回事儿呢？</p><p>一通分析后，发现原来vs code是用的本机的git，而这个项目目录对于本机的git来说是一个全新的，所以才有了这么多变更的提示。</p><p>既然这样，不如就把开发机上的项目目录删除了，在本机的命令行下进入到开发机共享的目录，然后在执行git clone把项目代码拉下来</p><p>然后，在使用vs code将共享目录中的项目目录打开。</p><p>奇迹出现了，这次没有再提示变更了。</p><p>git的问题解决了我就可以顺利的从sublime切换到了vs code了。</p><p>PS：我觉得国外的开发者有时候是一根筋，Sublime这个工具确实很好，但是就是不免费，非要让我放弃它。一个授权要几百块一年，这不明摆着想把忠实用户往竞争对手这里推嘛，哎。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Sublime这个编辑器我用了很多年，从Sublime2到Sublime3，从Windows版本到Mac版本。最近，Sublime时常的弹出购买的弹窗实在是烦死了。打算准备换一下编辑器。&lt;/p&gt;
+&lt;p&gt;一顿搜寻后 vs code进入了我的视野，在v2ex上的开多开发者也表达
+      
+    
+    </summary>
+    
+    
+      <category term="工具" scheme="https://www.jiangbianwanghai.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>为你的网站构建漂亮的链接</title>
@@ -169,11 +193,11 @@
     </summary>
     
     
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
+    
       <category term="websocket" scheme="https://www.jiangbianwanghai.com/tags/websocket/"/>
     
       <category term="swoole" scheme="https://www.jiangbianwanghai.com/tags/swoole/"/>
-    
-      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
@@ -198,11 +222,11 @@
     </summary>
     
     
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
+    
       <category term="websocket" scheme="https://www.jiangbianwanghai.com/tags/websocket/"/>
     
       <category term="swoole" scheme="https://www.jiangbianwanghai.com/tags/swoole/"/>
-    
-      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
@@ -226,11 +250,11 @@
     </summary>
     
     
-      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
-    
       <category term="rpc" scheme="https://www.jiangbianwanghai.com/tags/rpc/"/>
     
       <category term="http" scheme="https://www.jiangbianwanghai.com/tags/http/"/>
+    
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
