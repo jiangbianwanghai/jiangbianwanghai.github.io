@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-07-13T08:08:18.301Z</updated>
+  <updated>2018-07-16T06:12:51.242Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在vs code安装phpcs和phpmd插件</title>
+    <link href="https://www.jiangbianwanghai.com/2018/07/16/vs-code-install-phpcs-and-phpmd/"/>
+    <id>https://www.jiangbianwanghai.com/2018/07/16/vs-code-install-phpcs-and-phpmd/</id>
+    <published>2018-07-16T13:42:11.000Z</published>
+    <updated>2018-07-16T06:12:51.242Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一篇文章提到了为什么要从sublime改到vs code的过程。这篇就来讲讲如何安装phpcs和phpmd</p><p>作为一个PHP开发者，代码规范是必须要遵守的。所以，安装phpcs和phpmd插件是有必要的，可以编写出来既好又快的代码。</p><p>这次我采用的是composer 安装。在Mac系统下进入命令行，先安装composer。这个比较好装，就是下载下来后将它移动到/usr/local/bin这个目录即可。</p><p>接下来就是使用composer 安装phpcs</p><pre><code>composer global require squizlabs/php_codesniffer</code></pre><p>我采取的全局安装，这样不用一个项目一个项目配置，比较方便。</p><p>安装后，找到phpcs的路径</p><pre><code>/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs</code></pre><p>在vs code的配置文件中增加一条配置即可。</p><pre><code>&quot;phpcs.executablePath&quot;: &quot;/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs&quot;</code></pre><p>至于phpmd，安装方式与Phpcs类似，composer安装后，在配置文件中增加一条配置即可。</p><pre><code>&quot;phpmd.validate.executablePath&quot;:&quot;/Users/jiangbianwanghai/.composer/vendor/phpmd/phpmd/src/bin/phpmd&quot;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;上一篇文章提到了为什么要从sublime改到vs code的过程。这篇就来讲讲如何安装phpcs和phpmd&lt;/p&gt;
+&lt;p&gt;作为一个PHP开发者，代码规范是必须要遵守的。所以，安装phpcs和phpmd插件是有必要的，可以编写出来既好又快的代码。&lt;/p&gt;
+&lt;p&gt;这次我采用的
+      
+    
+    </summary>
+    
+    
+      <category term="工具" scheme="https://www.jiangbianwanghai.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>我终于从Sublime切换到了vs code</title>
@@ -193,11 +218,11 @@
     </summary>
     
     
-      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
-    
       <category term="websocket" scheme="https://www.jiangbianwanghai.com/tags/websocket/"/>
     
       <category term="swoole" scheme="https://www.jiangbianwanghai.com/tags/swoole/"/>
+    
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
@@ -222,11 +247,11 @@
     </summary>
     
     
-      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
-    
       <category term="websocket" scheme="https://www.jiangbianwanghai.com/tags/websocket/"/>
     
       <category term="swoole" scheme="https://www.jiangbianwanghai.com/tags/swoole/"/>
+    
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
@@ -250,11 +275,11 @@
     </summary>
     
     
+      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
+    
       <category term="rpc" scheme="https://www.jiangbianwanghai.com/tags/rpc/"/>
     
       <category term="http" scheme="https://www.jiangbianwanghai.com/tags/http/"/>
-    
-      <category term="系統架構" scheme="https://www.jiangbianwanghai.com/tags/%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B/"/>
     
   </entry>
   
