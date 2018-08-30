@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>標籤: 基础研究 - 江邊望海的技術人生</title>
+    <title>web开发人员必须要理解的基础知识点 - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -109,62 +109,61 @@
         </div>
 
 
-<h3 class="section-title">標籤: 基础研究</h3>
-
 <div class="row stream-container">
-    <div id="stream_inner_left" class="col-lg-6 col-md-6 col-no-h-padding">
+    <div class="card-container">
 
-    </div>
-    <div id="stream_inner_right" class="col-lg-6 col-md-6 col-no-h-padding">
+        <div class="card card-item clear-border card-top-patch card-clear-hover">
+            
 
-    </div>
-</div>
+            <div class="card-item-container clear-flex-xs">
+                <div class="card-inner-cell">
+                    <h2>web开发人员必须要理解的基础知识点</h2>
 
-<nav class="pagination pagination-flex outside-padding-patch" role="pagination">
+                    <div>
+                        <p>
+                            <time datetime="2018-08-30T16:15:34.000Z" itemprop="datePublished">
+                                2018-08-30 16:15
+                            </time>
+                            
+
+                            
+                            
+                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/基础研究/'>基础研究</a>
+                            
+                            
+                            
+                        </p>
+                    </div>
+
+
+                    <p class=" post-block-desc">
+                        <h3 id="什么是多进程，什么是多线程，它们之间的关系是什么？"><a href="#什么是多进程，什么是多线程，它们之间的关系是什么？" class="headerlink" title="什么是多进程，什么是多线程，它们之间的关系是什么？"></a>什么是多进程，什么是多线程，它们之间的关系是什么？</h3><p>打个比喻：</p>
+<p>单进程单线程：一个人在一个桌子上吃菜。<br>单进程多线程：多个人在同一个桌子上一起吃菜。<br>多进程单线程：多个人每个人在自己的桌子上吃菜。</p>
+<p>多线程的情况是多个人同时吃一道菜的时候容易发生争抢，例如两个人同时夹一个菜，一个人刚伸出筷子，结果伸到的时候已经被夹走菜了。此时就必须等一个人夹一口之后，在还给另外一个人夹菜，也就是说资源共享就会发生冲突争抢。</p>
+<p>所以，多线程的主要问题是对资源争抢与同步方面的问题。</p>
+<p>死锁-大家都在等着吃饭，但需要特定条件才能开吃:桌一等着桌二的碗，桌二等着桌三的筷子，桌三呢，等着桌一的勺。于是这三桌就都不能吃饭。</p>
+<p>多进程的情况是每个人在自己的桌子上吃菜，但也带来新的问题：<strong>坐在两张不同的桌子上，说话不方便。</strong></p>
+<p>所以，多进程的主要问题是进程间的通讯问题。</p>
+
+                    </p>
+
+                    <nav class="pagination" role="pagination">
     
-    <a class="older-posts pagination-flex-right"></a>
+    <span class="page-number"></span>
     
-    <span class="page-number pagination-flex-center">
-                        第 1/1 頁
-                    </span>
-    
-    <a class="older-posts pagination-flex-right"></a>
+    <a class="older-posts" href="/2018/08/25/The-magical-effect-of-UUID-in-user-tracking/">
+        下一篇: UUID在用户跟踪的妙用
+    </a>
     
 </nav>
 
-<div id="__pending_post_item_container" style="display:none">
-    
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/08/31/web-developers-must-understand-the-basic-knowledge/" rel="noopener noreferrer">
-                
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell"><h4 class="clear-margin">web开发人员必须要理解的基础知识点</h4>
-                        
-                        <p class="clear-margin post-block-desc">什么是多进程，什么是多线程，它们之间的关系是什么？打个比喻：
-单进程单线程：一个人在一个桌子上吃菜。单进程多线程：多个人在同一个桌子上一起吃菜。多进程单线程：多个人每个人在自己的桌子上吃菜。
-多线程的情况是多个人同时吃一道菜的时候容易发生争抢，例如两个人同时夹一个菜，一个人刚伸出</p></div>
+                    
                 </div>
-            </a>
+            </div>
         </div>
     </div>
-    
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/08/25/The-magical-effect-of-UUID-in-user-tracking/" rel="noopener noreferrer">
-                
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell"><h4 class="clear-margin">UUID在用户跟踪的妙用</h4>
-                        
-                        <p class="clear-margin post-block-desc">#前言
-我们如何来识别来访的客户端，并对来访的客户端做分析呢？这个实践有点儿网站分析的意思。网站统计就是识别不同的客户端并对客户端进行分析的过程。这里面有一个核心的技术，就是对客户端的识别。
-#UUID
-我们常用的技术实践是，通过服务器将一个唯一标识符分发给客户端，客户端端将标识</p></div>
-                </div>
-            </a>
-        </div>
-    </div>
-    
 </div>
 
 <footer>
@@ -199,48 +198,8 @@
 
 
 <script>
-    let cachedPostsNodes;
-    let leftContainer;
-    let rightContainer;
-    let lastColumnCount;
-    let loadingIndicator;
-
     $(document).ready(function () {
-        loadingIndicator = $("#global-loading-indicator");
-
-        lastColumnCount = -1;
-        leftContainer = $('#stream_inner_left');
-        rightContainer = $('#stream_inner_right');
-
-        function reLayoutPosts() {
-            // suppress unnecessary re-layouts
-            let columnCount = window.innerWidth < 768 ? 1 : 2;
-            if (columnCount === lastColumnCount)return;
-            loadingIndicator.show();
-            lastColumnCount = columnCount;
-            let leftHeight = 0;
-            let rightHeight = 0;
-            leftContainer.empty();
-            rightContainer.empty();
-            cachedPostsNodes = $("#__pending_post_item_container").find("> .card-container");
-            for (let i = 0; i < cachedPostsNodes.length; i++) {
-                let post = $(cachedPostsNodes[i]).clone();
-                if (columnCount === 1 || leftHeight <= rightHeight) {
-                    leftContainer.append(post);
-                    leftHeight += post.height();
-                } else {
-                    rightContainer.append(post);
-                    rightHeight += post.height();
-                }
-            }
-            loadingIndicator.fadeOut(600);
-        }
-
-        $(window).resize(function () {
-            reLayoutPosts();
-        });
-
-        reLayoutPosts();
+        $("#global-loading-indicator").fadeOut(600);
     });
 </script>
 
