@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-08-31T09:13:50.984Z</updated>
+  <updated>2018-08-31T09:25:10.235Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.jiangbianwanghai.com/2018/08/31/web-developers-must-understand-the-basic-knowledge/"/>
     <id>https://www.jiangbianwanghai.com/2018/08/31/web-developers-must-understand-the-basic-knowledge/</id>
     <published>2018-08-30T16:15:34.000Z</published>
-    <updated>2018-08-31T09:13:50.984Z</updated>
+    <updated>2018-08-31T09:25:10.235Z</updated>
     
     <content type="html"><![CDATA[<h3 id="什么是多进程，什么是多线程，它们之间的关系是什么？"><a href="#什么是多进程，什么是多线程，它们之间的关系是什么？" class="headerlink" title="什么是多进程，什么是多线程，它们之间的关系是什么？"></a>什么是多进程，什么是多线程，它们之间的关系是什么？</h3><p>打个比喻：</p><p>单进程单线程：一个人在一个桌子上吃菜。<br>单进程多线程：多个人在同一个桌子上一起吃菜。<br>多进程单线程：多个人每个人在自己的桌子上吃菜。</p><p>多线程的情况是多个人同时吃一道菜的时候容易发生争抢，例如两个人同时夹一个菜，一个人刚伸出筷子，结果伸到的时候已经被夹走菜了。此时就必须等一个人夹一口之后，在还给另外一个人夹菜，也就是说资源共享就会发生冲突争抢。</p><p>所以，多线程的主要问题是对资源争抢与同步方面的问题。</p><p>死锁-大家都在等着吃饭，但需要特定条件才能开吃:桌一等着桌二的碗，桌二等着桌三的筷子，桌三呢，等着桌一的勺。于是这三桌就都不能吃饭。</p><p>多进程的情况是每个人在自己的桌子上吃菜，但也带来新的问题：<strong>坐在两张不同的桌子上，说话不方便。</strong></p><p>所以，多进程的主要问题是进程间的通讯问题。</p>]]></content>
     
@@ -70,7 +70,7 @@
     <link href="https://www.jiangbianwanghai.com/2018/07/16/vs-code-install-phpcs-and-phpmd/"/>
     <id>https://www.jiangbianwanghai.com/2018/07/16/vs-code-install-phpcs-and-phpmd/</id>
     <published>2018-07-16T13:42:11.000Z</published>
-    <updated>2018-08-30T14:42:21.867Z</updated>
+    <updated>2018-08-31T09:28:23.710Z</updated>
     
     <content type="html"><![CDATA[<p>上一篇文章提到了为什么要从sublime改到vs code的过程。这篇就来讲讲如何安装phpcs和phpmd</p><p>作为一个PHP开发者，代码规范是必须要遵守的。所以，安装phpcs和phpmd插件是有必要的，可以编写出来既好又快的代码。</p><p>这次我采用的是composer 安装。在Mac系统下进入命令行，先安装composer。这个比较好装，就是下载下来后将它移动到/usr/local/bin这个目录即可。</p><p>接下来就是使用composer 安装phpcs</p><pre><code>composer global require squizlabs/php_codesniffer</code></pre><p>我采取的全局安装，这样不用一个项目一个项目配置，比较方便。</p><p>安装后，找到phpcs的路径</p><pre><code>/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs</code></pre><p>在vs code的配置文件中增加一条配置即可。</p><pre><code>&quot;phpcs.executablePath&quot;: &quot;/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs&quot;</code></pre><p>至于phpmd，安装方式与Phpcs类似，composer安装后，在配置文件中增加一条配置即可。</p><pre><code>&quot;phpmd.validate.executablePath&quot;:&quot;/Users/jiangbianwanghai/.composer/vendor/phpmd/phpmd/src/bin/phpmd&quot;</code></pre>]]></content>
     
@@ -95,7 +95,7 @@
     <link href="https://www.jiangbianwanghai.com/2018/07/13/i-changed-dev-envionment-from-sublime-to-vs-code-because-solved-git-settings-in-vs-code/"/>
     <id>https://www.jiangbianwanghai.com/2018/07/13/i-changed-dev-envionment-from-sublime-to-vs-code-because-solved-git-settings-in-vs-code/</id>
     <published>2018-07-13T15:48:30.000Z</published>
-    <updated>2018-08-30T14:42:48.149Z</updated>
+    <updated>2018-08-31T09:29:40.689Z</updated>
     
     <content type="html"><![CDATA[<p>Sublime这个编辑器我用了很多年，从Sublime2到Sublime3，从Windows版本到Mac版本。最近，Sublime时常的弹出购买的弹窗实在是烦死了。打算准备换一下编辑器。</p><p>一顿搜寻后 vs code进入了我的视野，在v2ex上的开多开发者也表达了他们的使用体验，很多开发者也是从subliime转到vs code的。</p><p>在Mac安装后，体验了一把确实非常的方便，不管是启动速度，主题配色，插件。特别是插件非常的丰富，并且不用过多的配置。超赞。</p><p>但是，我一直没有切过来，原因就是我的开发环境。</p><p>我的开发机是一个Centos虚拟机，开发机上安装了Samba共享了开发目录，然后再使用Sublime直接编辑程序文件。修改完之后，在通过iTerm2登录到服务器上执行git命令将文件提交到代码库。</p><p>看起来是不是很复杂呢？？</p><p>其实，对于我来说，操作非常顺手，习惯了。</p><p>但是，我用vs code开打项目目录的时候，它的git插件提示我很多文件都变更了需要提交，但是这些文件我确定没有动过</p><p>这是怎么回事儿呢？</p><p>一通分析后，发现原来vs code是用的本机的git，而这个项目目录对于本机的git来说是一个全新的，所以才有了这么多变更的提示。</p><p>既然这样，不如就把开发机上的项目目录删除了，在本机的命令行下进入到开发机共享的目录，然后在执行git clone把项目代码拉下来</p><p>然后，在使用vs code将共享目录中的项目目录打开。</p><p>奇迹出现了，这次没有再提示变更了。</p><p>git的问题解决了我就可以顺利的从sublime切换到了vs code了。</p><p>PS：我觉得国外的开发者有时候是一根筋，Sublime这个工具确实很好，但是就是不免费，非要让我放弃它。一个授权要几百块一年，这不明摆着想把忠实用户往竞争对手这里推嘛，哎。</p>]]></content>
     
