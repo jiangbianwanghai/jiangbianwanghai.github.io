@@ -12,8 +12,6 @@
     <meta name="keywords"
           content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit">
     <noscript>
@@ -25,6 +23,7 @@
     <link rel="stylesheet" href="/css/open-iconic.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <meta name="theme-color" content="#ffffff">
     <script>
         /*!
          loadCSS: load a CSS file asynchronously.
@@ -58,7 +57,8 @@
             return ss;
         }
     </script>
-<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+    <link rel="stylesheet" href="/css/prism.css" type="text/css">
+</head>
 <body>
 
 <div id="app">
@@ -110,22 +110,22 @@
 
 <div class="stream-container" id="stream_inner">
 </div>
-<!--
-<nav class="pagination pagination-flex outside-padding-patch" role="pagination">
-    
-    <a class="older-posts pagination-flex-right"></a>
-    
-    <span class="page-number pagination-flex-center">
-                        第 1/2 頁
-                    </span>
-    
-    <a class="older-posts pagination-flex-right" href="/page/2/">下一頁 →</a>
-    
-</nav>
--->
-<div id="__pending_post_item_container" style="display:none">
-    
 
+<nav class="pagination pagination-flex outside-padding-patch" role="pagination">
+    <div class="newer-posts pagination-flex-left">
+        
+        <a class="older-posts pagination-flex-right"></a>
+        
+    </div>
+    <span class="page-number pagination-flex-center">第 1/2 頁</span>
+    <div class="older-posts pagination-flex-right">
+        
+        <a class="older-posts pagination-flex-right" href="/page/2/">下一頁</a>
+        
+    </div>
+</nav>
+
+<div id="__pending_post_item_container" style="display:none">
     
     <div class="card-container">
         <div class="card card-item clear-border card-top-patch">
@@ -375,7 +375,7 @@
             <a class="a-block" href="/2018/05/23/create-group-chat-system-based-on-swoole/" rel="noopener noreferrer">
                 <div class="row">
                         <div class="col-md-4 order-md-last">
-                            <div style="background-image: url('https://www.jiangbianwanghai.com/assets/group_chat_pic.png')" class="card-image card-radius clear-border clear-bottom-border-radius"></div>
+                            <div style="background-image: url('https://www.jiangbianwanghai.com/assets/group_chat_pic1.png')" class="card-image card-radius clear-border clear-bottom-border-radius"></div>
                         </div>
                         <div class="col-md-8 order-md-first" style="display: flex;">
                             <div class="card-item-container clear-flex-xs">
@@ -392,21 +392,6 @@
                                 </div>
                             </div>
                         </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    
-
-    
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/page/2/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell" align="center">
-                        <p class="clear-margin">第 1/2 頁, 下一頁
-                            →</p>
-                    </div>
                 </div>
             </a>
         </div>

@@ -13,8 +13,6 @@
     <meta name="keywords"
           content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit">
     <noscript>
@@ -26,6 +24,7 @@
     <link rel="stylesheet" href="/css/open-iconic.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <meta name="theme-color" content="#ffffff">
     <script>
         /*!
          loadCSS: load a CSS file asynchronously.
@@ -59,7 +58,8 @@
             return ss;
         }
     </script>
-<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+    <link rel="stylesheet" href="/css/prism.css" type="text/css">
+</head>
 <body>
 
 <div id="app">
@@ -154,19 +154,24 @@
 
                     </p>
 
-                    <nav class="pagination" role="pagination">
+                    <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
     
+    <div class="newer-posts pagination-flex-left">
     <a class="newer-posts" href="/2018/06/15/let-your-local-development-environment-support-HTTPS/">
         上一篇: 讓你的本地開發環境支持HTTPS
     </a>
+    </div>
     
-    <span class="page-number"></span>
+    <span class="page-number pagination-flex-center"></span>
     
+    <div class="older-posts pagination-flex-right">
     <a class="older-posts" href="/2018/05/31/bubble-sort-used-c-program/">
         下一篇: 用C語言編寫冒泡排序
     </a>
+    </div>
     
 </nav>
+
 
                     
                 </div>
