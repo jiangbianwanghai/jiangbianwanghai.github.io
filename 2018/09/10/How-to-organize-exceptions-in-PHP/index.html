@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>web开发人员必须要理解的基础知识点 - 江邊望海的技術人生</title>
+    <title>如何组织PHP中的异常 - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -114,24 +114,26 @@
 
         <div class="card card-item clear-border card-top-patch card-clear-hover">
             
-            <div style="background-image: url('https://www.jiangbianwanghai.com/assets/basic.png')"
-                 class="card-image card-radius clear-border clear-bottom-border-radius card-image-bigger"></div>
-            
 
             <div class="card-item-container clear-flex-xs">
                 <div class="card-inner-cell">
-                    <h2>web开发人员必须要理解的基础知识点</h2>
+                    <h2>如何组织PHP中的异常</h2>
 
                     <div>
                         <p>
-                            <time datetime="2018-08-30T16:15:34.000Z" itemprop="datePublished">
-                                2018-08-30 16:15
+                            <time datetime="2018-09-10T11:34:58.000Z" itemprop="datePublished">
+                                2018-09-10 11:34
                             </time>
                             
 
                             
                             
                             <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/php/'>php</a>
+                            
+                            ,
+                            
                             
                             <a href='/tags/基础研究/'>基础研究</a>
                             
@@ -142,40 +144,25 @@
 
 
                     <p class=" post-block-desc">
-                        <h5 id="什么是多进程，什么是多线程，它们之间的关系是什么？"><a href="#什么是多进程，什么是多线程，它们之间的关系是什么？" class="headerlink" title="什么是多进程，什么是多线程，它们之间的关系是什么？"></a>什么是多进程，什么是多线程，它们之间的关系是什么？</h5><p>打个比喻：</p>
-<p>单进程单线程：一个人在一个桌子上吃菜。<br>单进程多线程：多个人在同一个桌子上一起吃菜。<br>多进程单线程：多个人每个人在自己的桌子上吃菜。</p>
-<p>多线程的情况是多个人同时吃一道菜的时候容易发生争抢，例如两个人同时夹一个菜，一个人刚伸出筷子，结果伸到的时候已经被夹走菜了。此时就必须等一个人夹一口之后，在还给另外一个人夹菜，也就是说资源共享就会发生冲突争抢。</p>
-<p><strong>所以，多线程的主要问题是对资源争抢与同步方面的问题。</strong></p>
-<p>死锁-大家都在等着吃饭，但需要特定条件才能开吃:桌一等着桌二的碗，桌二等着桌三的筷子，桌三呢，等着桌一的勺。于是这三桌就都不能吃饭。</p>
-<p>多进程的情况是每个人在自己的桌子上吃菜，但也带来新的问题：<strong>坐在两张不同的桌子上，说话不方便。</strong></p>
-<p><strong>所以，多进程的主要问题是进程间的通讯问题。</strong></p>
-<hr>
-<h5 id="理解同步-异步，阻塞-非阻塞"><a href="#理解同步-异步，阻塞-非阻塞" class="headerlink" title="理解同步/异步，阻塞/非阻塞"></a>理解同步/异步，阻塞/非阻塞</h5><p>为了容易理解，转载网上有一个非常流行的例子。</p>
-<p>老王爱喝茶，需要煮开水</p>
-<p>场景一：老王用水壶煮水，并且站在旁边，不管水开没开，每隔一定时间看看水开了没。<strong>——同步阻塞</strong></p>
-<p>场景二：老王还是用水壶煮水，不再傻傻的站在那里看水开，跑去客厅看电视，但是还是会每隔一段时间过来看看水开了没有，水没有开就走人。<strong>））——同步非阻塞</strong></p>
-<p>场景三：老王这次使用高大上的响水壶来煮水，站在旁边，但是不会再每隔一段时间去看水开，而是等水开了，水壶会自动的通知他。<strong>——异步阻塞</strong></p>
-<p>场景四：老王还是使用响水壶煮水，跑到客厅上网去，等着响水壶自己把水煮熟了以后通知他。<strong>——异步非阻塞</strong></p>
-<p>同步/异步</p>
-<p>可以看出来，同步和异步主要是对老王来说的。假如老王是一个线程。同步就是需要它每隔一段时间来轮询结果，线程去主动请求结果。而异步就是任务处理完成后主动通知现成。<strong>简单理解：同步是线程主动请求结果，异步是线程被动接受结果</strong>。从效率的解读来看，当然异步的效率更高。</p>
-<p>阻塞/非阻塞</p>
-<p>阻塞就是说在煮水的过程中，老王不可以去干其他的事情，非阻塞就是在同样的情况下，可以同时去干其他的事情。阻塞和非阻塞是指线程访问的数据如果尚未就绪，进程是否需要等待，简单说这相当于函数内部的实现区别，也就是未就绪时是直接返回还是等待就绪。</p>
+                        <p>江边望海语：作为一个WEB开发工程师，用PHP编写业务也有10年左右的历史了。现在对PHP的元问题特别的感兴趣。在进行代码Review阶段，我感到疑惑了，团队中有的开发者在程序中会抛出异常，有的则会输出返回码，有的甚至根本就不输出任何报错信息。那么，在编写代码的时候要不要抛出异常？异常对于开发者有什么用？我们应该把异常放在代码中的哪个地方才合适？等这些元问题就都出来了。</p>
+<p>在看一些国外开发者的源码时，特别有感触，代码的严谨性使得阅读者感为观止，有种沐浴春风的感觉。但是，看一般开发者的代码就非常累，完全是按照自己的想法，想一出写一出，没有一点儿严谨性可言。虽然这些拙劣的开发者的程序也能跑通，却为今后的项目重构埋下了很大的隐患。</p>
+<p>没曾想，有一位国内的开发者，跟我一样有类似的问题，并撰写了《如何组织PHP中的异常》，写的非常好。那我就不班门弄斧了，大家直接看他的文章就行了。</p>
+<p>以下是转载内容：</p>
+<p>本文的主题是怎么组织php的异常？在大型项目中异常往往被我们忽略，但是如果前期没有很好的规划好，越到项目后期，重构的成本会越大。</p>
+<p>在实际工作中，对于错误的处理，我们一帮都是直接返回错误号，然后从最内层一层一层往外面传，最后将错误返回给用户，很少使用异常，可能是因为公司里最初写代码比较早，13，14年开始使用php，当时第一批使用者是从C转过来的，从而没有使用异常，导致现在都16年了，php都出7了，我们在实际代码中还是没有使用异常，我前不久在项目中引入了异常，但也是简单的使用try catch，没有很多的经验，网上搜索也只是简单的一些使用例子，没有说在大型项目中怎么去使用，最近也是在读The Clean Architecture in php，深知代码组织的重要性，如果前期没有很好的组织好，后期的维护，重构代价都会很大，今天看到两篇文章：</p>
+<p>Structuring PHP Exceptions</p>
+<p>A Crash Course of Changes to Exception Handling in PHP 7</p>
+<p>所以就有了本文。写这篇文章的目的是探讨一些在实际中怎么使用异常的方式，也希望得到大家的反馈，大家平时在开发中是怎么使用异常的？如何组织的。</p>
 
                     </p>
 
                     <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
     
-    <div class="newer-posts pagination-flex-left">
-    <a class="newer-posts" href="/2018/09/10/How-to-organize-exceptions-in-PHP/">
-        上一篇: 如何组织PHP中的异常
-    </a>
-    </div>
-    
     <span class="page-number pagination-flex-center"></span>
     
     <div class="older-posts pagination-flex-right">
-    <a class="older-posts" href="/2018/08/25/The-magical-effect-of-UUID-in-user-tracking/">
-        下一篇: UUID在用户跟踪的妙用
+    <a class="older-posts" href="/2018/08/31/web-developers-must-understand-the-basic-knowledge/">
+        下一篇: web开发人员必须要理解的基础知识点
     </a>
     </div>
     

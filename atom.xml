@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-09-03T02:28:05.242Z</updated>
+  <updated>2018-09-10T03:45:42.647Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何组织PHP中的异常</title>
+    <link href="https://www.jiangbianwanghai.com/2018/09/10/How-to-organize-exceptions-in-PHP/"/>
+    <id>https://www.jiangbianwanghai.com/2018/09/10/How-to-organize-exceptions-in-PHP/</id>
+    <published>2018-09-10T11:34:58.000Z</published>
+    <updated>2018-09-10T03:45:42.647Z</updated>
+    
+    <content type="html"><![CDATA[<p>江边望海语：作为一个WEB开发工程师，用PHP编写业务也有10年左右的历史了。现在对PHP的元问题特别的感兴趣。在进行代码Review阶段，我感到疑惑了，团队中有的开发者在程序中会抛出异常，有的则会输出返回码，有的甚至根本就不输出任何报错信息。那么，在编写代码的时候要不要抛出异常？异常对于开发者有什么用？我们应该把异常放在代码中的哪个地方才合适？等这些元问题就都出来了。</p><p>在看一些国外开发者的源码时，特别有感触，代码的严谨性使得阅读者感为观止，有种沐浴春风的感觉。但是，看一般开发者的代码就非常累，完全是按照自己的想法，想一出写一出，没有一点儿严谨性可言。虽然这些拙劣的开发者的程序也能跑通，却为今后的项目重构埋下了很大的隐患。</p><p>没曾想，有一位国内的开发者，跟我一样有类似的问题，并撰写了《如何组织PHP中的异常》，写的非常好。那我就不班门弄斧了，大家直接看他的文章就行了。</p><p>以下是转载内容：</p><p>本文的主题是怎么组织php的异常？在大型项目中异常往往被我们忽略，但是如果前期没有很好的规划好，越到项目后期，重构的成本会越大。</p><p>在实际工作中，对于错误的处理，我们一帮都是直接返回错误号，然后从最内层一层一层往外面传，最后将错误返回给用户，很少使用异常，可能是因为公司里最初写代码比较早，13，14年开始使用php，当时第一批使用者是从C转过来的，从而没有使用异常，导致现在都16年了，php都出7了，我们在实际代码中还是没有使用异常，我前不久在项目中引入了异常，但也是简单的使用try catch，没有很多的经验，网上搜索也只是简单的一些使用例子，没有说在大型项目中怎么去使用，最近也是在读The Clean Architecture in php，深知代码组织的重要性，如果前期没有很好的组织好，后期的维护，重构代价都会很大，今天看到两篇文章：</p><p>Structuring PHP Exceptions</p><p>A Crash Course of Changes to Exception Handling in PHP 7</p><p>所以就有了本文。写这篇文章的目的是探讨一些在实际中怎么使用异常的方式，也希望得到大家的反馈，大家平时在开发中是怎么使用异常的？如何组织的。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;江边望海语：作为一个WEB开发工程师，用PHP编写业务也有10年左右的历史了。现在对PHP的元问题特别的感兴趣。在进行代码Review阶段，我感到疑惑了，团队中有的开发者在程序中会抛出异常，有的则会输出返回码，有的甚至根本就不输出任何报错信息。那么，在编写代码的时候要不要抛
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="https://www.jiangbianwanghai.com/tags/php/"/>
+    
+      <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>web开发人员必须要理解的基础知识点</title>
