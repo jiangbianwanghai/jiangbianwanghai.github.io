@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="jiangbianwanghai">
+
+    <title>Let&#39;s Encrypt 泛域名证书申请过程 - 江邊望海的技術人生</title>
+    <meta name="description" content="">
+
+    <meta name="keywords"
+          content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <noscript>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+    </noscript>
+    <link rel="short icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mprogress.css">
+    <link rel="stylesheet" href="/css/open-iconic.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+    <meta name="theme-color" content="#ffffff">
+    <script>
+        /*!
+         loadCSS: load a CSS file asynchronously.
+         [c]2014 @scottjehl, Filament Group, Inc.
+         Licensed MIT
+         */
+        function loadCSS( href, before, media ){
+            "use strict";
+            var ss = window.document.createElement( "link" );
+            var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];
+            var sheets = window.document.styleSheets;
+            ss.rel = "stylesheet";
+            ss.href = href;
+            ss.media = "only x";
+            ref.parentNode.insertBefore( ss, ref );
+            function toggleMedia(){
+                var defined;
+                for( var i = 0; i < sheets.length; i++ ){
+                    if( sheets[ i ].href && sheets[ i ].href.indexOf( href ) > -1 ){
+                        defined = true;
+                    }
+                }
+                if( defined ){
+                    ss.media = media || "all";
+                }
+                else {
+                    setTimeout( toggleMedia );
+                }
+            }
+            toggleMedia();
+            return ss;
+        }
+    </script>
+    <link rel="stylesheet" href="/css/prism.css" type="text/css">
+</head>
+<body>
+
+<div id="app">
+    <nav ref="navBar" class="navbar fixed-top navbar-light">
+    <div id="global-loading-indicator" class="progress-line global-loading-indicator"></div>
+    <div id="nav_background" class="nav-background"></div>
+    <div style="padding-left: 15px;padding-right: 15px" class="container container-narrow nav-content">
+
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" data-toggle="adropdown">
+            <span class="oi" data-glyph="menu"></span>
+        </button>
+        <a id="nav_title" class="navbar-brand Montserrat" href="/">
+            江邊望海的技術人生
+        </a>
+        <div class="float-right navbar-dark nav-icon-group">
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="collapsed_nav">
+                    <li><a href="/" class="a-block nav-icon">首頁</a></li>
+                    <li><a href="/archives" class="a-block nav-icon">歸檔</a></li>
+                    
+                    
+                    <li><a href="/notification.html" class="a-block nav-icon">notification</a></li>
+                    
+                    <li><a href="/about/index.html" class="a-block nav-icon">關務我</a></li>
+                    
+                    
+                    <li><a href="/atom.xml" target="_blank" class="a-block">
+                            <span data-glyph="rss" class="oi nav-icon"></span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>
+    <div class="container container-narrow">
+
+        <div ref="pageHead"
+             v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"
+             class="page-head">
+            <a href="/">
+                <h2>江邊望海的技術人生</h2>
+                <h5>分享真知</h5>
+            </a>
+        </div>
+
+
+<div class="row stream-container">
+    <div class="card-container">
+
+        <div class="card card-item clear-border card-top-patch card-clear-hover">
+            
+            <div style="background-image: url('https://www.jiangbianwanghai.com/assets/encrypt.png')"
+                 class="card-image card-radius clear-border clear-bottom-border-radius card-image-bigger"></div>
+            
+
+            <div class="card-item-container clear-flex-xs">
+                <div class="card-inner-cell">
+                    <h2>Let&#39;s Encrypt 泛域名证书申请过程</h2>
+
+                    <div>
+                        <p>
+                            <time datetime="2018-09-17T18:38:07.000Z" itemprop="datePublished">
+                                2018-09-17 18:38
+                            </time>
+                            
+
+                            
+                            
+                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
+                            
+                            <a href='/tags/基础研究/'>基础研究</a>
+                            
+                            ,
+                            
+                            
+                            <a href='/tags/ssl/'>ssl</a>
+                            
+                            
+                            
+                        </p>
+                    </div>
+
+
+                    <p class=" post-block-desc">
+                        <p>微洽作为一个在线沟通的WebIM，为了数据传输安全，站点支持SSL是标配。申请SSL证书首选 <code>Let&#39;s Encrypt</code>。今年3月14日官方宣布<a href="https://community.letsencrypt.org/t/acme-v2-and-wildcard-certificate-support-is-live/55579/13" target="_blank" rel="noopener">正式对 ACMEv2 和泛域名证书提供支持</a>，为搭建全站的ssl提供的条件。</p>
+<p>申请Let’s Encrypt数字证书，首选使用 <code>acme.sh</code>，亲测，申请和部署还是非常简单的。</p>
+<p>1.首先安装acme.sh</p>
+<p><code>curl <a href="https://get.acme.sh" target="_blank" rel="noopener">https://get.acme.sh</a> | sh</code></p>
+<p>如果acme.sh 命令未找到，执行一下这个 <code>source ~/.bashrc</code></p>
+<p>2.由于我的域名是阿里云购买的，需要验证所有权</p>
+<pre><code>export Ali_Key=&quot;xxx&quot;
+export Ali_Secret=&quot;xxxxxxxx&quot;
+</code></pre><p><a href="https://link.jianshu.com/?t=https%3A%2F%2Fak-console.aliyun.com%2F%23%2Faccesskey" target="_blank" rel="noopener">获取Ali_Key 和 Ali_Secret的方法</a>，其他地方注册的请参考<a href="https://github.com/Neilpang/acme.sh/blob/master/dnsapi/README.md" target="_blank" rel="noopener">这里</a></p>
+<p>3.申请证书</p>
+<p>设置好域名的密钥后，就可以执行申请命令了。</p>
+<pre><code>acme.sh --issue --dns dns_ali -d xxx.com -d *.xxx.com
+
+# 如果出现下面的提示，说明申请成功了
+[Mon Apr 30 15:35:14 CST 2018] Your cert is in  /root/.acme.sh/xxx.com/xxx.com.cer
+[Mon Apr 30 15:35:14 CST 2018] Your cert key is in  /root/.acme.sh/xxx.com/xxx.com.key
+[Mon Apr 30 15:35:14 CST 2018] The intermediate CA cert is in  /root/.acme.sh/xxx.com/ca.cer
+[Mon Apr 30 15:35:14 CST 2018] And the full chain certs is there:  /root/.acme.sh/xxx.com/fullchain.cer
+</code></pre><p>申请的证书会放到 ~/.acme.sh/ 目录里面，所有的 acme.sh 配置都记录在 ~/.acme.sh/ 目录里面，acme.sh 有自动的配置读取，并按域名划分，下次你再次执行的时候，它知道你之前是用的那个目录，只需要告诉它域名就好了。</p>
+<p>4.安装证书</p>
+<pre><code>acme.sh --installcert -d xxx.com \
+             --keypath       /data/nginx/ssl/xxx.com.key  \
+             --fullchainpath /data/nginx/ssl/xxx.com.key.pem \
+             --reloadcmd     &quot;/data/nginx/sbin/nginx -s reload&quot;
+# /data/nginx/ssl/ 是证书安装目录
+# reloadcmd 是nginx 的reload 命令
+
+#如果出现下面的提示，说明安装成功了
+[Mon Apr 30 16:19:32 CST 2018] Installing key to:/data/nginx/ssl/xxx.com.key
+[Mon Apr 30 16:19:32 CST 2018] Installing full chain to:/data/nginx/ssl/xxx.com.key.pem
+[Mon Apr 30 16:19:32 CST 2018] Run reload cmd: /data/nginx/sbin/nginx -s reload
+[Mon Apr 30 16:19:32 CST 2018] Reload success
+</code></pre><p>5.修改 Nginx 启用 SSL</p>
+<pre><code>http {
+  # 新增
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_prefer_server_ciphers on;
+  # 兼容其他老浏览器的 ssl_ciphers 设置请访问 https://wiki.mozilla.org/Security/Server_Side_TLS
+
+  server {
+    listen 80 default_server;
+    # 新增
+    listen 443 ssl;
+    ssl_certificate         /data/nginx/ssl/www.xxx.com.key.pem;
+    ssl_certificate_key     /data/nginx/ssl/www.xxx.com.key;
+    # ssl_dhparam
+    ssl_dhparam             /data/nginx/ssl/dhparam.pem;
+
+    # 其他省略
+  }
+}
+</code></pre><p>6.检查 Nginx 配置是否正确后重启</p>
+<pre><code>/data/nginx/sbin/nginx -t
+# 检查无误后，重启nginx
+/data/nginx/sbin/nginx -s reload
+</code></pre><p>另外，证书的有效期是三个月，证书续期可以执行</p>
+<pre><code>acme.sh --renew -d &quot;xxx.com&quot; -d &quot;*.xxx.com&quot; --dns
+</code></pre>
+                    </p>
+
+                    <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
+    
+    <span class="page-number pagination-flex-center"></span>
+    
+    <div class="older-posts pagination-flex-right">
+    <a class="older-posts" href="/2018/09/10/How-to-organize-exceptions-in-PHP/">
+        下一篇: 如何组织PHP中的异常
+    </a>
+    </div>
+    
+</nav>
+
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        &copy;&nbsp;2018&nbsp;<a target="_blank"
+                                                               href="">jiangbianwanghai</a>
+    </p>
+
+    
+    <p>Theme&nbsp;<a target="_blank"
+                     href="https://github.com/SumiMakito/hexo-theme-journal">Journal.</a>&nbsp;by&nbsp;<a
+                target="_blank" href="https://www.keep.moe">Makito</a>
+    </p>
+    
+
+    <p>
+        Proudly published with&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>
+    </p>
+</footer>
+
+</div>
+</div>
+</div>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src=" /js/vue.min.js"></script>
+<script src=" /js/journal.js"></script>
+<script>
+    loadCSS("//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons");
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#global-loading-indicator").fadeOut(600);
+    });
+</script>
+
+</body>
+</html>
