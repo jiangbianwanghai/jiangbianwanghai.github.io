@@ -149,28 +149,26 @@
                     <p class=" post-block-desc">
                         <p>微洽作为一个在线沟通的WebIM，为了数据传输安全，站点支持SSL是标配。申请SSL证书首选 <code>Let&#39;s Encrypt</code>。今年3月14日官方宣布<a href="https://community.letsencrypt.org/t/acme-v2-and-wildcard-certificate-support-is-live/55579/13" target="_blank" rel="noopener">正式对 ACMEv2 和泛域名证书提供支持</a>，为搭建全站的ssl提供的条件。</p>
 <p>申请Let’s Encrypt数字证书，首选使用 <code>acme.sh</code>，亲测，申请和部署还是非常简单的。</p>
-<p>1.首先安装acme.sh</p>
-<p><code>curl <a href="https://get.acme.sh" target="_blank" rel="noopener">https://get.acme.sh</a> | sh</code></p>
+<h5 id="1-首先安装acme-sh"><a href="#1-首先安装acme-sh" class="headerlink" title="1.首先安装acme.sh"></a>1.首先安装acme.sh</h5><p><code>curl <a href="https://get.acme.sh" target="_blank" rel="noopener">https://get.acme.sh</a> | sh</code></p>
 <p>如果acme.sh 命令未找到，执行一下这个 <code>source ~/.bashrc</code></p>
-<p>2.由于我的域名是阿里云购买的，需要验证所有权</p>
-<pre><code>export Ali_Key=&quot;xxx&quot;
-export Ali_Secret=&quot;xxxxxxxx&quot;
-</code></pre><p><a href="https://link.jianshu.com/?t=https%3A%2F%2Fak-console.aliyun.com%2F%23%2Faccesskey" target="_blank" rel="noopener">获取Ali_Key 和 Ali_Secret的方法</a>，其他地方注册的请参考<a href="https://github.com/Neilpang/acme.sh/blob/master/dnsapi/README.md" target="_blank" rel="noopener">这里</a></p>
-<p>3.申请证书</p>
-<p>设置好域名的密钥后，就可以执行申请命令了。</p>
-<pre><code>acme.sh --issue --dns dns_ali -d xxx.com -d *.xxx.com
+<h5 id="2-由于我的域名是阿里云购买的，需要验证所有权"><a href="#2-由于我的域名是阿里云购买的，需要验证所有权" class="headerlink" title="2.由于我的域名是阿里云购买的，需要验证所有权"></a>2.由于我的域名是阿里云购买的，需要验证所有权</h5><pre class=" language-shell"><code class="language-shell">export Ali_Key="xxx"
+export Ali_Secret="xxxxxxxx"
+</code></pre>
+<p><a href="https://link.jianshu.com/?t=https%3A%2F%2Fak-console.aliyun.com%2F%23%2Faccesskey" target="_blank" rel="noopener">获取Ali_Key 和 Ali_Secret的方法</a>，其他地方注册的请参考<a href="https://github.com/Neilpang/acme.sh/blob/master/dnsapi/README.md" target="_blank" rel="noopener">这里</a></p>
+<h5 id="3-申请证书"><a href="#3-申请证书" class="headerlink" title="3.申请证书"></a>3.申请证书</h5><p>设置好域名的密钥后，就可以执行申请命令了。</p>
+<pre class=" language-shell"><code class="language-shell">acme.sh --issue --dns dns_ali -d xxx.com -d *.xxx.com
 
 # 如果出现下面的提示，说明申请成功了
 [Mon Apr 30 15:35:14 CST 2018] Your cert is in  /root/.acme.sh/xxx.com/xxx.com.cer
 [Mon Apr 30 15:35:14 CST 2018] Your cert key is in  /root/.acme.sh/xxx.com/xxx.com.key
 [Mon Apr 30 15:35:14 CST 2018] The intermediate CA cert is in  /root/.acme.sh/xxx.com/ca.cer
 [Mon Apr 30 15:35:14 CST 2018] And the full chain certs is there:  /root/.acme.sh/xxx.com/fullchain.cer
-</code></pre><p>申请的证书会放到 ~/.acme.sh/ 目录里面，所有的 acme.sh 配置都记录在 ~/.acme.sh/ 目录里面，acme.sh 有自动的配置读取，并按域名划分，下次你再次执行的时候，它知道你之前是用的那个目录，只需要告诉它域名就好了。</p>
-<p>4.安装证书</p>
-<pre><code>acme.sh --installcert -d xxx.com \
+</code></pre>
+<p>申请的证书会放到 ~/.acme.sh/ 目录里面，所有的 acme.sh 配置都记录在 ~/.acme.sh/ 目录里面，acme.sh 有自动的配置读取，并按域名划分，下次你再次执行的时候，它知道你之前是用的那个目录，只需要告诉它域名就好了。</p>
+<h5 id="4-安装证书"><a href="#4-安装证书" class="headerlink" title="4.安装证书"></a>4.安装证书</h5><pre class=" language-shell"><code class="language-shell">acme.sh --installcert -d xxx.com \
              --keypath       /data/nginx/ssl/xxx.com.key  \
              --fullchainpath /data/nginx/ssl/xxx.com.key.pem \
-             --reloadcmd     &quot;/data/nginx/sbin/nginx -s reload&quot;
+             --reloadcmd     "/data/nginx/sbin/nginx -s reload"
 # /data/nginx/ssl/ 是证书安装目录
 # reloadcmd 是nginx 的reload 命令
 
@@ -179,8 +177,8 @@ export Ali_Secret=&quot;xxxxxxxx&quot;
 [Mon Apr 30 16:19:32 CST 2018] Installing full chain to:/data/nginx/ssl/xxx.com.key.pem
 [Mon Apr 30 16:19:32 CST 2018] Run reload cmd: /data/nginx/sbin/nginx -s reload
 [Mon Apr 30 16:19:32 CST 2018] Reload success
-</code></pre><p>5.修改 Nginx 启用 SSL</p>
-<pre><code>http {
+</code></pre>
+<h5 id="5-修改-Nginx-启用-SSL"><a href="#5-修改-Nginx-启用-SSL" class="headerlink" title="5.修改 Nginx 启用 SSL"></a>5.修改 Nginx 启用 SSL</h5><pre class=" language-shell"><code class="language-shell">http {
   # 新增
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_prefer_server_ciphers on;
@@ -198,16 +196,29 @@ export Ali_Secret=&quot;xxxxxxxx&quot;
     # 其他省略
   }
 }
-</code></pre><p>6.检查 Nginx 配置是否正确后重启</p>
-<pre><code>/data/nginx/sbin/nginx -t
+</code></pre>
+<h5 id="6-检查-Nginx-配置是否正确后重启"><a href="#6-检查-Nginx-配置是否正确后重启" class="headerlink" title="6.检查 Nginx 配置是否正确后重启"></a>6.检查 Nginx 配置是否正确后重启</h5><pre class=" language-shell"><code class="language-shell">/data/nginx/sbin/nginx -t
 # 检查无误后，重启nginx
 /data/nginx/sbin/nginx -s reload
-</code></pre><p>另外，证书的有效期是三个月，证书续期可以执行</p>
-<pre><code>acme.sh --renew -d &quot;xxx.com&quot; -d &quot;*.xxx.com&quot; --dns
 </code></pre>
+<p>另外，证书的有效期是三个月，证书续期可以执行</p>
+<pre class=" language-shell"><code class="language-shell">acme.sh --renew -d "xxx.com" -d "*.xxx.com" --dns
+</code></pre>
+
+                        <hr />
+                        <b>本文作者：</b> 江边望海<br />
+                        <b>本文链接：</b> <a href='https://www.jiangbianwanghai.com/2018/09/18/Let-s-Encrypt-pan-domain-name-certificate-application-process/'>https://www.jiangbianwanghai.com/2018/09/18/Let-s-Encrypt-pan-domain-name-certificate-application-process/</a><br />
+                        <b>版权声明：</b> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！<br />
+                        <hr />
                     </p>
 
                     <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
+    
+    <div class="newer-posts pagination-flex-left">
+    <a class="newer-posts" href="/2018/09/18/http-protocol/">
+        上一篇: 了解HTTP协议
+    </a>
+    </div>
     
     <span class="page-number pagination-flex-center"></span>
     

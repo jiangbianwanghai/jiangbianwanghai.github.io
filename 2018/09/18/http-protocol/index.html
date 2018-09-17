@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>UUID在用户跟踪的妙用 - 江邊望海的技術人生</title>
+    <title>了解HTTP协议 - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -114,18 +114,18 @@
 
         <div class="card card-item clear-border card-top-patch card-clear-hover">
             
-            <div style="background-image: url('https://www.jiangbianwanghai.com/assets/hacker.jpg')"
+            <div style="background-image: url('http_2.jpg')"
                  class="card-image card-radius clear-border clear-bottom-border-radius card-image-bigger"></div>
             
 
             <div class="card-item-container clear-flex-xs">
                 <div class="card-inner-cell">
-                    <h2>UUID在用户跟踪的妙用</h2>
+                    <h2>了解HTTP协议</h2>
 
                     <div>
                         <p>
-                            <time datetime="2018-08-25T09:11:44.000Z" itemprop="datePublished">
-                                2018-08-25 09:11
+                            <time datetime="2018-09-18T05:13:37.000Z" itemprop="datePublished">
+                                2018-09-18 05:13
                             </time>
                             
 
@@ -135,6 +135,11 @@
                             
                             <a href='/tags/基础研究/'>基础研究</a>
                             
+                            ,
+                            
+                            
+                            <a href='/tags/网络协议/'>网络协议</a>
+                            
                             
                             
                         </p>
@@ -142,64 +147,51 @@
 
 
                     <p class=" post-block-desc">
-                        <p>#前言</p>
-<p>我们如何来识别来访的客户端，并对来访的客户端做分析呢？这个实践有点儿网站分析的意思。网站统计就是识别不同的客户端并对客户端进行分析的过程。这里面有一个核心的技术，就是对客户端的识别。</p>
-<p>#UUID</p>
-<p>我们常用的技术实践是，通过服务器将一个唯一标识符分发给客户端，客户端端将标识符存储在Cookie中，这样服务器端就可以轻易的识别客户端了。那么，对于标识符也是有要求的，就是必须是“同一空间唯一标识符”。因为，就用到了咱们今天讨论的UUID</p>
-<p><strong>什么是UUID？</strong></p>
-<p>UUID是Universally Unique Identifier的缩写，它是在一定的范围内（从特定的名字空间到全球）唯一的机器生成的标识符。UUID具有以下涵义：</p>
-<pre><code>经由一定的算法机器生成
-</code></pre><p>为了保证UUID的唯一性，规范定义了包括网卡MAC地址、时间戳、名字空间（Namespace）、随机或伪随机数、时序等元素，以及从这些元素生成UUID的算法。UUID的复杂特性在保证了其唯一性的同时，意味着只能由计算机生成。</p>
-<pre><code>非人工指定，非人工识别
-</code></pre><p>UUID是不能人工指定的，除非你冒着UUID重复的风险。UUID的复杂性决定了“一般人“不能直接从一个UUID知道哪个对象和它关联。</p>
-<pre><code>在特定的范围内重复的可能性极小
-</code></pre><p>UUID的生成规范定义的算法主要目的就是要保证其唯一性。但这个唯一性是有限的，只在特定的范围内才能得到保证，这和UUID的类型有关（参见UUID的版本）。</p>
-<p>UUID是16字节128位长的数字，通常以36字节的字符串表示，示例如下：</p>
-<p>3F2504E0-4F89-11D3-9A0C-0305E82C3301</p>
-<p>其中的字母是16进制表示，大小写无关。</p>
-<p>GUID（Globally Unique Identifier）是UUID的别名；但在实际应用中，GUID通常是指微软实现的UUID。</p>
-<p>UUID的版本</p>
-<p>UUID具有多个版本，每个版本的算法不同，应用范围也不同。</p>
-<p>首先是一个特例－－Nil UUID－－通常我们不会用到它，它是由全为0的数字组成，如下：</p>
-<p>00000000-0000-0000-0000-000000000000</p>
-<p>UUID Version 1：基于时间的UUID</p>
-<p>基于时间的UUID通过计算当前时间戳、随机数和机器MAC地址得到。由于在算法中使用了MAC地址，这个版本的UUID可以保证在全球范围的唯一性。但与此同时，使用MAC地址会带来安全性问题，这就是这个版本UUID受到批评的地方。如果应用只是在局域网中使用，也可以使用退化的算法，以IP地址来代替MAC地址－－Java的UUID往往是这样实现的（当然也考虑了获取MAC的难度）。</p>
-<p>UUID Version 2：DCE安全的UUID</p>
-<p>DCE（Distributed Computing Environment）安全的UUID和基于时间的UUID算法相同，但会把时间戳的前4位置换为POSIX的UID或GID。这个版本的UUID在实际中较少用到。</p>
-<p>UUID Version 3：基于名字的UUID（MD5）</p>
-<p>基于名字的UUID通过计算名字和名字空间的MD5散列值得到。这个版本的UUID保证了：相同名字空间中不同名字生成的UUID的唯一性；不同名字空间中的UUID的唯一性；相同名字空间中相同名字的UUID重复生成是相同的。</p>
-<p>UUID Version 4：随机UUID</p>
-<p>根据随机数，或者伪随机数生成UUID。这种UUID产生重复的概率是可以计算出来的，但随机的东西就像是买彩票：你指望它发财是不可能的，但狗屎运通常会在不经意中到来。</p>
-<p>UUID Version 5：基于名字的UUID（SHA1）</p>
-<p>和版本3的UUID算法类似，只是散列值计算使用SHA1（Secure Hash Algorithm 1）算法。</p>
-<p>UUID的应用</p>
-<p>从UUID的不同版本可以看出，Version 1/2适合应用于分布式计算环境下，具有高度的唯一性；Version 3/5适合于一定范围内名字唯一，且需要或可能会重复生成UUID的环境下；至于Version 4，我个人的建议是最好不用（虽然它是最简单最方便的）。</p>
-<p>通常我们建议使用UUID来标识对象或持久化数据，但以下情况最好不使用UUID：</p>
-<pre><code>映射类型的对象。比如只有代码及名称的代码表。
-人工维护的非系统生成对象。比如系统中的部分基础数据。
-</code></pre><p>对于具有名称不可重复的自然特性的对象，最好使用Version 3/5的UUID。比如系统中的用户。如果用户的UUID是Version 1的，如果你不小心删除了再重建用户，你会发现人还是那个人，用户已经不是那个用户了。（虽然标记为删除状态也是一种解决方案，但会带来实现上的复杂性。）</p>
-<p>UUID规范：RFC 4122</p>
+                        <p>HTTP 0.9</p>
+<p>只有一个GET方法<br>没有header等描述数据信息<br>服务器发送完毕, 就关闭TCP连接</p>
+<p>HTTP 1.0</p>
+<p>增加了很多方法, 例如POST, PUT, DELETE等<br>增加了status code和header<br>增加了多字符集的支持, 多部分发送, 权限, 缓存等</p>
+<p>HTTP 1.1</p>
+<p>持久连接/长连接<br>Pipeline 客户端可以在同一个连接中发送多个请求, 服务端按顺序返回(串行)<br>增加host头, 有了host之后可以实现一台web服务可以接收/处理多个域名的请求<br>增加了其他更多的方法</p>
+<p>HTTP 2.0</p>
+<p>2.0所有的数据以二进制进行传输(帧), 在1.1大部分是以字符串的形式传输<br>得益于基于帧的传输, 可以实现在同一个连接里面发送多个请求不再需要按顺序来返回(并行)<br>头信息压缩, 1.1的header头以字符串的形式进行传输, 占用了大量带宽<br>推送, 1.1之前只支持客户端主动向服务端发起请求, 服务端被动向客户端响应请求; 2.0之后服务可以主动向客户端发送数据(例子: 客户端在发起请求访问服务端页面时, 先请求html页面, 当客户端收到服务端发来的html数据之后, 客户端浏览器进行解析并渲染, 在其中, 发现了引用到了其他文件, 如css, js文件, 均以url链接形式引用, 此时浏览器会按顺序再次对新的资源发起请求; 2.0中, 此场景下, 客户端在请求了html页面后, 服务端可以实现主动将css, js数据推送到客户端, 从而解决了1.1串行请求资源的性能低下问题. 并且服务端主动推送资源到客户端, 也可以解决客户端因各种原因, 请求不到指定资源的情况)<br>2.0 以提高效率为主要目标对1.1进行了大量改进</p>
+<p>经典五层模型</p>
+<p>应用层  —&gt; HTTP/FTP</p>
+<p>传输层  —&gt; TCP/UDP</p>
+<p>网络层: 数据在节点之间传输创建逻辑链路</p>
+<p>数据链路层: 在通信的实体间建立数据链路连接(0101)</p>
+<p>物理层: 定义物理设备如何传输数据</p>
+<p>传输层</p>
+<p>向用户提供可靠的端到端的服务, 传输层向高层屏蔽了下层数据通信的细节</p>
+<p>应用层</p>
+<p>为应用软件提供服务, 构建在传输层协议之上, 屏蔽网络通信细节</p>
+<p>HTTP(TCP)的三次握手<br>三次握手是TCP连接中的概念, HTTP不存在连接的概念, HTTP只有请求和响应的概念</p>
+<p>每个HTTP的请求与响应都是需要基于一个TCP的连接的</p>
+<p>User http requests ———— TCP connection ———— Server http response</p>
+<p>在HTTP 1.0 版本中, 客户端发起一个HTTP请求, 此时, 会创建一条TCP连接通道, 在服务端处理完毕, 响应给客户端之后, 这条TCP连接就会被断掉</p>
+<p>在HTTP 1.1版本中, 通过声明特殊的属性, 可以实现一个TCP连接上, 可以发送多个HTTP请求(长连接/Keepalive)</p>
+<p>在HTTP 2.0 版本中, 可以实现, 同一个客户端请求同一个服务端, 只需要一个TCP连接即可, 因为2.0版本支持并行发送请求, 和并行接收请求, 不需要再额外创建更多的TCP连接</p>
+<p>三次握手</p>
+<pre class=" language-shell"><code class="language-shell">client               server
+———————SYN=1, Seq=x—————— >
+<——SYN=1, ACK=x+1, Seq=Y——
+———————ACK=Y+1, Seq=Z————>
+</code></pre>
 
                         <hr />
                         <b>本文作者：</b> 江边望海<br />
-                        <b>本文链接：</b> <a href='https://www.jiangbianwanghai.com/2018/08/25/The-magical-effect-of-UUID-in-user-tracking/'>https://www.jiangbianwanghai.com/2018/08/25/The-magical-effect-of-UUID-in-user-tracking/</a><br />
+                        <b>本文链接：</b> <a href='https://www.jiangbianwanghai.com/2018/09/18/http-protocol/'>https://www.jiangbianwanghai.com/2018/09/18/http-protocol/</a><br />
                         <b>版权声明：</b> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！<br />
                         <hr />
                     </p>
 
                     <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
     
-    <div class="newer-posts pagination-flex-left">
-    <a class="newer-posts" href="/2018/08/31/web-developers-must-understand-the-basic-knowledge/">
-        上一篇: web开发人员必须要理解的基础知识点
-    </a>
-    </div>
-    
     <span class="page-number pagination-flex-center"></span>
     
     <div class="older-posts pagination-flex-right">
-    <a class="older-posts" href="/2018/07/16/vs-code-install-phpcs-and-phpmd/">
-        下一篇: 在vs code安装phpcs和phpmd插件
+    <a class="older-posts" href="/2018/09/18/Let-s-Encrypt-pan-domain-name-certificate-application-process/">
+        下一篇: Let's Encrypt 泛域名证书申请过程
     </a>
     </div>
     

@@ -336,14 +336,12 @@ a {
 }
 
 .pagination-flex-left {
-    flex: 1;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
 .pagination-flex-right {
-    flex: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
