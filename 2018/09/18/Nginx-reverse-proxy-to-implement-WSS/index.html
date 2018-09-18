@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>了解HTTP协议 - 江邊望海的技術人生</title>
+    <title>Nginx反向代理Websocket，实现wss访问 - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -114,18 +114,18 @@
 
         <div class="card card-item clear-border card-top-patch card-clear-hover">
             
-            <div style="background-image: url('https://www.jiangbianwanghai.com/assets/p.jpg')"
+            <div style="background-image: url('https://www.jiangbianwanghai.com/assets/wss.jpg')"
                  class="card-image card-radius clear-border clear-bottom-border-radius card-image-bigger"></div>
             
 
             <div class="card-item-container clear-flex-xs">
                 <div class="card-inner-cell">
-                    <h2>了解HTTP协议</h2>
+                    <h2>Nginx反向代理Websocket，实现wss访问</h2>
 
                     <div>
                         <p>
-                            <time datetime="2018-09-18T05:13:37.000Z" itemprop="datePublished">
-                                2018-09-18 05:13
+                            <time datetime="2018-09-18T08:26:26.000Z" itemprop="datePublished">
+                                2018-09-18 08:26
                             </time>
                             
 
@@ -138,7 +138,7 @@
                             ,
                             
                             
-                            <a href='/tags/网络协议/'>网络协议</a>
+                            <a href='/tags/服务器配置/'>服务器配置</a>
                             
                             
                             
@@ -147,57 +147,70 @@
 
 
                     <p class=" post-block-desc">
-                        <p>HTTP 0.9</p>
-<p>只有一个GET方法<br>没有header等描述数据信息<br>服务器发送完毕, 就关闭TCP连接</p>
-<p>HTTP 1.0</p>
-<p>增加了很多方法, 例如POST, PUT, DELETE等<br>增加了status code和header<br>增加了多字符集的支持, 多部分发送, 权限, 缓存等</p>
-<p>HTTP 1.1</p>
-<p>持久连接/长连接<br>Pipeline 客户端可以在同一个连接中发送多个请求, 服务端按顺序返回(串行)<br>增加host头, 有了host之后可以实现一台web服务可以接收/处理多个域名的请求<br>增加了其他更多的方法</p>
-<p>HTTP 2.0</p>
-<p>2.0所有的数据以二进制进行传输(帧), 在1.1大部分是以字符串的形式传输<br>得益于基于帧的传输, 可以实现在同一个连接里面发送多个请求不再需要按顺序来返回(并行)<br>头信息压缩, 1.1的header头以字符串的形式进行传输, 占用了大量带宽<br>推送, 1.1之前只支持客户端主动向服务端发起请求, 服务端被动向客户端响应请求; 2.0之后服务可以主动向客户端发送数据(例子: 客户端在发起请求访问服务端页面时, 先请求html页面, 当客户端收到服务端发来的html数据之后, 客户端浏览器进行解析并渲染, 在其中, 发现了引用到了其他文件, 如css, js文件, 均以url链接形式引用, 此时浏览器会按顺序再次对新的资源发起请求; 2.0中, 此场景下, 客户端在请求了html页面后, 服务端可以实现主动将css, js数据推送到客户端, 从而解决了1.1串行请求资源的性能低下问题. 并且服务端主动推送资源到客户端, 也可以解决客户端因各种原因, 请求不到指定资源的情况)<br>2.0 以提高效率为主要目标对1.1进行了大量改进</p>
-<p>经典五层模型</p>
-<p>应用层  —&gt; HTTP/FTP</p>
-<p>传输层  —&gt; TCP/UDP</p>
-<p>网络层: 数据在节点之间传输创建逻辑链路</p>
-<p>数据链路层: 在通信的实体间建立数据链路连接(0101)</p>
-<p>物理层: 定义物理设备如何传输数据</p>
-<p>传输层</p>
-<p>向用户提供可靠的端到端的服务, 传输层向高层屏蔽了下层数据通信的细节</p>
-<p>应用层</p>
-<p>为应用软件提供服务, 构建在传输层协议之上, 屏蔽网络通信细节</p>
-<p>HTTP(TCP)的三次握手<br>三次握手是TCP连接中的概念, HTTP不存在连接的概念, HTTP只有请求和响应的概念</p>
-<p>每个HTTP的请求与响应都是需要基于一个TCP的连接的</p>
-<p>User http requests ———— TCP connection ———— Server http response</p>
-<p>在HTTP 1.0 版本中, 客户端发起一个HTTP请求, 此时, 会创建一条TCP连接通道, 在服务端处理完毕, 响应给客户端之后, 这条TCP连接就会被断掉</p>
-<p>在HTTP 1.1版本中, 通过声明特殊的属性, 可以实现一个TCP连接上, 可以发送多个HTTP请求(长连接/Keepalive)</p>
-<p>在HTTP 2.0 版本中, 可以实现, 同一个客户端请求同一个服务端, 只需要一个TCP连接即可, 因为2.0版本支持并行发送请求, 和并行接收请求, 不需要再额外创建更多的TCP连接</p>
-<p>三次握手</p>
-<pre class=" language-shell"><code class="language-shell">client               server
-———————SYN=1, Seq=x—————— >
-<——SYN=1, ACK=x+1, Seq=Y——
-———————ACK=Y+1, Seq=Z————>
+                        <p>如何让nginx反向代理实现websocket功能？这是我在开发微洽系统时思考的。毕竟如果想支持高并发，使用nginx做反向代理，对接后端的应用服务器。这样的架构才更容易扩展。</p>
+<p>既然是传输聊天信息的所以，微洽自然使用了SSL。虽然不使用nginx做代理，直接使用Swoole的websocket也能支持wss访问，但是却只能依赖一台后端的应用服务器，架构无法扩展的系统是不可以忍受的。</p>
+<p>让Swoole支持wss也是非常简单的，只需要你使用域名申请一个证书就可以了。比如：你的域名是abc.com，申请的SSL证书得到cert和key之后。</p>
+<pre class=" language-shell"><code class="language-shell">将
+$server = new swoole_websocket_server("0.0.0.0", 9502);
+修改为
+$server = new swoole_websocket_server("0.0.0.0", 9502, SWOOLE_PROCESS, SWOOLE_SOCK_TCP | SWOOLE_SSL);
+$server->set(array(
+    'ssl_cert_file' => '/path/to/abc.com.cert',
+    'ssl_key_file'  => '/path/to/abc.com.key',
+));
 </code></pre>
+<p>就可以了，唯一要注意的是，使用js发起请求的时候，需要将IP访问改为域名访问。</p>
+<p>如果使用nginx做反向代理，则不需要改动上面的代码。直接在nginx中增加配置文件即可。配置如下：</p>
+<pre class=" language-shell"><code class="language-shell">map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+}
+
+upstream websocket {
+    server localhost:1234; # appserver_ip:ws_port
+}
+
+server {
+    listen 443 ssl;
+    server_name ws.abc.com;
+    ssl on;
+        ssl_certificate         /path/to/abc.com.cert;
+        ssl_certificate_key     /path/to/abc.com.key;
+
+    location / {
+         proxy_pass http://websocket;
+         proxy_read_timeout 300s;
+         proxy_send_timeout 300s;
+
+         proxy_set_header Host $host;
+         proxy_set_header X-Real-IP $remote_addr;
+         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection $connection_upgrade;
+    }
+}
+</code></pre>
+<p>proxy_read_timeout</p>
+<p>默认值 60s 上下文 http server location 说明 该指令设置与代理服务器的读超时时间。它决定了nginx会等待多长时间来获得请求的响应。 这个时间不是获得整个response的时间，而是两次reading操作的时间。</p>
+<p>proxy_send_timeout</p>
+<p>语法 proxy_send_timeout time 默认值 60s 上下文 http server location 说明 这个指定设置了发送请求给upstream服务器的超时时间。超时设置不是为了整个发送期间，而是在两次write操作期间。 如果超时后，upstream没有收到新的数据，nginx会关闭连接。</p>
 
                         <hr />
                         <b>本文作者：</b> 江边望海<br />
-                        <b>本文链接：</b> <a href='https://www.jiangbianwanghai.com/2018/09/18/http-protocol/'>https://www.jiangbianwanghai.com/2018/09/18/http-protocol/</a><br />
+                        <b>本文链接：</b> <a href='https://www.jiangbianwanghai.com/2018/09/18/Nginx-reverse-proxy-to-implement-WSS/'>https://www.jiangbianwanghai.com/2018/09/18/Nginx-reverse-proxy-to-implement-WSS/</a><br />
                         <b>版权声明：</b> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！<br />
                         <hr />
                     </p>
 
                     <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
     
-    <div class="newer-posts pagination-flex-left">
-    <a class="newer-posts" href="/2018/09/18/Nginx-reverse-proxy-to-implement-WSS/">
-        上一篇: Nginx反向代理Websocket，实现wss访问
-    </a>
-    </div>
-    
     <span class="page-number pagination-flex-center"></span>
     
     <div class="older-posts pagination-flex-right">
-    <a class="older-posts" href="/2018/09/18/Let-s-Encrypt-pan-domain-name-certificate-application-process/">
-        下一篇: Let's Encrypt 泛域名证书申请过程
+    <a class="older-posts" href="/2018/09/18/http-protocol/">
+        下一篇: 了解HTTP协议
     </a>
     </div>
     
