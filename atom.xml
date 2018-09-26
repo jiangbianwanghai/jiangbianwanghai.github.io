@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-09-18T01:04:20.685Z</updated>
+  <updated>2018-09-26T18:55:47.514Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB更新记录的细节优化</title>
+    <link href="https://www.jiangbianwanghai.com/2018/09/27/mongodb-update-record/"/>
+    <id>https://www.jiangbianwanghai.com/2018/09/27/mongodb-update-record/</id>
+    <published>2018-09-27T02:41:21.000Z</published>
+    <updated>2018-09-26T18:55:47.514Z</updated>
+    
+    <content type="html"><![CDATA[<p>在日常的开发中，经常需要更新数据。而很多判断语句写的并不严谨。在程序中的正常与否的判断应该建立在服务可用的基础上的。如果服务不可用，判断是没有意义的。</p><p>比如，对MongoDB数据库中的记录进行更新的时候。是否更新成功应该是取更新后的结果。这个在PHP的MongoDB扩展手册里面已经有说明了。</p><pre class=" language-php"><code class="language-php"><span class="token variable">$collection</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MongoDB<span class="token punctuation">\</span>Client</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">test</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">restaurants</span><span class="token punctuation">;</span><span class="token variable">$updateResult</span> <span class="token operator">=</span> <span class="token variable">$collection</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">updateOne</span><span class="token punctuation">(</span>    <span class="token punctuation">[</span> <span class="token string">'restaurant_id'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'40356151'</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>    <span class="token punctuation">[</span> <span class="token string">'$set'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">[</span> <span class="token string">'name'</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'Brunos on Astoria'</span> <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Matched %d document(s)\n"</span><span class="token punctuation">,</span> <span class="token variable">$updateResult</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">getMatchedCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Modified %d document(s)\n"</span><span class="token punctuation">,</span> <span class="token variable">$updateResult</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">getModifiedCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>更新后，通过<code>getModifiedCount()</code> 获取更新的记录数。如果记录数存在则证明更新成功。但是，我们经常在更新记录状态的时候喜欢把更新时间也带上。但是如果带上就很难识别是否真的更新成功了。</p><p>比如，我们要软删除一条记录，第一次删除的时候已经将这条记录更新成-1了（-1代表标记删除），但是如果你再次执行的时候，虽然没有对这条记录的做任何更改，但是由于你加上了一个更新时间，这个时候通过<code>getModifiedCount()</code>获得还是更新了一条。如果这样，在程序里面做是否更新成功的判断就没有任何意义了，毕竟第二次更新这条记录的时候，状态值并没有变化，而是记录的更新时间变化了而已。</p><hr><p>更有甚者会先通过查询出来记录，然后在更新操作，本身这种思路就有很大的效率风险。既然，MongoDB的PHP扩展已经给了我们updateOne和updateMany这两个方法，为什么不用呢？非要再查一下，根本没有这个必要。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在日常的开发中，经常需要更新数据。而很多判断语句写的并不严谨。在程序中的正常与否的判断应该建立在服务可用的基础上的。如果服务不可用，判断是没有意义的。&lt;/p&gt;
+&lt;p&gt;比如，对MongoDB数据库中的记录进行更新的时候。是否更新成功应该是取更新后的结果。这个在PHP的Mong
+      
+    
+    </summary>
+    
+    
+      <category term="MongoDB" scheme="https://www.jiangbianwanghai.com/tags/MongoDB/"/>
+    
+  </entry>
   
   <entry>
     <title>Nginx反向代理Websocket，实现wss访问</title>

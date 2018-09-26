@@ -7,7 +7,7 @@
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="jiangbianwanghai">
 
-    <title>歸檔: 2018/9 - 江邊望海的技術人生</title>
+    <title>標籤: MongoDB - 江邊望海的技術人生</title>
     <meta name="description" content="">
 
     <meta name="keywords"
@@ -109,8 +109,15 @@
         </div>
 
 
-<div id="archive_container">
+<h3 class="section-title">標籤: MongoDB</h3>
 
+<div class="row stream-container">
+    <div id="stream_inner_left" class="col-lg-6 col-md-6 col-no-h-padding">
+
+    </div>
+    <div id="stream_inner_right" class="col-lg-6 col-md-6 col-no-h-padding">
+
+    </div>
 </div>
 
 <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
@@ -127,110 +134,19 @@
 
 <div id="__pending_post_item_container" style="display:none">
     
-    
-    <div>
-    <h3 class="section-title">
-        <a href="09">
-            2018/09
-        </a>
-    </h3>
-    
-
     <div class="card-container">
         <div class="card card-item clear-border card-top-patch">
             <a class="a-block" href="/2018/09/27/mongodb-update-record/" rel="noopener noreferrer">
+                
                 <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">MongoDB更新记录的细节优化</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            09-27
-                        </p>
-                    </div>
+                    <div class="card-inner-cell"><h4 class="clear-margin">MongoDB更新记录的细节优化</h4>
+                        
+                        <p class="clear-margin post-block-desc">一个细节的探究却暴露出了在编码思路上的大不同</p></div>
                 </div>
             </a>
         </div>
     </div>
-
     
-    
-
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/09/18/Nginx-reverse-proxy-to-implement-WSS/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">Nginx反向代理Websocket，实现wss访问</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            09-18
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    
-    
-
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/09/18/http-protocol/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">了解HTTP协议</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            09-18
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    
-    
-
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/09/18/Let-s-Encrypt-pan-domain-name-certificate-application-process/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">Let&#39;s Encrypt 泛域名证书申请过程</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            09-17
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    
-    
-
-    <div class="card-container">
-        <div class="card card-item clear-border card-top-patch">
-            <a class="a-block" href="/2018/09/10/How-to-organize-exceptions-in-PHP/" rel="noopener noreferrer">
-                <div class="card-item-container clear-flex-xs">
-                    <div class="card-inner-cell">
-                        <h4 class="clear-margin">如何组织PHP中的异常</h4>
-
-                        <p class=" post-block-desc clear-margin">
-                            09-10
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    
-    </div>
-
 </div>
 
 <footer>
@@ -266,10 +182,9 @@
 
 
 <script>
-    let archiveYearlyNodes;
+    let cachedPostsNodes;
     let leftContainer;
     let rightContainer;
-    let archiveContainer;
     let lastColumnCount;
     let loadingIndicator;
 
@@ -279,7 +194,6 @@
         lastColumnCount = -1;
         leftContainer = $('#stream_inner_left');
         rightContainer = $('#stream_inner_right');
-        archiveContainer = $('#archive_container');
 
         function reLayoutPosts() {
             // suppress unnecessary re-layouts
@@ -287,41 +201,20 @@
             if (columnCount === lastColumnCount)return;
             loadingIndicator.show();
             lastColumnCount = columnCount;
-            archiveContainer.empty();
+            let leftHeight = 0;
+            let rightHeight = 0;
+            leftContainer.empty();
             rightContainer.empty();
-            archiveYearlyNodes = $("#__pending_post_item_container").find("> div");
-            for (let i = 0; i < archiveYearlyNodes.length; i++) {
-                let leftHeight = 0;
-                let rightHeight = 0;
-
-                let yearly = $(archiveYearlyNodes[i]).clone();
-                let yearTitle = yearly.children()[0];
-                let yearContainer = $(document.createElement('div'));
-                let yearContainerInner = $(document.createElement('div'));
-                let yearContainerInnerL = $(document.createElement('div'));
-                let yearContainerInnerR = $(document.createElement('div'));
-                yearContainerInner.addClass("row stream-container");
-                yearContainerInnerL.addClass("col-lg-6 col-md-6 col-no-h-padding");
-                yearContainerInnerR.addClass("col-lg-6 col-md-6 col-no-h-padding");
-
-                yearContainerInner.append(yearContainerInnerL).append(yearContainerInnerR);
-                yearContainer.append(yearTitle).append(yearContainerInner);
-                archiveContainer.append(yearContainer);
-
-                let postEntries = yearly.find("> .card-container");
-                for (let j = 0; j < postEntries.length; j++) {
-                    let post = $(postEntries[j]);
-                    if (columnCount === 1 || leftHeight <= rightHeight) {
-                        console.log("Left, +" + post.height());
-                        yearContainerInnerL.append(post);
-                        leftHeight += post.height();
-                    } else {
-                        console.log("Right, +" + post.height());
-                        yearContainerInnerR.append(post);
-                        rightHeight += post.height();
-                    }
+            cachedPostsNodes = $("#__pending_post_item_container").find("> .card-container");
+            for (let i = 0; i < cachedPostsNodes.length; i++) {
+                let post = $(cachedPostsNodes[i]).clone();
+                if (columnCount === 1 || leftHeight <= rightHeight) {
+                    leftContainer.append(post);
+                    leftHeight += post.height();
+                } else {
+                    rightContainer.append(post);
+                    rightHeight += post.height();
                 }
-
             }
             loadingIndicator.fadeOut(600);
         }
