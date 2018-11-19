@@ -154,7 +154,16 @@
 <pre><code>&quot;phpcs.executablePath&quot;: &quot;/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs&quot;
 </code></pre><p>至于phpmd，安装方式与Phpcs类似，composer安装后，在配置文件中增加一条配置即可。</p>
 <pre><code>&quot;phpmd.validate.executablePath&quot;:&quot;/Users/jiangbianwanghai/.composer/vendor/phpmd/phpmd/src/bin/phpmd&quot;
-</code></pre>
+</code></pre><p>后记</p>
+<p>在实际使用当中，遇到 <code>switch ... case</code> 这种就会出现下面这种提示</p>
+<pre><code>38 | ERROR | [x] Line indented incorrectly; expected 4 spaces, found 8
+</code></pre><p>解决办法是</p>
+<pre><code>/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs --config-set default_standard PSR2
+Using config file: /Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer.conf
+
+Config value &quot;default_standard&quot; added successfully
+</code></pre><p>这样就使用了PSR2标准了。</p>
+
                         <hr />
                         <b>本文作者：</b> 江边望海<br />
                         <b>本文链接：</b> <a href='https://www.jiangbianwanghai.com/2018/07/16/vs-code-install-phpcs-and-phpmd/'>https://www.jiangbianwanghai.com/2018/07/16/vs-code-install-phpcs-and-phpmd/</a><br />
