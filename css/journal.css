@@ -584,7 +584,7 @@ a {
           .stream-container .post .post-body-wrapper .post-body .toc, .stream-container .post .post-body-wrapper .post-body .toc * {
             font-size: 16px; }
           .stream-container .post .post-body-wrapper .post-body .toc ul {
-            list-style: decimal;
+            /*list-style: decimal;*/
             padding: 0 0 0 20px;
             margin: 0; }
           @media screen and (max-width: 1020px) {
