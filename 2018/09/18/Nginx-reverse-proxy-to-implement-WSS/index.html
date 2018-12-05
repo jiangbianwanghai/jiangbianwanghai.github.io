@@ -20,7 +20,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?43208451">
+<link rel="stylesheet" href="/css/journal.css?63839743">
 <script src="/js/loadCSS.js"></script>
 <script>
     loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
@@ -177,7 +177,7 @@
                             2018-09-18 08:26
                         </time>&nbsp;
                         
-    
+
                         
                         
                         <i class="material-icons" style="">label</i>
@@ -190,9 +190,14 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="post-body-wrapper">
                 <div class="post-body">
+                    <div class="toc">
+                    <!-- toc -->
+                    
+                    <!-- tocstop -->
+                    </div>
                     <p>如何让nginx反向代理实现websocket功能？这是我在开发微洽系统时思考的。毕竟如果想支持高并发，使用nginx做反向代理，对接后端的应用服务器。这样的架构才更容易扩展。</p>
 <p>既然是传输聊天信息的所以，微洽自然使用了SSL。虽然不使用nginx做代理，直接使用Swoole的websocket也能支持wss访问，但是却只能依赖一台后端的应用服务器，架构无法扩展的系统是不可以忍受的。</p>
 <p>让Swoole支持wss也是非常简单的，只需要你使用域名申请一个证书就可以了。比如：你的域名是abc.com，申请的SSL证书得到cert和key之后。</p>
@@ -245,7 +250,7 @@ server {
 
                 </div>
             </div>
-    
+
             <nav class="post-pagination">
     
     <a class="newer-posts" href="/2018/09/27/mongodb-update-record/">
@@ -260,7 +265,7 @@ server {
     
 </nav>
 
-    
+
             
 
 
@@ -286,7 +291,7 @@ server {
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?45322707"></script>
+<script src="/js/journal.js?65535264"></script>
 
 
 
