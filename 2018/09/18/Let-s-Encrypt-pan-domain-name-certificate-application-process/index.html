@@ -20,7 +20,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?52867276">
+<link rel="stylesheet" href="/css/journal.css?79286866">
 <script src="/js/loadCSS.js"></script>
 <script>
     loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
@@ -114,10 +114,10 @@
 <div ref="sideContainer" class="side-container">
     <a class="a-block nav-head false" href="/">
         <div class="nav-title">
-            Journal.
+            江边望海的笔记
         </div>
         <div class="nav-subtitle">
-            隻言片語<br>於此匯聚
+            分享真知
         </div>
     </a>
 
@@ -195,13 +195,13 @@
                 <div class="post-body">
                     <p>微洽作为一个在线沟通的WebIM，为了数据传输安全，站点支持SSL是标配。申请SSL证书首选 <code>Let&#39;s Encrypt</code>。今年3月14日官方宣布<a href="https://community.letsencrypt.org/t/acme-v2-and-wildcard-certificate-support-is-live/55579/13" target="_blank" rel="noopener">正式对 ACMEv2 和泛域名证书提供支持</a>，为搭建全站的ssl提供的条件。</p>
 <p>申请Let’s Encrypt数字证书，首选使用 <code>acme.sh</code>，亲测，申请和部署还是非常简单的。</p>
-<h5 id="1-首先安装acme-sh"><a href="#1-首先安装acme-sh" class="headerlink" title="1.首先安装acme.sh"></a>1.首先安装acme.sh</h5><p><code>curl <a href="https://get.acme.sh" target="_blank" rel="noopener">https://get.acme.sh</a> | sh</code></p>
+<h5><span id="1-shou-xian-an-zhuang-acme-sh">1.首先安装acme.sh</span><a href="#1-shou-xian-an-zhuang-acme-sh" class="header-anchor">#</a></h5><p><code>curl <a href="https://get.acme.sh" target="_blank" rel="noopener">https://get.acme.sh</a> | sh</code></p>
 <p>如果acme.sh 命令未找到，执行一下这个 <code>source ~/.bashrc</code></p>
-<h5 id="2-由于我的域名是阿里云购买的，需要验证所有权"><a href="#2-由于我的域名是阿里云购买的，需要验证所有权" class="headerlink" title="2.由于我的域名是阿里云购买的，需要验证所有权"></a>2.由于我的域名是阿里云购买的，需要验证所有权</h5><pre class=" language-shell"><code class="language-shell">export Ali_Key="xxx"
+<h5><span id="2-you-yu-wo-de-yu-ming-shi-a-li-yun-gou-mai-de-xu-yao-yan-zheng-suo-you-quan">2.由于我的域名是阿里云购买的，需要验证所有权</span><a href="#2-you-yu-wo-de-yu-ming-shi-a-li-yun-gou-mai-de-xu-yao-yan-zheng-suo-you-quan" class="header-anchor">#</a></h5><pre class=" language-shell"><code class="language-shell">export Ali_Key="xxx"
 export Ali_Secret="xxxxxxxx"
 </code></pre>
 <p><a href="https://link.jianshu.com/?t=https%3A%2F%2Fak-console.aliyun.com%2F%23%2Faccesskey" target="_blank" rel="noopener">获取Ali_Key 和 Ali_Secret的方法</a>，其他地方注册的请参考<a href="https://github.com/Neilpang/acme.sh/blob/master/dnsapi/README.md" target="_blank" rel="noopener">这里</a></p>
-<h5 id="3-申请证书"><a href="#3-申请证书" class="headerlink" title="3.申请证书"></a>3.申请证书</h5><p>设置好域名的密钥后，就可以执行申请命令了。</p>
+<h5><span id="3-shen-qing-zheng-shu">3.申请证书</span><a href="#3-shen-qing-zheng-shu" class="header-anchor">#</a></h5><p>设置好域名的密钥后，就可以执行申请命令了。</p>
 <pre class=" language-shell"><code class="language-shell">acme.sh --issue --dns dns_ali -d xxx.com -d *.xxx.com
 
 # 如果出现下面的提示，说明申请成功了
@@ -211,7 +211,7 @@ export Ali_Secret="xxxxxxxx"
 [Mon Apr 30 15:35:14 CST 2018] And the full chain certs is there:  /root/.acme.sh/xxx.com/fullchain.cer
 </code></pre>
 <p>申请的证书会放到 ~/.acme.sh/ 目录里面，所有的 acme.sh 配置都记录在 ~/.acme.sh/ 目录里面，acme.sh 有自动的配置读取，并按域名划分，下次你再次执行的时候，它知道你之前是用的那个目录，只需要告诉它域名就好了。</p>
-<h5 id="4-安装证书"><a href="#4-安装证书" class="headerlink" title="4.安装证书"></a>4.安装证书</h5><pre class=" language-shell"><code class="language-shell">acme.sh --installcert -d xxx.com \
+<h5><span id="4-an-zhuang-zheng-shu">4.安装证书</span><a href="#4-an-zhuang-zheng-shu" class="header-anchor">#</a></h5><pre class=" language-shell"><code class="language-shell">acme.sh --installcert -d xxx.com \
              --keypath       /data/nginx/ssl/xxx.com.key  \
              --fullchainpath /data/nginx/ssl/xxx.com.key.pem \
              --reloadcmd     "/data/nginx/sbin/nginx -s reload"
@@ -224,7 +224,7 @@ export Ali_Secret="xxxxxxxx"
 [Mon Apr 30 16:19:32 CST 2018] Run reload cmd: /data/nginx/sbin/nginx -s reload
 [Mon Apr 30 16:19:32 CST 2018] Reload success
 </code></pre>
-<h5 id="5-修改-Nginx-启用-SSL"><a href="#5-修改-Nginx-启用-SSL" class="headerlink" title="5.修改 Nginx 启用 SSL"></a>5.修改 Nginx 启用 SSL</h5><pre class=" language-shell"><code class="language-shell">http {
+<h5><span id="5-xiu-gai-nginx-qi-yong-ssl">5.修改 Nginx 启用 SSL</span><a href="#5-xiu-gai-nginx-qi-yong-ssl" class="header-anchor">#</a></h5><pre class=" language-shell"><code class="language-shell">http {
   # 新增
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_prefer_server_ciphers on;
@@ -243,7 +243,7 @@ export Ali_Secret="xxxxxxxx"
   }
 }
 </code></pre>
-<h5 id="6-检查-Nginx-配置是否正确后重启"><a href="#6-检查-Nginx-配置是否正确后重启" class="headerlink" title="6.检查 Nginx 配置是否正确后重启"></a>6.检查 Nginx 配置是否正确后重启</h5><pre class=" language-shell"><code class="language-shell">/data/nginx/sbin/nginx -t
+<h5><span id="6-jian-cha-nginx-pei-zhi-shi-fou-zheng-que-hou-chong-qi">6.检查 Nginx 配置是否正确后重启</span><a href="#6-jian-cha-nginx-pei-zhi-shi-fou-zheng-que-hou-chong-qi" class="header-anchor">#</a></h5><pre class=" language-shell"><code class="language-shell">/data/nginx/sbin/nginx -t
 # 检查无误后，重启nginx
 /data/nginx/sbin/nginx -s reload
 </code></pre>
@@ -294,7 +294,7 @@ export Ali_Secret="xxxxxxxx"
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?65636938"></script>
+<script src="/js/journal.js?65167889"></script>
 
 
 
