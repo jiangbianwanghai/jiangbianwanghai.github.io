@@ -2,152 +2,198 @@
 
 <!DOCTYPE html>
 <html lang="zh-TW" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
 <head>
+    <title>Nginx反向代理Websocket，实现wss访问 - 江邊望海的技術人生</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="jiangbianwanghai">
+<meta name="description" content="从实际需求触发，使用nginx做反向代理，才能让后端系统有扩展的可能">
+<meta name="keywords" content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
+
+<link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
+
     <meta charset="utf-8">
     <meta name="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="jiangbianwanghai">
-
-    <title>Nginx反向代理Websocket，实现wss访问 - 江邊望海的技術人生</title>
-    <meta name="description" content="">
-
-    <meta name="keywords"
-          content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit">
-    <noscript>
-        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons"/>
-    </noscript>
-    <link rel="short icon" href="/favicon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/mprogress.css">
-    <link rel="stylesheet" href="/css/open-iconic.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
     <meta name="theme-color" content="#ffffff">
-    <script>
-        /*!
-         loadCSS: load a CSS file asynchronously.
-         [c]2014 @scottjehl, Filament Group, Inc.
-         Licensed MIT
-         */
-        function loadCSS( href, before, media ){
-            "use strict";
-            var ss = window.document.createElement( "link" );
-            var ref = before || window.document.getElementsByTagName( "script" )[ 0 ];
-            var sheets = window.document.styleSheets;
-            ss.rel = "stylesheet";
-            ss.href = href;
-            ss.media = "only x";
-            ref.parentNode.insertBefore( ss, ref );
-            function toggleMedia(){
-                var defined;
-                for( var i = 0; i < sheets.length; i++ ){
-                    if( sheets[ i ].href && sheets[ i ].href.indexOf( href ) > -1 ){
-                        defined = true;
-                    }
-                }
-                if( defined ){
-                    ss.media = media || "all";
-                }
-                else {
-                    setTimeout( toggleMedia );
-                }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?55354402">
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
             }
-            toggleMedia();
-            return ss;
-        }
-    </script>
-    <link rel="stylesheet" href="/css/prism.css" type="text/css">
-</head>
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 <body>
-
+<div id="top"></div>
 <div id="app">
-    <nav ref="navBar" class="navbar fixed-top navbar-light">
-    <div id="global-loading-indicator" class="progress-line global-loading-indicator"></div>
-    <div id="nav_background" class="nav-background"></div>
-    <div style="padding-left: 15px;padding-right: 15px" class="container container-narrow nav-content">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="https://www.jiangbianwanghai.com">
+                首頁
+            </a>
+            <a class="a-block drawer-menu-item false" href="/archives">
+                歸檔
+            </a>
 
-        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" data-toggle="adropdown">
-            <span class="oi" data-glyph="menu"></span>
-        </button>
-        <a id="nav_title" class="navbar-brand Montserrat" href="/">
-            江邊望海的技術人生
-        </a>
-        <div class="float-right navbar-dark nav-icon-group">
-            <div class="dropdown">
-                <ul class="dropdown-menu" id="collapsed_nav">
-                    <li><a href="/" class="a-block nav-icon">首頁</a></li>
-                    <li><a href="/archives" class="a-block nav-icon">歸檔</a></li>
-                    
-                    
-                    <li><a href="/notification.html" class="a-block nav-icon">notification</a></li>
-                    
-                    <li><a href="/about/index.html" class="a-block nav-icon">關務我</a></li>
-                    
-                    
-                    <li><a href="/atom.xml" target="_blank" class="a-block">
-                            <span data-glyph="rss" class="oi nav-icon"></span>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
+            
+            
+            <a class="a-block drawer-menu-item false" href="/notification.html">
+                notification
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/about/index.html">
+                關務我
+            </a>
+            
 
+            
+            <a class="a-block drawer-menu-item" href="/atom.xml">
+                RSS
+            </a>
+            
         </div>
     </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            江邊望海的技術人生
+        </a>
+    </div>
 </nav>
-    <div class="container container-narrow">
-
-        <div ref="pageHead"
-             v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }"
-             class="page-head">
-            <a href="/">
-                <h2>江邊望海的技術人生</h2>
-                <h5>分享真知</h5>
-            </a>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">江邊望海的技術人生</div>
+        <div class="single-column-header-subtitle">分享真知</div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            Journal.
         </div>
+        <div class="nav-subtitle">
+            隻言片語<br>於此匯聚
+        </div>
+    </a>
 
+    <div class="nav-link-list">
+        <a class="a-block no-tint nav-link-item false" href="/archives">
+            歸檔
+        </a>
 
-<div class="row stream-container">
-    <div class="card-container">
+        
+        
+        <a class="a-block nav-link-item false" href="/notification.html">
+            notification
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/about/index.html">
+            關務我
+        </a>
+        
 
-        <div class="card card-item clear-border card-top-patch card-clear-hover">
-            
-            <div style="background-image: url('https://www.jiangbianwanghai.com/assets/wss.jpg')"
-                 class="card-image card-radius clear-border clear-bottom-border-radius card-image-bigger"></div>
-            
+        
+        <a class="a-block no-tint nav-link-item" href="/atom.xml">
+            RSS
+        </a>
+        
+    </div>
 
-            <div class="card-item-container clear-flex-xs">
-                <div class="card-inner-cell">
-                    <h2>Nginx反向代理Websocket，实现wss访问</h2>
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2018 <a href="https://www.jiangbianwanghai.com">江邊望海的技術人生</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
 
-                    <div>
-                        <p>
-                            <time datetime="2018-09-18T08:26:26.000Z" itemprop="datePublished">
-                                2018-09-18 08:26
-                            </time>
-                            
+        
+    </div>
+</div>
 
-                            
-                            
-                            <span class="oi" data-glyph="tag" style="vertical-align: middle; margin-left: 5px"> </span>&nbsp;
-                            
-                            <a href='/tags/基础研究/'>基础研究</a>
-                            
-                            ,
-                            
-                            
-                            <a href='/tags/服务器配置/'>服务器配置</a>
-                            
-                            
-                            
-                        </p>
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    Nginx反向代理Websocket，实现wss访问
+                    <div class="post-meta">
+                        <time datetime="2018-09-18T08:26:26.000Z" itemprop="datePublished">
+                            2018-09-18 08:26
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/基础研究/'>基础研究</a>, 
+                        
+                        <a href='/tags/服务器配置/'>服务器配置</a>
+                        
+                        
                     </div>
-
-
-                    <p class=" post-block-desc">
-                        <p>如何让nginx反向代理实现websocket功能？这是我在开发微洽系统时思考的。毕竟如果想支持高并发，使用nginx做反向代理，对接后端的应用服务器。这样的架构才更容易扩展。</p>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p>如何让nginx反向代理实现websocket功能？这是我在开发微洽系统时思考的。毕竟如果想支持高并发，使用nginx做反向代理，对接后端的应用服务器。这样的架构才更容易扩展。</p>
 <p>既然是传输聊天信息的所以，微洽自然使用了SSL。虽然不使用nginx做代理，直接使用Swoole的websocket也能支持wss访问，但是却只能依赖一台后端的应用服务器，架构无法扩展的系统是不可以忍受的。</p>
 <p>让Swoole支持wss也是非常简单的，只需要你使用域名申请一个证书就可以了。比如：你的域名是abc.com，申请的SSL证书得到cert和key之后。</p>
 <pre class=" language-shell"><code class="language-shell">将
@@ -197,76 +243,52 @@ server {
 <p>proxy_send_timeout</p>
 <p>语法 proxy_send_timeout time 默认值 60s 上下文 http server location 说明 这个指定设置了发送请求给upstream服务器的超时时间。超时设置不是为了整个发送期间，而是在两次write操作期间。 如果超时后，upstream没有收到新的数据，nginx会关闭连接。</p>
 
-                        <hr />
-                        <b>本文作者：</b> 江边望海<br />
-                        <b>本文链接：</b> <a href='https://www.jiangbianwanghai.com/2018/09/18/Nginx-reverse-proxy-to-implement-WSS/'>https://www.jiangbianwanghai.com/2018/09/18/Nginx-reverse-proxy-to-implement-WSS/</a><br />
-                        <b>版权声明：</b> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！<br />
-                        <hr />
-                    </p>
-
-                    <nav class="pagination pagination-flex outside-padding-patch" role="pagination">
+                </div>
+            </div>
     
-    <div class="newer-posts pagination-flex-left">
+            <nav class="post-pagination">
+    
     <a class="newer-posts" href="/2018/09/27/mongodb-update-record/">
-        上一篇: MongoDB更新记录的细节优化
+        上一篇<br>MongoDB更新记录的细节优化
     </a>
-    </div>
     
-    <span class="page-number pagination-flex-center"></span>
+    <span class="page-number"></span>
     
-    <div class="older-posts pagination-flex-right">
     <a class="older-posts" href="/2018/09/18/http-protocol/">
-        下一篇: 了解HTTP协议
+        下一篇<br>了解HTTP协议
     </a>
-    </div>
     
 </nav>
 
+    
+            
 
-                    
-                </div>
-            </div>
+
         </div>
     </div>
-</div>
-
-<footer>
-    <p>
-        &copy;&nbsp;2018&nbsp;<a target="_blank"
-                                                               href="">jiangbianwanghai</a>
-    </p>
-
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
     
-    <p>Theme&nbsp;<a target="_blank"
-                     href="https://github.com/SumiMakito/hexo-theme-journal">Journal.</a>&nbsp;by&nbsp;<a
-                target="_blank" href="https://www.keep.moe">Makito</a>
-    </p>
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
     
-
-    <p>
-        Proudly published with&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>
-    </p>
-</footer>
-
+    &copy; 2018 <a href="https://www.jiangbianwanghai.com">江邊望海的技術人生</a>
 </div>
 </div>
+
 </div>
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src=" /js/vue.min.js"></script>
-<script src=" /js/journal.js"></script>
-<script>
-    loadCSS("//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Montserrat|Anonymous+Pro:400|Material+Icons");
-</script>
-<script src="https://static.weqia.live/weqia_chat_win.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?20789486"></script>
 
 
-<script>
-    $(document).ready(function () {
-        $("#global-loading-indicator").fadeOut(600);
-    });
-</script>
 
 </body>
 </html>
