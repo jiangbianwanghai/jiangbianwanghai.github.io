@@ -20,7 +20,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?90949410">
+<link rel="stylesheet" href="/css/journal.css?70524436">
 <script src="/js/loadCSS.js"></script>
 <script>
     loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
@@ -191,12 +191,11 @@
 
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <!-- toc -->
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">前言#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">UUID#</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">什么是UUID？#</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">UUID的版本#</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">UUID的应用#</span></a></li></ol></li></ol></li></ol></li></ol>
-                    <!-- tocstop -->
-                    <h2><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h2><p>如何识别来访的客户端，并采集它的数据做分析呢？这个实践有点儿网站流量分析的意思。网站流量分析就是识别不同的客户端并对客户端进行分析的过程。这里有一个核心的技术，就是对 <strong>客户端的识别</strong> 。</p>
-<h2><span id="uuid">UUID</span><a href="#uuid" class="header-anchor">#</a></h2><p>我们常用的技术实践是，通过服务器将一个唯一标识符分发给客户端，客户端将标识符存储在Cookie中，当它给服务器发送信息的时候带上Cookie服务端就可以轻易的识别了。那么，对于标识符也是有要求的，就是必须是“同一空间唯一标识符”。因此，就用到了咱们今天讨论的UUID。</p>
-<h5><span id="shi-me-shi-uuid">什么是UUID？</span><a href="#shi-me-shi-uuid" class="header-anchor">#</a></h5><p>UUID是Universally Unique Identifier的缩写，它是指在一定的范围内（从特定的名字空间到全球）唯一的机器生成的标识符。UUID具有以下涵义：</p>
+                    <!-- Table of Contents -->
+                    
+                    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如何识别来访的客户端，并采集它的数据做分析呢？这个实践有点儿网站流量分析的意思。网站流量分析就是识别不同的客户端并对客户端进行分析的过程。这里有一个核心的技术，就是对 <strong>客户端的识别</strong> 。</p>
+<h2 id="UUID"><a href="#UUID" class="headerlink" title="UUID"></a>UUID</h2><p>我们常用的技术实践是，通过服务器将一个唯一标识符分发给客户端，客户端将标识符存储在Cookie中，当它给服务器发送信息的时候带上Cookie服务端就可以轻易的识别了。那么，对于标识符也是有要求的，就是必须是“同一空间唯一标识符”。因此，就用到了咱们今天讨论的UUID。</p>
+<h5 id="什么是UUID？"><a href="#什么是UUID？" class="headerlink" title="什么是UUID？"></a>什么是UUID？</h5><p>UUID是Universally Unique Identifier的缩写，它是指在一定的范围内（从特定的名字空间到全球）唯一的机器生成的标识符。UUID具有以下涵义：</p>
 <p><strong>1. 经由一定的算法机器生成</strong></p>
 <p>为了保证UUID的唯一性，规范定义了包括网卡MAC地址、时间戳、名字空间（Namespace）、随机或伪随机数、时序等元素，以及从这些元素生成UUID的算法。UUID的复杂特性在保证了其唯一性的同时，意味着只能由计算机生成。</p>
 <p><strong>2. 非人工指定，非人工识别</strong></p>
@@ -209,7 +208,7 @@
 </blockquote>
 <p>其中的字母是16进制表示，大小写无关。</p>
 <p>GUID（Globally Unique Identifier）是UUID的别名；但在实际应用中，GUID通常是指微软实现的UUID。</p>
-<h5><span id="uuid-de-ban-ben">UUID的版本</span><a href="#uuid-de-ban-ben" class="header-anchor">#</a></h5><p>UUID具有多个版本，每个版本的算法不同，应用范围也不同。</p>
+<h5 id="UUID的版本"><a href="#UUID的版本" class="headerlink" title="UUID的版本"></a>UUID的版本</h5><p>UUID具有多个版本，每个版本的算法不同，应用范围也不同。</p>
 <p>首先是一个特例－－Nil UUID－－通常我们不会用到它，它是由全为0的数字组成，如下：</p>
 <p>00000000-0000-0000-0000-000000000000</p>
 <p><strong>UUID Version 1：基于时间的UUID</strong></p>
@@ -222,7 +221,7 @@
 <p>根据随机数，或者伪随机数生成UUID。这种UUID产生重复的概率是可以计算出来的，但随机的东西就像是买彩票：你指望它发财是不可能的，但狗屎运通常会在不经意中到来。</p>
 <p><strong>UUID Version 5：基于名字的UUID（SHA1）</strong></p>
 <p>和版本3的UUID算法类似，只是散列值计算使用SHA1（Secure Hash Algorithm 1）算法。</p>
-<h5><span id="uuid-de-ying-yong">UUID的应用</span><a href="#uuid-de-ying-yong" class="header-anchor">#</a></h5><p>从UUID的不同版本可以看出，Version 1/2适合应用于分布式计算环境下，具有高度的唯一性；Version 3/5适合于一定范围内名字唯一，且需要或可能会重复生成UUID的环境下；至于Version 4，我个人的建议是最好不用（虽然它是最简单最方便的）。</p>
+<h5 id="UUID的应用"><a href="#UUID的应用" class="headerlink" title="UUID的应用"></a>UUID的应用</h5><p>从UUID的不同版本可以看出，Version 1/2适合应用于分布式计算环境下，具有高度的唯一性；Version 3/5适合于一定范围内名字唯一，且需要或可能会重复生成UUID的环境下；至于Version 4，我个人的建议是最好不用（虽然它是最简单最方便的）。</p>
 <p>通常我们建议使用UUID来标识对象或持久化数据，但以下情况最好不使用UUID：</p>
 <blockquote>
 <p>映射类型的对象。比如只有代码及名称的代码表。<br>人工维护的非系统生成对象。比如系统中的部分基础数据。</p>
@@ -314,7 +313,7 @@ eefbada8-efee-439a-af83-a80dde423dd6
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?57223125"></script>
+<script src="/js/journal.js?95010693"></script>
 
 
 

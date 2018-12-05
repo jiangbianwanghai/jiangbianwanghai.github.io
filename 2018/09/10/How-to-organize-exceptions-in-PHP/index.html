@@ -20,7 +20,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?70997910">
+<link rel="stylesheet" href="/css/journal.css?76573901">
 <script src="/js/loadCSS.js"></script>
 <script>
     loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
@@ -193,16 +193,15 @@
 
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <!-- toc -->
-                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">为什么要使用异常？#</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">经验分享#</span></a></li></ol>
-                    <!-- tocstop -->
+                    <!-- Table of Contents -->
+                    
                     <blockquote>
 <p><strong>江边望海语：</strong>作为一名WEB开发工程师，用PHP编写业务也有10年左右的历史了。现在对PHP的元问题特别的感兴趣。在进行代码Review阶段，我感到疑惑了，团队中有的开发者在程序中会抛出异常，有的则会输出返回码，有的甚至根本不做任何处理。那么，在编写代码的过程中要不要抛出异常？异常对于开发者有什么用？我们应该把异常放在代码中的哪些地方？我们应该怎么看待生产和收集生产环境的异常呢？<br><br>在看一些国外开发者的源码时，特别有感触，代码的严谨性使得阅读者感为观止，有种沐浴春风的感觉。但是，看一般开发者的代码就比较累，完全是一个人一个写法，百花齐放，没有一点儿严谨性可言。虽然这些拙劣的开发者写的的程序也能跑通，却为今后的项目重构贡献了不少自己的“力量”。</p>
 </blockquote>
 <p>在学习异常的时候我们需要先理解一个基本概念：<strong>异常VS错误</strong></p>
 <p>PHP中的异常和错误是不同的，错误英文单词是 <code>Error</code>，异常英文单词是 <code>Exception</code>。</p>
 <p><u>异常一般指出现正常逻辑之外的情况，而错误是指运行时发生了不可恢复的故障，比如使用了未定义的变量，或者语法错误等。异常我们通过throw抛出，catch进行捕获，而错误一般发生程序就会终止，我们可以通过trigger_error触发用户级错误，然后通过set_error_handler设置处理函数。</u></p>
-<h5><span id="wei-shi-me-yao-shi-yong-yi-chang">为什么要使用异常？</span><a href="#wei-shi-me-yao-shi-yong-yi-chang" class="header-anchor">#</a></h5><p>先看一个没有使用异常的代码片段</p>
+<h5 id="为什么要使用异常？"><a href="#为什么要使用异常？" class="headerlink" title="为什么要使用异常？"></a>为什么要使用异常？</h5><p>先看一个没有使用异常的代码片段</p>
 <pre class=" language-php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token variable">$input</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$input</span><span class="token punctuation">[</span><span class="token string">'user_id'</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 参数错误</span>
@@ -223,7 +222,7 @@
 <p>这样做的好处是：程序逻辑和错误处理分离了。你可以看到函数是如何工作的，同时也可以看到失败时候是怎么处理的。另外，现在可以提供更多的异常发生的上下信息，帮助你从发生的异常中恢复出来。</p>
 <p>举个例子：当从数据库中获取一条记录的时候发生了异常，我们可以根据异常的不同类型，采取不同的结果。如果异常时由于没有我们想要的id记录，我们可能返回一个NullObject 是更好的方式，但如果异常是由于数据库连接的断开，我们可能会继续抛出异常，让异常被更上层的函数看到，因为这个异常在此处我们已经没有能够恢复的方法了。</p>
 <p><u>相对于错误码一个异常对象, 可以包含更丰富的错误信息, 比如错误信息, 错误码, 错误的行数, 文件, 甚至出错上下文, 等等, 避免的”1.错误信息不丰富”的不足。</u></p>
-<h5><span id="jing-yan-fen-xiang">经验分享</span><a href="#jing-yan-fen-xiang" class="header-anchor">#</a></h5><ul>
+<h5 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h5><ul>
 <li>为了安全起见，线上环境最好不要用 <code>try{}catch{}</code>。</li>
 <li>现在的很多框架的设计都是有入口文件， <code>try{}cache{}</code> 通常会在 <code>index.php</code> 文件中，相当于在最顶层加入了抛异常的做法。这样做的目的是只要整个程序出现任何错误，都会跳到异常处理的代码块去，很好的解决了代码流程控制的问题。</li>
 <li>异常本质上是程序执行流程的跳转，它最大的好处是可以将处理正常情况的代码和处理错误的分开，使代码可读性提高。</li>
@@ -272,7 +271,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?88992020"></script>
+<script src="/js/journal.js?19755874"></script>
 
 
 

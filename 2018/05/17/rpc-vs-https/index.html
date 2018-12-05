@@ -20,7 +20,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?41631443">
+<link rel="stylesheet" href="/css/journal.css?81538070">
 <script src="/js/loadCSS.js"></script>
 <script>
     loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
@@ -195,20 +195,19 @@
 
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <!-- toc -->
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">RESTful#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">RPC#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">基於TCP的RPC比RESTful好在哪裡？#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">RPC在何種場景下使用#</span></a></li></ol>
-                    <!-- tocstop -->
+                    <!-- Table of Contents -->
+                    
                     <p>對於目前的互聯網應用，分佈式幾乎是必備的架構。既然是分佈式，不同服務之間的通訊自然就必不可少。</p>
-<h3><span id="restful">RESTful</span><a href="#restful" class="header-anchor">#</a></h3><p>我們通常在接口設計的時候，循序的是一套RESTful的HTTP接口思想。那麽，RESTful是什麼呢？</p>
+<h3 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h3><p>我們通常在接口設計的時候，循序的是一套RESTful的HTTP接口思想。那麽，RESTful是什麼呢？</p>
 <p>RESTful風格的首次提出是在2000年Roy Fidlding的博士論文中，而他也是HTTP規範的主要編寫者之一。</p>
 <p><strong>RESTful是一種軟件架構風格</strong>，設計風格不是標準，只是提供給開發者一組設計原則和約束條件。它主要用於客戶端和服務器端交互。基於這個風格設計的軟件可以更簡潔，更有層次。</p>
 <p>在RESTful的WEB服務中，每個資源都有一個地址。資源本身就是方法調用的目標。它充分利用了HTTP的POST,PUT,UPDATE,DETELET等方法。</p>
-<h3><span id="rpc">RPC</span><a href="#rpc" class="header-anchor">#</a></h3><p>RPC（Remote Procedure Call Protocol）是遠程過程調用協議。遠程調用免不了消息通訊，所以本質上都是一種通訊。通常的通訊協議包含：傳輸協議和編碼協議。</p>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>RPC（Remote Procedure Call Protocol）是遠程過程調用協議。遠程調用免不了消息通訊，所以本質上都是一種通訊。通常的通訊協議包含：傳輸協議和編碼協議。</p>
 <p>如著名的gRPC使用的就是HTTP2協議，而編碼協議則有基於文本編碼的json或xml。</p>
 <blockquote>
 <p>總結：RPC其實相對於RESTful的，RESTful默認使用的是HTTP協議進行傳輸，而RPC也可以使用HTTP來實現，例如谷歌的gRPC。</p>
 </blockquote>
-<h3><span id="ji-yu-tcp-de-rpc-bi-restful-hao-zai-na-li">基於TCP的RPC比RESTful好在哪裡？</span><a href="#ji-yu-tcp-de-rpc-bi-restful-hao-zai-na-li" class="header-anchor">#</a></h3><p>那麽，為什麼RPC相對於RESTful的優勢是什麼呢？</p>
+<h3 id="基於TCP的RPC比RESTful好在哪裡？"><a href="#基於TCP的RPC比RESTful好在哪裡？" class="headerlink" title="基於TCP的RPC比RESTful好在哪裡？"></a>基於TCP的RPC比RESTful好在哪裡？</h3><p>那麽，為什麼RPC相對於RESTful的優勢是什麼呢？</p>
 <p>它除了可以基於HTTP來實現，也可以基於TCP來實現，如果基於TCP來實現就是比較TCP和HTTP之間的優勢了。</p>
 <p>HTTP的RESTful接口是在接口不多，系統與系統交互較少的情況下，解決信息孤島常用的通訊手段。優點是簡單、直接、開發方便。利用現成的HTTP協議進行傳輸。但對於一個大型網站來說，內部子系統和接口非常多的情況下，RPC的優勢就非常明顯了。</p>
 <p>首先，它是支持長連接的，不必每次通訊都要像HTTP要進行3次握手，減少了網絡開銷；其次，RPC一般都有註冊中心，有豐富的監控管理；在做發佈、下線接口、動態擴展等操作時對調用方來說是無感知的。</p>
@@ -216,7 +215,7 @@
 <blockquote>
 <p>總結：RPC是一種概念。其實，可以把HTTP當做是RPC的一種實現方式。比如我們把網址當做是一個接口，傳入的參數當做為函數參數，response的數據作為返回的信息。是不是本質上也是一種接口調用呢？</p>
 </blockquote>
-<h3><span id="rpc-zai-he-zhong-chang-jing-xia-shi-yong">RPC在何種場景下使用</span><a href="#rpc-zai-he-zhong-chang-jing-xia-shi-yong" class="header-anchor">#</a></h3><p>系統做大了，肯定是需要做微服務的。像一個大型的電商系統，訂單系統、支付系統、商品系統、用戶系統通常都是分開部署、單獨上線的。比如阿里這麽大的請求並發量，簡單的HTTP肯定是無法滿足預期的，但問題是大多數開發者深處的公司產品並不具具備這麽大的訪問量。那我們還需要RPC嗎？</p>
+<h3 id="RPC在何種場景下使用"><a href="#RPC在何種場景下使用" class="headerlink" title="RPC在何種場景下使用"></a>RPC在何種場景下使用</h3><p>系統做大了，肯定是需要做微服務的。像一個大型的電商系統，訂單系統、支付系統、商品系統、用戶系統通常都是分開部署、單獨上線的。比如阿里這麽大的請求並發量，簡單的HTTP肯定是無法滿足預期的，但問題是大多數開發者深處的公司產品並不具具備這麽大的訪問量。那我們還需要RPC嗎？</p>
 <p>應該一分為二的看，對於核心業務可以嘗試使用RPC。畢竟RPC是面向服務的封裝，針對服務的可用性和效率都做了優化，單純使用HTTP調用則缺少這些特性的支出。比如返回值。RESTful使用的是HTTP的4xx,5xx的錯誤碼，但實際業務中肯定會自定義一些錯誤標識。那麽，這些HTTP的錯誤反而是一種干擾，讓你無法識別是網絡鏈接問題還是請求錯誤。</p>
 <p>還有面向對象方面，RESTful的接口我們操作它主要通過HTTP自帶的增刪改查來實現。顯然這些方法無法滿足我們的實際開發。</p>
 <blockquote>
@@ -266,7 +265,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?77035865"></script>
+<script src="/js/journal.js?88653291"></script>
 
 
 
