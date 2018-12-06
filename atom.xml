@@ -113,9 +113,9 @@
     </summary>
     
     
-      <category term="ssl" scheme="https://www.jiangbianwanghai.com/tags/ssl/"/>
-    
       <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
+    
+      <category term="ssl" scheme="https://www.jiangbianwanghai.com/tags/ssl/"/>
     
   </entry>
   
@@ -139,9 +139,9 @@
     </summary>
     
     
-      <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
-    
       <category term="php" scheme="https://www.jiangbianwanghai.com/tags/php/"/>
+    
+      <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
     
   </entry>
   
@@ -435,15 +435,15 @@
     <link href="https://www.jiangbianwanghai.com/2018/05/17/RPC-of-Web-System-Design/"/>
     <id>https://www.jiangbianwanghai.com/2018/05/17/RPC-of-Web-System-Design/</id>
     <published>2018-05-16T22:52:23.000Z</published>
-    <updated>2018-12-06T11:50:18.568Z</updated>
+    <updated>2018-12-06T11:59:26.184Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="什么是RPC"><a href="#什么是RPC" class="headerlink" title="什么是RPC"></a>什么是RPC</h3><p>RPC全称为Remote Procedure Call，翻译过来为“远程过程调用”。目前，主流的平台中都支持各种远程调用技术，以满足分布式系统架构中不同的系统之间的远程通信和相互调用。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="什么是RPC"><a href="#什么是RPC" class="headerlink" title="什么是RPC"></a>什么是RPC</h2><p>RPC全称为Remote Procedure Call，翻译过来为“远程过程调用”。目前，主流的平台中都支持各种远程调用技术，以满足分布式系统架构中不同的系统之间的远程通信和相互调用。</p><h2 id="什么是RESTful"><a href="#什么是RESTful" class="headerlink" title="什么是RESTful"></a>什么是RESTful</h2><h3 id="RESTful-是面向资源的"><a href="#RESTful-是面向资源的" class="headerlink" title="RESTful 是面向资源的"></a>RESTful 是面向资源的</h3><p>RESTful 是面向资源的，而资源是通过 URI 进行暴露。URI 的设计只要负责把资源通过合理方式暴露出来就可以了。对资源的操作与它无关，操作是通过 HTTP动词来体现，所以REST 通过 URI 暴露资源时，会强调不要在 URI 中出现动词。</p><pre><code>比如：左边是错误的设计，而右边是正确的GET /rest/api/getDogs --&gt; GET /rest/api/dogs 获取所有小狗狗 GET /rest/api/addDogs --&gt; POST /rest/api/dogs 添加一个小狗狗 GET /rest/api/editDogs/:dog_id --&gt; PUT /rest/api/dogs/:dog_id 修改一个小狗狗 GET /rest/api/deleteDogs/:dog_id --&gt; DELETE /rest/api/dogs/:dog_id 删除一个小狗狗</code></pre>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h3 id=&quot;什么是RPC&quot;&gt;&lt;a href=&quot;#什么是RPC&quot; class=&quot;headerlink&quot; title=&quot;什么是RPC&quot;&gt;&lt;/a&gt;什么是RPC&lt;/h3&gt;&lt;p&gt;RPC全称为Remote Procedure Call，翻译过来为“远程过程调用”。目前，主流的平台中都支持
+        &lt;h2 id=&quot;什么是RPC&quot;&gt;&lt;a href=&quot;#什么是RPC&quot; class=&quot;headerlink&quot; title=&quot;什么是RPC&quot;&gt;&lt;/a&gt;什么是RPC&lt;/h2&gt;&lt;p&gt;RPC全称为Remote Procedure Call，翻译过来为“远程过程调用”。目前，主流的平台中都支持
       
     
     </summary>
