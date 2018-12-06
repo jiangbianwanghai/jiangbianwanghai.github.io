@@ -20,7 +20,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?49706316">
+<link rel="stylesheet" href="/css/journal.css?83120921">
 <script src="/js/loadCSS.js"></script>
 <script>
     loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
@@ -202,7 +202,7 @@
                     </div>
                     
                     <h2 id="什么是RPC"><a href="#什么是RPC" class="headerlink" title="什么是RPC"></a>什么是RPC</h2><p>RPC全称为Remote Procedure Call，翻译过来为“远程过程调用”。目前，主流的平台中都支持各种远程调用技术，以满足分布式系统架构中不同的系统之间的远程通信和相互调用。</p>
-<h2 id="什么是RESTful"><a href="#什么是RESTful" class="headerlink" title="什么是RESTful"></a>什么是RESTful</h2><p>REST 实际上只是一种设计风格，它并不是标准。RESTful 有如下特征：</p>
+<h2 id="什么是RESTful"><a href="#什么是RESTful" class="headerlink" title="什么是RESTful"></a>什么是RESTful</h2><p>Restful是一种轻量级，跨语言，跨平台的web服务方式，他是一种设计理念，他强调将网络中的一切事物看成资源，对资源的所有的操作方式均定义成“查，插，删，改”　四种方式，向外界暴露API，用来调用，所有的操作都是无状态的。RESTful 有如下特征：</p>
 <h3 id="RESTful-是面向资源的"><a href="#RESTful-是面向资源的" class="headerlink" title="RESTful 是面向资源的"></a>RESTful 是面向资源的</h3><p>RESTful 是面向资源的，而资源是通过 URI 进行暴露。URI 的设计只要负责把资源通过合理方式暴露出来就可以了。对资源的操作与它无关，操作是通过 HTTP动词来体现，所以REST 通过 URI 暴露资源时，会强调不要在 URI 中出现动词。</p>
 <pre><code>比如：左边是错误的设计，而右边是正确的
 
@@ -236,6 +236,18 @@ Cache-Control 缓存报头
 Cnotent-Type  消息体类型报头 
 ......
 </code></pre><p>HTTP报头是描述HTTP请求或响应的元数据，它的作用是客户端与服务器端进行相互通信时，告诉对方应该如何处理本次请求。</p>
+<p>使用RPC远程服务调用与传统http接口直接调用方式的差别在于：</p>
+<ol>
+<li><p>从使用方面看，Http接口只关注服务提供方，对于客户端怎么调用，调用方式怎样并不关心，通常情况下，我们使用Http方式进行调用时，只要将内容进行传输即可，这样客户端在使用时，需要更关注网络方面的传输，比较不适用与业务方面的开发；而RPC服务则需要客户端接口与服务端保持一致，服务端提供一个方法，客户端通过接口直接发起调用，业务开发人员仅需要关注业务方法的调用即可，不再关注网络传输的细节，在开发上更为高效。</p>
+</li>
+<li><p>从性能角度看，使用Http时，Http本身提供了丰富的状态功能与扩展功能，但也由于Http提供的功能过多，导致在网络传输时，需要携带的信息更多，从性能角度上讲，较为低效。而RPC服务网络传输上仅传输与业务内容相关的数据，传输数据更小，性能更高。</p>
+</li>
+<li><p>从运维角度看，使用Http接口时，常常使用一个前端代理，来进行Http转发代理请求的操作，需要进行扩容时，则需要去修改代理服务器的配置，较为繁琐，也容易出错。而使用RPC方式的微服务，则只要增加一个服务节点即可，注册中心可自动感知到节点的变化，通知调用客户端进行负载的动态控制，更为智能，省去运维的操作。</p>
+</li>
+</ol>
+<blockquote>
+<p>Restful架构是基于Http应用层协议的产物，RPC架构是基于TCP传输层协议的产物。RPC架构的吞吐量和执行速度优于Restful。所以，业内对微服务的实现，基本是确定一个组织边界，在该边界内，使用RPC; 边界外，使用Restful。这个边界，可以是业务、部门，甚至是全公司。</p>
+</blockquote>
 
                 </div>
             </div>
@@ -280,7 +292,7 @@ Cnotent-Type  消息体类型报头
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?18357594"></script>
+<script src="/js/journal.js?47901463"></script>
 
 
 
