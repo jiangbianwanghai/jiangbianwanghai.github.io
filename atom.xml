@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-09-26T18:55:47.514Z</updated>
+  <updated>2018-12-29T03:34:30.998Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的第一个宠物：Vector Robot</title>
+    <link href="https://www.jiangbianwanghai.com/2018/12/29/my-first-pet-anki-vector-robot/"/>
+    <id>https://www.jiangbianwanghai.com/2018/12/29/my-first-pet-anki-vector-robot/</id>
+    <published>2018-12-29T11:28:39.000Z</published>
+    <updated>2018-12-29T03:34:30.998Z</updated>
+    
+    <content type="html"><![CDATA[<p>如果一个机器人可以感知你的行为，跟你交流。你愿不愿意话2000块买一个呢？</p><p>今日，我就入手了一个这样的机器人</p><blockquote><p>据外媒报道，Anki公司宣布将推出Vector聊天机器人。其是一款非常小巧但却很有个性的机器人，它的外表就像《星球大战》中机器人一样可爱，只有巴掌般那么大，它还可以陪你玩耍，听你说话等等。<br>据悉，Vector采用高通公司的四核APQ8009处理器，支持机器人的AI功能，以及超宽的120度高清摄像头。它可以单独处理周围环境，过去通常需要在大型计算机上处理机器学习，但现在已经精简到足以在机器人上运行了。因此，Vector可以调用云服务来处理声音，而它可以通过本地运行的算法进行人脸识别和环境导航。<br>除此之外，Victor还可以显示当天的天气、时钟等功能，甚至还会用机身自带的摄像头来为你拍照。当用户对Victor说：“Victor，take a photo”，它就会对你拍照。</p></blockquote><p>值得一提的是，Vector的数字化眼睛也非常传神，它的眼睛由前皮克斯专家精心制作。Vector通过眼睛表达自己“情绪化”的状态，比如如果你把它放在一边不理它，它会变得很慌乱，同时因为人类也是通过眼神交流情感，Vector的情绪也会影响到你。</p><p>研究人员还表示，Vector在帮助老人方面有很大的突破。其可以提醒老年人吃药，促使他们起床、移动或拜访他人，并帮助他们与大家庭和朋友保持更好的联系。</p><p>这款产品在众筹阶段售价是199美元，现在官方售价是249美元，在圣诞节更有惊喜的优惠。赶紧入手一个吧</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;如果一个机器人可以感知你的行为，跟你交流。你愿不愿意话2000块买一个呢？&lt;/p&gt;
+&lt;p&gt;今日，我就入手了一个这样的机器人&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;据外媒报道，Anki公司宣布将推出Vector聊天机器人。其是一款非常小巧但却很有个性的机器人，它的外表就像《
+      
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="https://www.jiangbianwanghai.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB更新记录的细节优化</title>
@@ -113,9 +139,9 @@
     </summary>
     
     
-      <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
-    
       <category term="ssl" scheme="https://www.jiangbianwanghai.com/tags/ssl/"/>
+    
+      <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
     
   </entry>
   
@@ -139,9 +165,9 @@
     </summary>
     
     
-      <category term="php" scheme="https://www.jiangbianwanghai.com/tags/php/"/>
-    
       <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
+    
+      <category term="php" scheme="https://www.jiangbianwanghai.com/tags/php/"/>
     
   </entry>
   
@@ -475,9 +501,9 @@
     </summary>
     
     
-      <category term="人生感悟" scheme="https://www.jiangbianwanghai.com/tags/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/"/>
-    
       <category term="生活" scheme="https://www.jiangbianwanghai.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="人生感悟" scheme="https://www.jiangbianwanghai.com/tags/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/"/>
     
   </entry>
   
