@@ -4,11 +4,11 @@
 <html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>在vs code安装phpcs和phpmd插件 - 江邊望海的技術人生</title>
+    <title>归档: 2019/1 - 江邊望海的技術人生</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="jiangbianwanghai">
-<meta name="description" content="PHP代码的静态验证是每个开发工程师必备的。">
+<meta name="description" content="分享真知">
 <meta name="keywords" content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
 
 <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
@@ -20,7 +20,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?6294582">
+<link rel="stylesheet" href="/css/journal.css?75295481">
 <script src="/js/loadCSS.js"></script>
 <script>
     loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
@@ -65,7 +65,7 @@
             <a class="a-block drawer-menu-item false" href="https://www.jiangbianwanghai.com">
                 首页
             </a>
-            <a class="a-block drawer-menu-item false" href="/archives">
+            <a class="a-block drawer-menu-item active" href="/archives">
                 归档
             </a>
 
@@ -122,7 +122,7 @@
     </a>
 
     <div class="nav-link-list">
-        <a class="a-block no-tint nav-link-item false" href="/archives">
+        <a class="a-block no-tint nav-link-item active" href="/archives">
             归档
         </a>
 
@@ -162,82 +162,50 @@
         </a>
 
         
+        
+
+        
+
+        
+        
     </div>
 </div>
 
 <div ref="streamContainer" class="stream-container">
     <div class="post-list-container post-list-container-shadow">
-        <div class="post">
-            <div class="post-head-wrapper-text-only"
-                 style="background-image: url('')">
-                <div class="post-title">
-                    在vs code安装phpcs和phpmd插件
-                    <div class="post-meta">
-                        <time datetime="2018-07-16T13:42:11.000Z" itemprop="datePublished">
-                            2018-07-16 13:42
-                        </time>&nbsp;
+        
+        
+        <div class="post-item-wrapper post-item-wrapper-no-hover">
+            <div class="post-item post-item-no-gaps">
+                <div class="post-item-info-wrapper">
+                    <div class="post-item-title  post-item-title-small">
                         
-
-                        
-                        
-                        <i class="material-icons" style="">label</i>
-                        
-                        <a href='/tags/工具/'>工具</a>
-                        
+                        <a href="/archives/2019">2019</a> / 01
                         
                     </div>
                 </div>
             </div>
+        </div>
+        
 
-            <div class="post-body-wrapper">
-                <div class="post-body">
-                    <!-- Table of Contents -->
-                    
-                    <p>上一篇文章提到了为什么要从sublime改到vs code的过程。这篇就来讲讲如何安装phpcs和phpmd</p>
-<p>作为一个PHP开发者，代码规范是必须要遵守的。所以，安装phpcs和phpmd插件是有必要的，可以编写出来既好又快的代码。</p>
-<p>这次我采用的是composer 安装。在Mac系统下进入命令行，先安装composer。这个比较好装，就是下载下来后将它移动到/usr/local/bin这个目录即可。</p>
-<p>接下来就是使用composer 安装phpcs</p>
-<pre><code>composer global require squizlabs/php_codesniffer
-</code></pre><p>我采取的全局安装，这样不用一个项目一个项目配置，比较方便。</p>
-<p>安装后，找到phpcs的路径</p>
-<pre><code>/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs
-</code></pre><p>在vs code的配置文件中增加一条配置即可。</p>
-<pre><code>&quot;phpcs.executablePath&quot;: &quot;/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs&quot;
-</code></pre><p>至于phpmd，安装方式与Phpcs类似，composer安装后，在配置文件中增加一条配置即可。</p>
-<pre><code>&quot;phpmd.validate.executablePath&quot;:&quot;/Users/jiangbianwanghai/.composer/vendor/phpmd/phpmd/src/bin/phpmd&quot;
-</code></pre><p>后记</p>
-<p>在实际使用当中，遇到 <code>switch ... case</code> 这种就会出现下面这种提示</p>
-<pre><code>38 | ERROR | [x] Line indented incorrectly; expected 4 spaces, found 8
-</code></pre><p>解决办法是</p>
-<pre><code>/Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs --config-set default_standard PSR2
-Using config file: /Users/jiangbianwanghai/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer.conf
-
-Config value &quot;default_standard&quot; added successfully
-</code></pre><p>这样就使用了PSR2标准了。</p>
-
+        <a href="/2019/01/05/centos-install-ftp/" class="a-block">
+            <div class="post-item-wrapper">
+                <div class="post-item post-item-no-gaps">
+                    <div class="post-item-info-wrapper">
+                        <div class="post-item-title">
+                            在Centos 上部署Ftp服务
+                        </div>
+                        <div class="post-item-meta">
+                            2019-01-05
+                        </div>
+                    </div>
                 </div>
             </div>
+        </a>
 
-            <nav class="post-pagination">
-    
-    <a class="newer-posts" href="/2018/08/25/The-magical-effect-of-UUID-in-user-tracking/">
-        上一篇<br>UUID在用户跟踪的妙用
-    </a>
-    
-    <span class="page-number"></span>
-    
-    <a class="older-posts" href="/2018/07/13/i-changed-dev-envionment-from-sublime-to-vs-code-because-solved-git-settings-in-vs-code/">
-        下一篇<br>我终于从Sublime切换到了vs code
-    </a>
-    
-</nav>
-
-
-            
-
-
-        </div>
+        
     </div>
+
     <div class="single-column-footer">
     Proudly published with Hexo<br>
     
@@ -258,9 +226,7 @@ Config value &quot;default_standard&quot; added successfully
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?62027638"></script>
-
-
+<script src="/js/journal.js?27482577"></script>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2018-12-29T03:34:30.998Z</updated>
+  <updated>2019-01-05T02:55:40.703Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在Centos 上部署Ftp服务</title>
+    <link href="https://www.jiangbianwanghai.com/2019/01/05/centos-install-ftp/"/>
+    <id>https://www.jiangbianwanghai.com/2019/01/05/centos-install-ftp/</id>
+    <published>2019-01-05T10:53:58.000Z</published>
+    <updated>2019-01-05T02:55:40.703Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考链接：</p><p><a href="https://www.cnblogs.com/ismallboy/p/6785270.html" target="_blank" rel="noopener">https://www.cnblogs.com/ismallboy/p/6785270.html</a></p><p><a href="https://blog.csdn.net/u013919633/article/details/79075363" target="_blank" rel="noopener">https://blog.csdn.net/u013919633/article/details/79075363</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;参考链接：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/ismallboy/p/6785270.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/ismallboy/
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>我的第一个宠物：Vector Robot</title>
@@ -139,9 +161,9 @@
     </summary>
     
     
-      <category term="ssl" scheme="https://www.jiangbianwanghai.com/tags/ssl/"/>
-    
       <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
+    
+      <category term="ssl" scheme="https://www.jiangbianwanghai.com/tags/ssl/"/>
     
   </entry>
   
@@ -165,9 +187,9 @@
     </summary>
     
     
-      <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
-    
       <category term="php" scheme="https://www.jiangbianwanghai.com/tags/php/"/>
+    
+      <category term="基础研究" scheme="https://www.jiangbianwanghai.com/tags/%E5%9F%BA%E7%A1%80%E7%A0%94%E7%A9%B6/"/>
     
   </entry>
   
@@ -501,9 +523,9 @@
     </summary>
     
     
-      <category term="生活" scheme="https://www.jiangbianwanghai.com/tags/%E7%94%9F%E6%B4%BB/"/>
-    
       <category term="人生感悟" scheme="https://www.jiangbianwanghai.com/tags/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/"/>
+    
+      <category term="生活" scheme="https://www.jiangbianwanghai.com/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
