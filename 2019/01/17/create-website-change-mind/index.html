@@ -4,11 +4,11 @@
 <html lang="zh-CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>让你的网站支持谷歌和火狐浏览器的通知提醒 - 江邊望海的技術人生</title>
+    <title>换个思路来理解建站 - 江邊望海的技術人生</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="jiangbianwanghai">
-<meta name="description" content="给你的页面增加上消息推送的提示框，真的是很酷的事情">
+<meta name="description" content="我们在建站的时候，大多会首先想到找个cms，将代码部署到服务器上。然后在不断的操作cms，修改模板和增加内容。如果...">
 <meta name="keywords" content="江边望海,Phalcon,Centos,Mysql,Redis,MongoDB,Swoole,RabbitMQ">
 
 <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml">
@@ -20,7 +20,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?88551322">
+<link rel="stylesheet" href="/css/journal.css?86482589">
 <script src="/js/loadCSS.js"></script>
 <script>
     loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
@@ -171,10 +171,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    让你的网站支持谷歌和火狐浏览器的通知提醒
+                    换个思路来理解建站
                     <div class="post-meta">
-                        <time datetime="2018-06-04T17:05:52.000Z" itemprop="datePublished">
-                            2018-06-04 17:05
+                        <time datetime="2019-01-16T17:10:07.000Z" itemprop="datePublished">
+                            2019-01-16 17:10
                         </time>&nbsp;
                         
 
@@ -182,9 +182,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/通知提醒/'>通知提醒</a>, 
-                        
-                        <a href='/tags/消息推送/'>消息推送</a>
+                        <a href='/tags/解决方案/'>解决方案</a>
                         
                         
                     </div>
@@ -195,24 +193,25 @@
                 <div class="post-body">
                     <!-- Table of Contents -->
                     
-                    <p>消息推送在現在的網絡中已經成為主流。它可以解決人們實時獲取最新消息的方案。比如，客戶A在瀏覽一個網站，他關注的作者這個時候正好發佈了一篇文章，以前他必須刷新頁面，通過拉取的方式才能看到這位作者的文章。但是有了消息推送，只要作者發佈一篇文章，她就可以理解收到一篇 <code>推送消息</code>。這樣做，保證了時效性，也提高了用戶的閱讀體驗。</p>
-<p>現在的主流瀏覽器，都提供了消息通知接口，開發人員可以通過 <code>javascript</code> 來調取這些接口，實現pc端的消息推送。</p>
-<p>下面，就給大家一個demo。大家可以閱讀源碼瞭解 <code>javascript</code> 調取消息通知接口的方法，應用到自己的項目當中。</p>
-<p><a href="/notification.html">demo</a></p>
+                    <p>我们在建站的时候，大多会首先想到找个cms，将代码部署到服务器上。然后在不断的操作cms，修改模板和增加内容。如果你的服务器是在国外，网络问题可能会让你崩溃的。</p>
+<p>其实，想一想，我们建站的本质就是模板主题+内容的过程。一个站建好后，大致的框架是不会怎么改变的，仅仅是内容的增删而已。那么，我们为什么要购买那么多昂贵的服务器资源，仅仅是为了动态解析成html呢？</p>
+<p>其实，建站的思路完全可以模拟java的执行。为什么java的执行效率比php快呢？是因为它是编写后需要编译生成class文件，然后再部署到服务器的过程。那么建站可不可这样做的。</p>
+<p>答案是肯定的</p>
+<p>在本地进行编辑，完成站点制作后，可以打包成zip，然后，通过ftp，把zip上传到远程服务器，之后用脚本对zip进行解压。全程基本上可以自动来进行。</p>
+<p>那么，问题来了？</p>
+<p>和用户的交互该怎么办呢？</p>
+<p>其实，现在很多用户交互都已经第三方了。比如评论，用畅言第三方组件；表单，用麦客第三方组件；webim，更是有很多第三方组件，比如商务通等等。将展示和交互分开来看，反而利于网站的维护。</p>
+<p>我们建站的目的是为了站群。尽量降低对服务器的要求，少投入成本，提高建站效率，反而能够提供工作效率。</p>
 
                 </div>
             </div>
 
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/2018/06/15/let-your-local-development-environment-support-HTTPS/">
-        上一篇<br>让你的本地开发环境也支持https
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/2018/05/31/bubble-sort-used-c-program/">
-        下一篇<br>用C語言編寫冒泡排序
+    <a class="older-posts" href="/2019/01/05/centos-install-ftp/">
+        下一篇<br>在Centos 上部署Ftp服务
     </a>
     
 </nav>
@@ -243,7 +242,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?9172791"></script>
+<script src="/js/journal.js?6482238"></script>
 
 
 

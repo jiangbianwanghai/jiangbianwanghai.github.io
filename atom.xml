@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.jiangbianwanghai.com/"/>
-  <updated>2019-01-05T02:55:40.703Z</updated>
+  <updated>2019-01-16T09:24:14.957Z</updated>
   <id>https://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>换个思路来理解建站</title>
+    <link href="https://www.jiangbianwanghai.com/2019/01/17/create-website-change-mind/"/>
+    <id>https://www.jiangbianwanghai.com/2019/01/17/create-website-change-mind/</id>
+    <published>2019-01-16T17:10:07.000Z</published>
+    <updated>2019-01-16T09:24:14.957Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们在建站的时候，大多会首先想到找个cms，将代码部署到服务器上。然后在不断的操作cms，修改模板和增加内容。如果你的服务器是在国外，网络问题可能会让你崩溃的。</p><p>其实，想一想，我们建站的本质就是模板主题+内容的过程。一个站建好后，大致的框架是不会怎么改变的，仅仅是内容的增删而已。那么，我们为什么要购买那么多昂贵的服务器资源，仅仅是为了动态解析成html呢？</p><p>其实，建站的思路完全可以模拟java的执行。为什么java的执行效率比php快呢？是因为它是编写后需要编译生成class文件，然后再部署到服务器的过程。那么建站可不可这样做的。</p><p>答案是肯定的</p><p>在本地进行编辑，完成站点制作后，可以打包成zip，然后，通过ftp，把zip上传到远程服务器，之后用脚本对zip进行解压。全程基本上可以自动来进行。</p><p>那么，问题来了？</p><p>和用户的交互该怎么办呢？</p><p>其实，现在很多用户交互都已经第三方了。比如评论，用畅言第三方组件；表单，用麦客第三方组件；webim，更是有很多第三方组件，比如商务通等等。将展示和交互分开来看，反而利于网站的维护。</p><p>我们建站的目的是为了站群。尽量降低对服务器的要求，少投入成本，提高建站效率，反而能够提供工作效率。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;我们在建站的时候，大多会首先想到找个cms，将代码部署到服务器上。然后在不断的操作cms，修改模板和增加内容。如果你的服务器是在国外，网络问题可能会让你崩溃的。&lt;/p&gt;
+&lt;p&gt;其实，想一想，我们建站的本质就是模板主题+内容的过程。一个站建好后，大致的框架是不会怎么改变的，仅
+      
+    
+    </summary>
+    
+    
+      <category term="解决方案" scheme="https://www.jiangbianwanghai.com/tags/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    
+  </entry>
   
   <entry>
     <title>在Centos 上部署Ftp服务</title>
@@ -500,32 +524,6 @@
       <category term="RPC" scheme="https://www.jiangbianwanghai.com/tags/RPC/"/>
     
       <category term="架构设计" scheme="https://www.jiangbianwanghai.com/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>回到原点，重新开始</title>
-    <link href="https://www.jiangbianwanghai.com/2018/05/01/hello-world/"/>
-    <id>https://www.jiangbianwanghai.com/2018/05/01/hello-world/</id>
-    <published>2018-05-01T11:38:13.000Z</published>
-    <updated>2018-12-05T05:57:29.287Z</updated>
-    
-    <content type="html"><![CDATA[<p>準確的說我的職業生涯應該是從2011年開始的。獨身一人來到了一個新的城市，開啟了新的生活。我慶幸當初的那一次選擇開啟了我的技術人生。可是我卻在最終確定這條路上探索了7年的時間。不得不承認，這些年的磕磕絆絆讓我堅定了現在的道路。</p><p>一開始的時候，我是想成為一名職業經理人的，畢竟我有4年的創業經歷。但是，最後發現我連職業經理所具備的素質都沒有弄清楚。骨子裏還是一個技術人，技術人就是要有紮實的技術功底，有一個好脾氣，別人願意與你一起合作。當自己真正融入一個團隊合作開發的時候，才發現這是作為職業經理人最重要的素質。所謂領導，是被需要的而不是對團隊的成員發號施令，是有擔當的在關鍵時候能頂得上去而不是被動的催進度。</p><p>當我理解了這些，其實也過去了7年。這7年雖然不能說是浪費確實有點兒可惜。畢竟時光不等人，面對當下，我要更加深入的探索我關注的領域，成為一個合格的技術人。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;準確的說我的職業生涯應該是從2011年開始的。獨身一人來到了一個新的城市，開啟了新的生活。我慶幸當初的那一次選擇開啟了我的技術人生。可是我卻在最終確定這條路上探索了7年的時間。不得不承認，這些年的磕磕絆絆讓我堅定了現在的道路。&lt;/p&gt;
-&lt;p&gt;一開始的時候，我是想成為一名職業
-      
-    
-    </summary>
-    
-    
-      <category term="人生感悟" scheme="https://www.jiangbianwanghai.com/tags/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/"/>
-    
-      <category term="生活" scheme="https://www.jiangbianwanghai.com/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
