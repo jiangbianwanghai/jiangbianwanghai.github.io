@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>在Centos7下安装PHP8</title>
+    <url>/install-php8-0-8-in-centos7/</url>
+    <content><![CDATA[<blockquote>
+<p>安装PHP的逻辑很简单。下载压缩包，解压，生成Makefile文件并安装</p>
+</blockquote>
+<p><strong>系统环境如下：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">➜  ~ cat /proc/version</span><br><span class="line">Linux version 3.10.0-327.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) ) #1 SMP Thu Nov 19 22:10:57 UTC 2015</span><br><span class="line">➜  ~ cat /etc/redhat-release</span><br><span class="line">CentOS Linux release 7.2.1511 (Core)</span><br></pre></td></tr></table></figure>
+
+<p>安装php-8.0.8</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://www.php.net/distributions/php-8.0.8.tar.gz</span><br><span class="line">tar -zxvf php-8.0.8.tar.gz</span><br><span class="line">cd php-8.0.8</span><br><span class="line">#编译Makefile并开启一些必要的插件</span><br><span class="line">./configure --prefix=/usr/local/php-8.0.8 --with-mysqli --with-pdo-mysql --with-zlib --enable-simplexml --enable-xml --disable-rpath --enable-bcmath --enable-soap --with-curl --enable-fpm --with-fpm-user=nobody --with-fpm-group=nobody --enable-mbstring --enable-sockets --with-openssl --with-mhash --enable-opcache --disable-fileinfo –-with-readline</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#创建软连接</span><br><span class="line">cd /usr/local</span><br><span class="line">ln -s /usr/local/php-8.0.8 php</span><br><span class="line"></span><br><span class="line">查看版本</span><br><span class="line">php -v</span><br><span class="line"></span><br><span class="line">#copy配置文件</span><br><span class="line">cp php.ini-development /usr/local/php-8.0.8/lib/php.ini</span><br><span class="line"></span><br><span class="line">#启动fpm前的准备</span><br><span class="line">cp /usr/local/php-8.0.8/etc/php-fpm.conf.default /usr/local/php-8.0.8/etc/php-fpm.conf</span><br><span class="line">cd /usr/local/php-8.0.8/etc/php-fpm.d</span><br><span class="line">cp www.conf.default www.conf</span><br><span class="line"></span><br><span class="line">#启动fpm</span><br><span class="line">/usr/local/php/sbin/php-fpm</span><br><span class="line"></span><br><span class="line">#查看fpm是否启动</span><br><span class="line">netstat -tunlp |grep 9000</span><br></pre></td></tr></table></figure>
+
+<p>nginx配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  192.168.8.*;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm index.php;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        root html;</span><br><span class="line">        fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决No package ‘oniguruma’ found</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/kkos/oniguruma </span><br><span class="line">cd oniguruma</span><br><span class="line">./autogen.sh</span><br><span class="line">./configure --prefix=/usr --libdir=/lib64</span><br><span class="line">make &amp;&amp; make instal</span><br></pre></td></tr></table></figure>
+
+<p>安转readline</p>
+<p>经常会需要在命令行验证一些代码片段，所以让php支持readline对开发很重要。默认php是不安装的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查看readline是否安装</span><br><span class="line">php -m | grep -i readline</span><br><span class="line">如果没有安装</span><br><span class="line">cd /root/php-8.0.8/ext/readline</span><br><span class="line">/usr/local/php/bin/phpize</span><br><span class="line">./configure --with-php-config=/usr/local/php/bin/php-config --with-readline</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">vim /usr/local/php/lib/php.ini</span><br><span class="line">在最后面添加一行</span><br><span class="line">extension=readline.so</span><br></pre></td></tr></table></figure>
+
+<p><strong>参考</strong></p>
+<ol>
+<li><a href="https://blog.csdn.net/shachao888/article/details/108167214">安装PHP7.4找不到包 No package ‘oniguruma‘ found错误</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>php8</tag>
+        <tag>centos7</tag>
+        <tag>源码安装</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在Centos7下安装php的扩展v8js</title>
     <url>/install-v8js-in-centos7/</url>
     <content><![CDATA[<p><strong>前言</strong></p>
@@ -83,42 +116,9 @@
 </ol>
 ]]></content>
       <tags>
+        <tag>centos7</tag>
         <tag>v8js</tag>
-        <tag>centos7</tag>
         <tag>rpm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Centos7下安装PHP8</title>
-    <url>/install-php8-0-8-in-centos7/</url>
-    <content><![CDATA[<blockquote>
-<p>安装PHP的逻辑很简单。下载压缩包，解压，生成Makefile文件并安装</p>
-</blockquote>
-<p><strong>系统环境如下：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">➜  ~ cat /proc/version</span><br><span class="line">Linux version 3.10.0-327.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) ) #1 SMP Thu Nov 19 22:10:57 UTC 2015</span><br><span class="line">➜  ~ cat /etc/redhat-release</span><br><span class="line">CentOS Linux release 7.2.1511 (Core)</span><br></pre></td></tr></table></figure>
-
-<p>安装php-8.0.8</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://www.php.net/distributions/php-8.0.8.tar.gz</span><br><span class="line">tar -zxvf php-8.0.8.tar.gz</span><br><span class="line">cd php-8.0.8</span><br><span class="line">#编译Makefile并开启一些必要的插件</span><br><span class="line">./configure --prefix=/usr/local/php-8.0.8 --with-mysqli --with-pdo-mysql --with-zlib --enable-simplexml --enable-xml --disable-rpath --enable-bcmath --enable-soap --with-curl --enable-fpm --with-fpm-user=nobody --with-fpm-group=nobody --enable-mbstring --enable-sockets --with-openssl --with-mhash --enable-opcache --disable-fileinfo –-with-readline</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#创建软连接</span><br><span class="line">cd /usr/local</span><br><span class="line">ln -s /usr/local/php-8.0.8 php</span><br><span class="line"></span><br><span class="line">查看版本</span><br><span class="line">php -v</span><br><span class="line"></span><br><span class="line">#copy配置文件</span><br><span class="line">cp php.ini-development /usr/local/php-8.0.8/lib/php.ini</span><br><span class="line"></span><br><span class="line">#启动fpm前的准备</span><br><span class="line">cp /usr/local/php-8.0.8/etc/php-fpm.conf.default /usr/local/php-8.0.8/etc/php-fpm.conf</span><br><span class="line">cd /usr/local/php-8.0.8/etc/php-fpm.d</span><br><span class="line">cp www.conf.default www.conf</span><br><span class="line"></span><br><span class="line">#启动fpm</span><br><span class="line">/usr/local/php/sbin/php-fpm</span><br><span class="line"></span><br><span class="line">#查看fpm是否启动</span><br><span class="line">netstat -tunlp |grep 9000</span><br></pre></td></tr></table></figure>
-
-<p>nginx配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  192.168.8.*;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm index.php;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        root html;</span><br><span class="line">        fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>解决No package ‘oniguruma’ found</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/kkos/oniguruma </span><br><span class="line">cd oniguruma</span><br><span class="line">./autogen.sh</span><br><span class="line">./configure --prefix=/usr --libdir=/lib64</span><br><span class="line">make &amp;&amp; make instal</span><br></pre></td></tr></table></figure>
-
-<p>安转readline</p>
-<p>经常会需要在命令行验证一些代码片段，所以让php支持readline对开发很重要。默认php是不安装的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查看readline是否安装</span><br><span class="line">php -m | grep -i readline</span><br><span class="line">如果没有安装</span><br><span class="line">cd /root/php-8.0.8/ext/readline</span><br><span class="line">/usr/local/php/bin/phpize</span><br><span class="line">./configure --with-php-config=/usr/local/php/bin/php-config --with-readline</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">vim /usr/local/php/lib/php.ini</span><br><span class="line">在最后面添加一行</span><br><span class="line">extension=readline.so</span><br></pre></td></tr></table></figure>
-
-<p><strong>参考</strong></p>
-<ol>
-<li><a href="https://blog.csdn.net/shachao888/article/details/108167214">安装PHP7.4找不到包 No package ‘oniguruma‘ found错误</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>centos7</tag>
-        <tag>php8</tag>
-        <tag>源码安装</tag>
       </tags>
   </entry>
 </search>

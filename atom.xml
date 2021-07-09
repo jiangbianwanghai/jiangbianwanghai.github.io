@@ -38,9 +38,9 @@
     
     
     
-    <category term="centos7" scheme="http://www.jiangbianwanghai.com/tags/centos7/"/>
-    
     <category term="php8" scheme="http://www.jiangbianwanghai.com/tags/php8/"/>
+    
+    <category term="centos7" scheme="http://www.jiangbianwanghai.com/tags/centos7/"/>
     
     <category term="源码安装" scheme="http://www.jiangbianwanghai.com/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/"/>
     
@@ -65,9 +65,9 @@
     
     
     
-    <category term="v8js" scheme="http://www.jiangbianwanghai.com/tags/v8js/"/>
-    
     <category term="centos7" scheme="http://www.jiangbianwanghai.com/tags/centos7/"/>
+    
+    <category term="v8js" scheme="http://www.jiangbianwanghai.com/tags/v8js/"/>
     
     <category term="rpm" scheme="http://www.jiangbianwanghai.com/tags/rpm/"/>
     
