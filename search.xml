@@ -121,4 +121,18 @@
         <tag>rpm</tag>
       </tags>
   </entry>
+  <entry>
+    <title>api sign design</title>
+    <url>/api-sign-design/</url>
+    <content><![CDATA[<p>一. url请求的参数包括：timestamp，token, username，sign</p>
+<p>1.timestamp: <br /><br>时间戮</p>
+<p>2.token：<br /><br>登陆验证时，验证成功后，生成唯一的token（可以为uuid），并把token储存到缓存（redis）里 ，键为username,值为token</p>
+<p>3.username:<br /><br>用户名,保证唯一</p>
+<p>4.sign：<br /><br>规则：参数timestamp，token，username按字典排序，md5加密码（加点盐），后大写<br /><br>用户登陆，验证成功后，生成sign</p>
+<p>二. url 拦截规则，验证</p>
+<p>1.用户登陆，验证成功后，生成token，缓存（username-&gt;token）并返回给客户端<br>2.客户端每个接口请求（除登陆接口）时，传必要的参数timestamp,token,username, sign，没传直接返回报错</p>
+<p>3.timestamp作用：是否在有效期内，有效期可以设置10，20分钟，根据需求设定<br /><br>比如说  过期时间设置为10分中<br /><br>服务接受到请求的当前时间戳是30，传过来的timestamp时间戳是10，30-10&gt;10, 说明这个请求过期</p>
+<p>4.token作用：直接与redis中的username键值 对比，如果不相等，则过期，</p>
+]]></content>
+  </entry>
 </search>
