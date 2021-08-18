@@ -155,6 +155,60 @@
 <p>（3）判断token是否有效，根据请求过来的token，查询redis缓存中的uid，如果获取不到这说明该token已过期。</p>
 <p>（4）根据用户请求的url参数，服务器端按照同样的规则生成sign签名，对比签名看是否相等，相等则放行。（自然url签名 也无法100%保证其安全，也可以通过公钥AES对数据和url加密，但这样无法确保公钥丢失，所以签名只是很大程度上保证安全）。</p>
 <p>（5）此url拦截只需对获取身份认证的url放行（如登陆url），剩余所有的url都需拦截。</p>
+<p>写一个生成 token 的方法（不对外公开），第一次调用时需要传参 secret 与 appid,对 secret 进行单向加密后存数据库，生成 uuid token 返回。做一个切点，api 请求校验 token,通过就继续执行，不通过就拦截。提供 refresh token 和 get token 方法，均需要提供 secret</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Centos7</title>
+    <url>/Centos7-install-nginx1-21-1/</url>
+    <content><![CDATA[<h5 id="一、安装准备"><a href="#一、安装准备" class="headerlink" title="一、安装准备"></a>一、安装准备</h5><p>首先由于nginx的一些模块依赖一些lib库，所以在安装nginx之前，必须先安装这些lib库，这些依赖库主要有g++、gcc、openssl-devel、pcre-devel和zlib-devel 所以执行如下命令安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum install gcc-c++  pcre pcre-devel zlib zlib-devel openssl openssl--devel</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、安装Nginx"><a href="#二、安装Nginx" class="headerlink" title="二、安装Nginx"></a>二、安装Nginx</h5><p>安装之前，最好检查一下是否已经安装有nginx</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find -name nginx </span><br></pre></td></tr></table></figure>
+
+<p>如果系统已经安装了nginx，那么就先卸载</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum remove nginx</span><br></pre></td></tr></table></figure>
+
+<p>然后开始安装<br>首先进入/usr/local目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /usr/local</span><br></pre></td></tr></table></figure>
+
+<p>从官网下载最新版的nginx</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget -c https://nginx.org/download/nginx-1.21.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>注：版本号可更改，去官网查看最新版本号修改即可</p>
+<p>解压nginx压缩包</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tar -zxvf nginx-1.21.1.tar.gz </span><br></pre></td></tr></table></figure>
+
+<p>会产生一个nginx-1.21.1 目录，这时进入nginx-1.21.1 目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd nginx-1.12.1</span><br></pre></td></tr></table></figure>
+
+<p>接下来安装，使用–prefix参数指定nginx安装的目录,make、make install安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>注：默认安装在/usr/local/nginx，推荐使用默认设置</p>
+<p>如果没有报错，顺利完成后，最好看一下nginx的安装目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">whereis nginx </span><br></pre></td></tr></table></figure>
+
+<h5 id="三、启动和停止nginx"><a href="#三、启动和停止nginx" class="headerlink" title="三、启动和停止nginx"></a>三、启动和停止nginx</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /usr/local/nginx/sbin/</span><br><span class="line">./nginx </span><br><span class="line">./nginx -s stop</span><br><span class="line">./nginx -s quit</span><br><span class="line">./nginx -s reload</span><br><span class="line">./nginx -s quit: 此方式停止步骤是待nginx进程处理任务完毕进行停止。</span><br><span class="line">./nginx -s stop: 此方式相当于先查出nginx进程id再使用kill命令强制杀掉进程。</span><br></pre></td></tr></table></figure>
+
+<p>查询nginx进程：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ps aux | grep nginx</span><br></pre></td></tr></table></figure>
+
+<h5 id="四、重启-nginx"><a href="#四、重启-nginx" class="headerlink" title="四、重启 nginx"></a>四、重启 nginx</h5><p>1.先停止再启动（推荐）：<br>对 nginx 进行重启相当于先停止再启动，即先执行停止命令再执行启动命令。如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./nginx -s quit</span><br><span class="line">./nginx</span><br></pre></td></tr></table></figure>
+
+<p>2.重新加载配置文件：<br>当 nginx 的配置文件 nginx.conf 修改后，要想让配置生效需要重启 nginx，使用 -s reload 不用先停止 nginx 再启动 nginx 即可将配置信息在 nginx 中生效，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<p>启动成功后，在浏览器可以看到如下页面：</p>
+<h5 id="五、开机自启动"><a href="#五、开机自启动" class="headerlink" title="五、开机自启动"></a>五、开机自启动</h5><p>即在rc.local增加启动代码就可以了。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.local</span><br></pre></td></tr></table></figure>
+
+<p>增加一行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+
+<p>到这里，nginx安装完毕，启动、停止、重启操作也都完成。</p>
 ]]></content>
   </entry>
 </search>
