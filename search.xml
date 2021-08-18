@@ -202,7 +202,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
 
 <p>启动成功后，在浏览器可以看到如下页面：</p>
-<p><img src="https://www.jiangbianwanghai.com/static/img/nginx.png" alt="nginx" title="启动成功看到的画面"></p>
+<p><img src="https://www.jiangbianwanghai.com/img/nginx.png" alt="nginx" title="启动成功看到的画面"></p>
 <h5 id="五、开机自启动"><a href="#五、开机自启动" class="headerlink" title="五、开机自启动"></a>五、开机自启动</h5><p>即在rc.local增加启动代码就可以了。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.local</span><br></pre></td></tr></table></figure>
 
