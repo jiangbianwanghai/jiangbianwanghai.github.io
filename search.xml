@@ -159,7 +159,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Centos7</title>
+    <title>在Centos7安装nginx1.21.1</title>
     <url>/Centos7-install-nginx1-21-1/</url>
     <content><![CDATA[<h5 id="一、安装准备"><a href="#一、安装准备" class="headerlink" title="一、安装准备"></a>一、安装准备</h5><p>首先由于nginx的一些模块依赖一些lib库，所以在安装nginx之前，必须先安装这些lib库，这些依赖库主要有g++、gcc、openssl-devel、pcre-devel和zlib-devel 所以执行如下命令安装</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum install gcc-c++  pcre pcre-devel zlib zlib-devel openssl openssl--devel</span><br></pre></td></tr></table></figure>
@@ -202,6 +202,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
 
 <p>启动成功后，在浏览器可以看到如下页面：</p>
+<p><img src="https://www.jiangbianwanghai.com/static/img/nginx.png" alt="nginx" title="启动成功看到的画面"></p>
 <h5 id="五、开机自启动"><a href="#五、开机自启动" class="headerlink" title="五、开机自启动"></a>五、开机自启动</h5><p>即在rc.local增加启动代码就可以了。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.local</span><br></pre></td></tr></table></figure>
 
