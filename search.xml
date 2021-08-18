@@ -122,7 +122,7 @@
       </tags>
   </entry>
   <entry>
-    <title>api sign design</title>
+    <title>API签名设计</title>
     <url>/api-sign-design/</url>
     <content><![CDATA[<p>一. url请求的参数包括：timestamp，token, username，sign</p>
 <p>1.timestamp: <br /><br>时间戮</p>
@@ -157,6 +157,10 @@
 <p>（5）此url拦截只需对获取身份认证的url放行（如登陆url），剩余所有的url都需拦截。</p>
 <p>写一个生成 token 的方法（不对外公开），第一次调用时需要传参 secret 与 appid,对 secret 进行单向加密后存数据库，生成 uuid token 返回。做一个切点，api 请求校验 token,通过就继续执行，不通过就拦截。提供 refresh token 和 get token 方法，均需要提供 secret</p>
 ]]></content>
+      <tags>
+        <tag>api</tag>
+        <tag>设计思路</tag>
+      </tags>
   </entry>
   <entry>
     <title>在Centos7安装nginx1.21.1</title>
@@ -211,5 +215,10 @@
 
 <p>到这里，nginx安装完毕，启动、停止、重启操作也都完成。</p>
 ]]></content>
+      <tags>
+        <tag>centos7</tag>
+        <tag>源码安装</tag>
+        <tag>nginx</tag>
+      </tags>
   </entry>
 </search>

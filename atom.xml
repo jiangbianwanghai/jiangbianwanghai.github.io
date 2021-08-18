@@ -6,7 +6,7 @@
   <link href="http://www.jiangbianwanghai.com/atom.xml" rel="self"/>
   
   <link href="http://www.jiangbianwanghai.com/"/>
-  <updated>2021-08-18T09:10:19.932Z</updated>
+  <updated>2021-08-18T13:08:01.641Z</updated>
   <id>http://www.jiangbianwanghai.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.jiangbianwanghai.com/Centos7-install-nginx1-21-1/"/>
     <id>http://www.jiangbianwanghai.com/Centos7-install-nginx1-21-1/</id>
     <published>2021-08-18T01:33:54.000Z</published>
-    <updated>2021-08-18T09:10:19.932Z</updated>
+    <updated>2021-08-18T13:08:01.641Z</updated>
     
     <content type="html"><![CDATA[<h5 id="一、安装准备"><a href="#一、安装准备" class="headerlink" title="一、安装准备"></a>一、安装准备</h5><p>首先由于nginx的一些模块依赖一些lib库，所以在安装nginx之前，必须先安装这些lib库，这些依赖库主要有g++、gcc、openssl-devel、pcre-devel和zlib-devel 所以执行如下命令安装</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++  pcre pcre-devel zlib zlib-devel openssl openssl--devel</span><br></pre></td></tr></table></figure><h5 id="二、安装Nginx"><a href="#二、安装Nginx" class="headerlink" title="二、安装Nginx"></a>二、安装Nginx</h5><p>安装之前，最好检查一下是否已经安装有nginx</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find -name nginx </span><br></pre></td></tr></table></figure><p>如果系统已经安装了nginx，那么就先卸载</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove nginx</span><br></pre></td></tr></table></figure><p>然后开始安装<br>首先进入/usr/local目录</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br></pre></td></tr></table></figure><p>从官网下载最新版的nginx</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://nginx.org/download/nginx-1.21.1.tar.gz</span><br></pre></td></tr></table></figure><p>注：版本号可更改，去官网查看最新版本号修改即可</p><p>解压nginx压缩包</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.21.1.tar.gz </span><br></pre></td></tr></table></figure><p>会产生一个nginx-1.21.1 目录，这时进入nginx-1.21.1 目录</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.12.1</span><br></pre></td></tr></table></figure><p>接下来安装，使用–prefix参数指定nginx安装的目录,make、make install安装</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure><p>注：默认安装在/usr/local/nginx，推荐使用默认设置</p><p>如果没有报错，顺利完成后，最好看一下nginx的安装目录</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis nginx </span><br></pre></td></tr></table></figure><h5 id="三、启动和停止nginx"><a href="#三、启动和停止nginx" class="headerlink" title="三、启动和停止nginx"></a>三、启动和停止nginx</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/sbin/</span><br><span class="line">./nginx </span><br><span class="line">./nginx -s stop</span><br><span class="line">./nginx -s quit</span><br><span class="line">./nginx -s reload</span><br><span class="line">./nginx -s quit: 此方式停止步骤是待nginx进程处理任务完毕进行停止。</span><br><span class="line">./nginx -s stop: 此方式相当于先查出nginx进程id再使用kill命令强制杀掉进程。</span><br></pre></td></tr></table></figure><p>查询nginx进程：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep nginx</span><br></pre></td></tr></table></figure><h5 id="四、重启-nginx"><a href="#四、重启-nginx" class="headerlink" title="四、重启 nginx"></a>四、重启 nginx</h5><p>1.先停止再启动（推荐）：<br>对 nginx 进行重启相当于先停止再启动，即先执行停止命令再执行启动命令。如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s quit</span><br><span class="line">./nginx</span><br></pre></td></tr></table></figure><p>2.重新加载配置文件：<br>当 nginx 的配置文件 nginx.conf 修改后，要想让配置生效需要重启 nginx，使用 -s reload 不用先停止 nginx 再启动 nginx 即可将配置信息在 nginx 中生效，如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure><p>启动成功后，在浏览器可以看到如下页面：</p><p><img src="https://www.jiangbianwanghai.com/img/nginx.png" alt="nginx" title="启动成功看到的画面"></p><h5 id="五、开机自启动"><a href="#五、开机自启动" class="headerlink" title="五、开机自启动"></a>五、开机自启动</h5><p>即在rc.local增加启动代码就可以了。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/rc.local</span><br></pre></td></tr></table></figure><p>增加一行</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure><p>到这里，nginx安装完毕，启动、停止、重启操作也都完成。</p>]]></content>
     
@@ -34,14 +34,20 @@
     
     
     
+    <category term="centos7" scheme="http://www.jiangbianwanghai.com/tags/centos7/"/>
+    
+    <category term="源码安装" scheme="http://www.jiangbianwanghai.com/tags/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85/"/>
+    
+    <category term="nginx" scheme="http://www.jiangbianwanghai.com/tags/nginx/"/>
+    
   </entry>
   
   <entry>
-    <title>api sign design</title>
+    <title>API签名设计</title>
     <link href="http://www.jiangbianwanghai.com/api-sign-design/"/>
     <id>http://www.jiangbianwanghai.com/api-sign-design/</id>
     <published>2021-07-23T03:17:03.000Z</published>
-    <updated>2021-07-24T03:01:59.525Z</updated>
+    <updated>2021-08-18T13:08:52.388Z</updated>
     
     <content type="html"><![CDATA[<p>一. url请求的参数包括：timestamp，token, username，sign</p><p>1.timestamp: <br /><br>时间戮</p><p>2.token：<br /><br>登陆验证时，验证成功后，生成唯一的token（可以为uuid），并把token储存到缓存（redis）里 ，键为username,值为token</p><p>3.username:<br /><br>用户名,保证唯一</p><p>4.sign：<br /><br>规则：参数timestamp，token，username按字典排序，md5加密码（加点盐），后大写<br /><br>用户登陆，验证成功后，生成sign</p><p>二. url 拦截规则，验证</p><p>1.用户登陆，验证成功后，生成token，缓存（username-&gt;token）并返回给客户端<br>2.客户端每个接口请求（除登陆接口）时，传必要的参数timestamp,token,username, sign，没传直接返回报错</p><p>3.timestamp作用：是否在有效期内，有效期可以设置10，20分钟，根据需求设定<br /><br>比如说  过期时间设置为10分中<br /><br>服务接受到请求的当前时间戳是30，传过来的timestamp时间戳是10，30-10&gt;10, 说明这个请求过期</p><p>4.token作用：直接与redis中的username键值 对比，如果不相等，则过期，</p><p>在app开放接口API的设计中，避免不了的就是安全性问题。</p><p>一、HTTPS 协议</p><p>对于一些敏感的API接口，需要使用https协议。</p><p>https是在http超文本传输协议加入SSL层，它在网络间通信是加密的，所以需要加密证书。</p><p>二、签名设计</p><p>原理：用户登录后向服务器提供用户认证信息（如账户和密码），服务器认证完后给客户端返回一个Token令牌，用户再次获取信息时，带上此令牌，如果令牌正确，则返回数据。对于获取Token信息后，访问用户相关接口，客户端请求的url需要带上如下参数：</p><p>时间戳：timestamp</p><p>Token令牌：token</p><p>然后将所有用户请求的参数按照字母排序（包括timestamp，token），然后更具MD5加密（可以加点盐），全部大写，生成sign签名，这就是所说的url签名算法。然后登陆后每次调用用户信息时，带上sign，timestamp，token参数。</p><p>其最终的原理是减小明文的暴露次数；保证数据安全的访问。</p><p>具体实现如下：</p><ol><li>客户端向服务器端发送用户认证信息（用户名和密码），服务器端接收到请求后，验证用户信息是否正确。</li></ol><p>如果正确：则返回一个唯一不重复的字符串（一般为UUID），然后在Redis（任意缓存服务器）中维护Token—-Uid的用户信息关系，以便其他API对token的校验。</p><p>如果错误：则返回错误码。</p><p>2.服务器设计一个url请求拦截规则</p><p>（1）判断是否包含timestamp，token，sign参数，如果不含有返回错误码。</p><p>（2）判断服务器接到请求的时间和参数中的时间戳是否相差很长一段时间（时间自定义如半个小时），如果超过则说明该 url已经过期（如果url被盗，他改变了时间戳，但是会导致sign签名不相等）。</p><p>（3）判断token是否有效，根据请求过来的token，查询redis缓存中的uid，如果获取不到这说明该token已过期。</p><p>（4）根据用户请求的url参数，服务器端按照同样的规则生成sign签名，对比签名看是否相等，相等则放行。（自然url签名 也无法100%保证其安全，也可以通过公钥AES对数据和url加密，但这样无法确保公钥丢失，所以签名只是很大程度上保证安全）。</p><p>（5）此url拦截只需对获取身份认证的url放行（如登陆url），剩余所有的url都需拦截。</p><p>写一个生成 token 的方法（不对外公开），第一次调用时需要传参 secret 与 appid,对 secret 进行单向加密后存数据库，生成 uuid token 返回。做一个切点，api 请求校验 token,通过就继续执行，不通过就拦截。提供 refresh token 和 get token 方法，均需要提供 secret</p>]]></content>
     
@@ -55,6 +61,10 @@
     
     
     
+    
+    <category term="api" scheme="http://www.jiangbianwanghai.com/tags/api/"/>
+    
+    <category term="设计思路" scheme="http://www.jiangbianwanghai.com/tags/%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/"/>
     
   </entry>
   
